@@ -1,0 +1,78 @@
+﻿@using BugTracker.Helpers
+@using BugTracker.Models
+@model BugTracker.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Project Details & User Management</h2>
+
+@{
+    var projHelper = new ProjectHelper();
+    var roleHelper = new UserRolesHelper();
+}
+
+<div>
+    <h2>Project</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<hr />
+
+@using (Html.BeginForm("ManageProjectUsers", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ProjectId", Model.Id)
+
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <h2>Project Managers</h2>
+            @Html.ListBox("ProjectManagers")
+        </div>
+        <div class="col-md-4 text-center">
+            <h2>Developers</h2>
+            @Html.ListBox("Developers")
+        </div>
+        <div class="col-md-4 text-center">
+            <h2>Submitters</h2>
+            @Html.ListBox("Submitters")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg">ASSIGN</button>
+        </div>
+    </div>
+}
