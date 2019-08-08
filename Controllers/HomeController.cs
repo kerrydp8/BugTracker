@@ -59,7 +59,7 @@ namespace BugTracker.Controllers
             }
             return View(model);
             //Console.WriteLine("Message has been sent");
-            //return View("Index", "BlogPosts"); //Does not work
+            //return View("Index", "Home"); //Does not work
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Net.Mail;
 
 namespace BugTracker.Controllers
 {
-    //[RequireHttps]
+    [RequireHttps]
     [Authorize]
     public class AccountController : Controller
     {
@@ -55,7 +55,6 @@ namespace BugTracker.Controllers
             }
         }
 
-        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -64,7 +63,6 @@ namespace BugTracker.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -154,7 +152,7 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
