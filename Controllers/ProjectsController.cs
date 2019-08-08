@@ -11,6 +11,7 @@ using BugTracker.Models;
 
 namespace DG_BugTracker.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private UserRolesHelper roleHelper = new UserRolesHelper();
@@ -57,7 +58,7 @@ namespace DG_BugTracker.Controllers
         }
 
         // GET: Projects/Create
-        //[Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Administrator, Project Manager")]
         public ActionResult Create()
         {
             return View();
@@ -68,7 +69,7 @@ namespace DG_BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Administrator, Project Manager")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Created")] Project project)
         {
             if (ModelState.IsValid)
@@ -82,7 +83,7 @@ namespace DG_BugTracker.Controllers
         }
 
         // GET: Projects/Edit/5
-        //[Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Administrator, Project Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -100,7 +101,7 @@ namespace DG_BugTracker.Controllers
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Authorize(Roles = "Admin, Project Manager")]
+        [Authorize(Roles = "Administrator, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Created")] Project project)
@@ -115,7 +116,7 @@ namespace DG_BugTracker.Controllers
         }
 
         // GET: Projects/Delete/5
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
