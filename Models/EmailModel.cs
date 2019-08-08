@@ -10,11 +10,14 @@ namespace BugTracker.Models
         public class EmailModel
         {
             [Required, Display(Name = "Name")]
-            public string FromName { get; set; }
+            [StringLength(100, ErrorMessage = "The {0} must be 3-100 characters.", MinimumLength = 3)]  
+        public string FromName { get; set; }
             [Required, Display(Name = "Email"), EmailAddress]
-            public string FromEmail { get; set; }
+            [StringLength(100, ErrorMessage = "The {0} must be 3-100 characters.", MinimumLength = 3)]
+        public string FromEmail { get; set; }
             [Required]
-            public string Subject { get; set; }
+            [StringLength(100, ErrorMessage = "The {0} must be 3-100 characters.", MinimumLength = 3)]
+        public string Subject { get; set; }
             [Required]
             [AllowHtml] //THIS IS NEEDED. Html must be allowed to use a RTE.
             public string Body { get; set; }
