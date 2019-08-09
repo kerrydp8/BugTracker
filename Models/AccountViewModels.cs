@@ -76,6 +76,11 @@ namespace BugTracker.Models
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be 1-100 characters.", MinimumLength = 1)]
+        [Display(Name = "Display Name")]
+        public string DisplayName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be 1-100 characters.", MinimumLength = 1)]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

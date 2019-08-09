@@ -244,6 +244,16 @@ namespace BugTracker.Controllers
             return View(model);
         }
 
+        public ActionResult ChangeName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+
+
+
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
