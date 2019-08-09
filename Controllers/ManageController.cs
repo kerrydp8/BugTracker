@@ -250,8 +250,8 @@ namespace BugTracker.Controllers
         public ActionResult ChangeDisplayName()
         {
             var userId = User.Identity.GetUserId();
-            var theUser = db.Users.Find(userId);
-            return View(theUser);
+            var user = db.Users.Find(userId);
+            return View(user);
         }
 
         [HttpPost]
@@ -262,6 +262,7 @@ namespace BugTracker.Controllers
             {
                 db.Users.Attach(user);
                 db.Entry(user).Property("DisplayName").IsModified = true;
+                //db.Entry(user).Property("DisplayName") = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("UserIndex", "Admin");
             }

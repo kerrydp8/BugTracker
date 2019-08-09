@@ -8,7 +8,7 @@ using BugTracker.Helpers;
 
 namespace BugTracker.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

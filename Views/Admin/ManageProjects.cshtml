@@ -33,6 +33,14 @@
             <input type="submit" value="Assign" class="btn btn-default" />
         </div>
     </div>
+
+    foreach (var user in Model)
+    {
+        foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+        {
+            @projectName
+        }
+    }
 }
 
 <hr />
