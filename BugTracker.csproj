@@ -2097,7 +2097,7 @@
     <Content Include="Views\Admin\ManageUserRoles.cshtml" />
     <Content Include="Views\Admin\ManageRoles.cshtml" />
     <Content Include="Views\Admin\ManageProjects.cshtml" />
-    <Content Include="Views\Manage\ChangeName.cshtml" />
+    <Content Include="Views\Manage\ChangeDisplayName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

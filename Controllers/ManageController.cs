@@ -13,6 +13,7 @@ namespace BugTracker.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -243,14 +244,29 @@ namespace BugTracker.Controllers
             AddErrors(result);
             return View(model);
         }
-
-        public ActionResult ChangeName()
+        
+        [Authorize]
+        //:GET
+        public ActionResult ChangeDisplayName()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            var theUser = db.Users.Find(userId);
+            return View(theUser);
         }
 
-        //
-        // POST: /Manage/ChangePassword
+        [HttpPost]
+        //:POST
+        public ActionResult ChangeDisplayName([Bind(Include = "Id,DisplayName")] ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Attach(user);
+                db.Entry(user).Property("DisplayName").IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("UserIndex", "Admin");
+            }
+            return View(user);
+        }
 
 
 
