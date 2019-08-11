@@ -1,4 +1,5 @@
-﻿using BugTracker.Models;
+﻿using BugTracker.Helpers;
+using BugTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +14,9 @@ namespace BugTracker.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private UserRolesHelper roleHelper = new UserRolesHelper();
+        private ProjectHelper projHelper = new ProjectHelper();
         public ActionResult Index()
         {
             return View();
@@ -61,6 +65,44 @@ namespace BugTracker.Controllers
             return View(model);
             //Console.WriteLine("Message has been sent");
             //return View("Index", "Home"); //Does not work
+        }
+
+        public ActionResult MyProjects(string userId)
+        {
+            //var myProjects = projHelper.ListUserProjects(userId).Select(p => p.Id);
+            //ViewBag.Projects = new MultiSelectList(db.Projects.ToList(), "Id", "Name", myProjects);
+
+            var projects = db.Projects.Select(p => new Project
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                //Created = p.Created,
+                //Tickets = p.Tickets,
+                //Users = p.Users
+            });
+
+            return View(projects);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MyProjects(List<int> projects, string userId)
+        {
+            foreach (var project in projHelper.ListUserProjects(userId).ToList())
+            {
+                projHelper.ListUserProjects(userId);
+            }
+            /*
+            if (projects != null)
+            {
+                foreach (var projectId in projects)
+                {
+                    projHelper.AddUserToProject(userId, projectId);
+                }
+            }
+            */
+            return View();
         }
     }
 }

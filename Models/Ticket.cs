@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,10 +14,14 @@ namespace BugTracker.Models
             public int TicketTypeId { get; set; }
             public int TicketPriorityId { get; set; }
 
-            public string OwneruserId { get; set; }
+            public int TicketStatusId { get; set; }
+
+            public string OwnerUserId { get; set; }
             public string AssignedToUserId { get; set; }
 
+            [StringLength(50, ErrorMessage = "The length of this field must be 5-50 characters long.", MinimumLength = 5)]
             public string Title { get; set; }
+            [StringLength(50, ErrorMessage = "The length of this field must be 5-50 characters long.", MinimumLength = 5)]  
             public string Description { get; set; }
             public DateTime Created { get; set; }
             public DateTime? Updated { get; set; }

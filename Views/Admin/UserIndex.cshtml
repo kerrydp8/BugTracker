@@ -39,39 +39,37 @@
         @foreach (var user in Model)
         {
 
-            <tr>
-                <td class="avatar">
-                    <img src="@user.AvatarUrl" class="img-responsive" />
-                </td>
-                <td>
-                    @Html.DisplayFor(model => user.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => user.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => user.LastName)
-                </td>
-                <td>
-                    @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
-                </td>
-                <td>
+    <tr>
+        <td class="avatar">
+            <img src="@user.AvatarUrl" class="img-responsive" />
+        </td>
+        <td>
+            @Html.DisplayFor(model => user.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(model => user.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => user.LastName)
+        </td>
+        <td>
+            @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+        </td>
 
-                    @foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                    {
-                        @projectName
-                    }
+        <td>
+            @foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+            {
+                @projectName
+            }
+        </td>
 
-
-                </td>
-
-                <td>
-                    @Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |
-                    @Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) |
-                    @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
-                    @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
-                </td>
-            </tr>
+        <td>
+            @Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |
+            @Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) |
+            @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
+            @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
+        </td>
+    </tr>
         }
     </table>
 

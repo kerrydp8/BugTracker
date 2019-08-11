@@ -19,7 +19,7 @@
 {
 
     @Html.AntiForgeryToken()
-    @Html.Hidden("UserId", (string)ViewBag.UserId)
+    @Html.Hidden("Projects", (MultiSelectList)ViewBag.Projects)
 
     <div class="row">
         @Html.Label("Assign Project", null, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -34,13 +34,6 @@
         </div>
     </div>
 
-    foreach (var user in Model)
-    {
-        foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-        {
-            @projectName
-        }
-    }
 }
 
 <hr />
