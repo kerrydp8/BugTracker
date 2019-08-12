@@ -17,6 +17,18 @@ namespace BugTracker.Models
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private ProjectHelper projHelper = new ProjectHelper();
 
+        [Authorize]
+        public ActionResult Dashboard(int id)
+        {
+            var ticket = db.Tickets.Find(id);
+
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticket);
+        }
+
         // GET: Tickets
         public ActionResult Index()
         {
