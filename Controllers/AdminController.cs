@@ -18,6 +18,10 @@ namespace BugTracker.Controllers
         // GET: Admin
         public ActionResult UserIndex()
         {
+
+            var roles = db.Roles.ToList();
+            var projects = db.Projects;
+
             var users = db.Users.Select(u => new UserProfileViewModel
             {
                 Id = u.Id,
@@ -26,7 +30,15 @@ namespace BugTracker.Controllers
                 DisplayName = u.DisplayName,
                 AvatarUrl = u.AvatarUrl,
                 Email = u.Email
-            });
+            }).ToList();
+
+            //Listing every user's role and projects on the index
+            foreach(var user in users)
+            {
+                user.CurrentRole = new SelectList(roles, "Name", "Name", roleHelper.ListUserRoles(user.Id).FirstOrDefault());
+                user.CurrentProjects = new MultiSelectList(projects, "Id", "Name", projHelper.ListUserProjects(user.Id).Select(p => p.Id));
+            }
+
 
             return View(users);
         }

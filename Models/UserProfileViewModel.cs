@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
@@ -34,6 +35,10 @@ namespace BugTracker.Models
         public string Email { get; set; }
 
         public HttpPostedFileBase Avatar { get; set; }
+
+        public IEnumerable<SelectListItem> CurrentRole { get; set; }
+
+        public IEnumerable<SelectListItem> CurrentProjects { get; set; }
 
 
     }

@@ -38,7 +38,7 @@ namespace BugTracker.Models
         // GET: TicketHistories/Create
         public ActionResult Create()
         {
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId");
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId");
             ViewBag.UserId = new SelectList(db.Users, "Id", "LastName");
             return View();
         }
@@ -57,7 +57,7 @@ namespace BugTracker.Models
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId", ticketHistory.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketHistory.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "LastName", ticketHistory.UserId);
             return View(ticketHistory);
         }
@@ -74,7 +74,7 @@ namespace BugTracker.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId", ticketHistory.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketHistory.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "LastName", ticketHistory.UserId);
             return View(ticketHistory);
         }
@@ -92,7 +92,7 @@ namespace BugTracker.Models
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId", ticketHistory.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketHistory.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "LastName", ticketHistory.UserId);
             return View(ticketHistory);
         }

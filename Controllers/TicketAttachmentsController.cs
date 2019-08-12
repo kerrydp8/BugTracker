@@ -39,7 +39,7 @@ namespace BugTracker.Models
         // GET: TicketAttachments/Create
         public ActionResult Create()
         {
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId");
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace BugTracker.Models
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId", ticketAttachment.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
             return View(ticketAttachment);
         }
 
@@ -79,7 +79,7 @@ namespace BugTracker.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId", ticketAttachment.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
             return View(ticketAttachment);
         }
 
@@ -96,7 +96,7 @@ namespace BugTracker.Models
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwneruserId", ticketAttachment.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
             return View(ticketAttachment);
         }
 
