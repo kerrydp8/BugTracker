@@ -1,5 +1,11 @@
 ﻿@model BugTracker.Models.Ticket
 
+<style>
+    .btnPad{
+        margin-bottom: 20px
+    }
+</style>
+
 @{
     ViewBag.Title = "Dashboard";
 }
@@ -26,15 +32,23 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3>Title</h3>
-                                    <input type="text" name="Title" />
+                                    <!--<h3>Title</h3>-->
+                                    <!--<input type="text" name="Title" />-->
+                                    @Html.TextBox("AttachmentTitle", null, new { @class="form-control cell-fill-input", placeholder="Title"})
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3>Description</h3>
-                                    <textarea rows="5" cols="100" type="text" name="Description" />
+                                    <!--<h3>Description</h3>-->
+                                    <!--<textarea rows="5" cols="100" type="text" name="Description" />-->
+                                    @Html.TextArea("AttachmentDescription", new { @class = "form-control cell-fill-textarea", rows = 5, cols = 150, placeholder = "Description" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="file" name="attachment"/>
                                 </div>
                             </div>
 
@@ -72,6 +86,7 @@
                                 </div>
                             </div>
                         }
+
                     </div>
                 </div>
             </div>
