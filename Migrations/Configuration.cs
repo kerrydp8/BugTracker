@@ -28,6 +28,31 @@ namespace BugTracker.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
+            context.TicketTypes.AddOrUpdate(
+             t => t.Name,
+                new TicketType { Id = 100, Name = "Bug" },
+                new TicketType { Id = 200, Name = "Task" },
+                new TicketType { Id = 300, Name = "Documentation" });
+
+            context.TicketStatuses.AddOrUpdate(
+                t => t.Name,
+                    new TicketStatus { Id = 100, Name = "New / UnAssigned" },
+                    new TicketStatus { Id = 200, Name = "New / Assigned" },
+                    new TicketStatus { Id = 300, Name = "In Progress" },
+                    new TicketStatus { Id = 400, Name = "Closed" }
+                    //new TicketStatus { Id = 500, Name = "Archived" },
+                    //new TicketStatus { Id = 600, Name = "Waiting for Documentation" }
+            );
+
+            context.TicketPriorities.AddOrUpdate(
+                t => t.Name,
+                    new TicketPriority { Id = 100, Name = "1" },
+                    new TicketPriority { Id = 200, Name = "2" },
+                    new TicketPriority { Id = 300, Name = "3" },
+                    new TicketPriority { Id = 400, Name = "4" },
+                    new TicketPriority { Id = 500, Name = "5" }
+            );
+
             #region roleManager
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));

@@ -39,7 +39,6 @@ namespace BugTracker.Controllers
                 user.CurrentProjects = new MultiSelectList(projects, "Id", "Name", projHelper.ListUserProjects(user.Id).Select(p => p.Id));
             }
 
-
             return View(users);
         }
 
@@ -47,7 +46,6 @@ namespace BugTracker.Controllers
         {
             var currentRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
             ViewBag.UserId = userId;
-            ViewBag.UserRole = new SelectList(db.Roles.ToList(), "Name", "Name", currentRole);
             return View();
         }
 
@@ -129,6 +127,7 @@ namespace BugTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //public ActionResult ManageProjects(List<int> projects, string userId)
         public ActionResult ManageProjects(List<int> projects, string userId)
         {
             foreach (var project in projHelper.ListUserProjects(userId).ToList())
@@ -142,7 +141,7 @@ namespace BugTracker.Controllers
                     projHelper.AddUserToProject(userId, projectId);
                 }
             }
-            return RedirectToAction("UserIndex");
+            return RedirectToAction("UserIndex");    
         }
 
         [HttpPost]

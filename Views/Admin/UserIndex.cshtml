@@ -52,20 +52,45 @@
         <td>
             @Html.DisplayFor(model => user.LastName)
         </td>
+
         <td>
-            @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+            @Html.DropDownList("Current Role", user.CurrentRole, "NONE")
         </td>
 
         <td>
+            @Html.ListBox("Current Projects", user.CurrentProjects)
+        </td>
+
+        <td>
+
+            @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+
+        </td>
+
+        <td>
+            @{
+                var userProjects = projHelper.ListUserProjects(user.Id);
+            }
+
             @foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
             {
                 @projectName
             }
         </td>
 
+        <!--
+            <td>
+                roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+        </td>
+
+
+                <td>
+  
+            </td>
+    -->
         <td>
-            @Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |
-            @Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) |
+            @Html.ActionLink("Add Role", "ManageRoles", "Admin", new { userId = user.Id }, null) |<!--Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |-->
+            @Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
             @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
             @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
         </td>
