@@ -39,13 +39,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
-            <td> 
-                <!--Only certain roles should be able to edit and delete but we'll fix this later.-->
-                   @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                   @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                   @Html.ActionLink("Details", "Details", new { id = item.Id })
+            <td>
+                @if (User.IsInRole("Administrator") || User.IsInRole("Project Manager"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
             </td>
         </tr>
     }
+
+    @Html.ActionLink("Go To My Projects", "MyIndex", "Projects")
 
 </table>

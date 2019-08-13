@@ -89,8 +89,8 @@
             </td>
     -->
         <td>
-            @Html.ActionLink("Add Role", "ManageRoles", "Admin", new { userId = user.Id }, null) |<!--Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |-->
-            @Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
+            @Html.ActionLink("Manage Role", "ManageRoles", "Admin", new { userId = user.Id }, null) |<!--Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |-->
+            @Html.ActionLink("Manage Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
             @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
             @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
         </td>
