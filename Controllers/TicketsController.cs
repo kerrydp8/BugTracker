@@ -39,7 +39,7 @@ namespace BugTracker.Models
         }
 
         [Authorize(Roles = "Submitter,Developer,Project Manager")]
-        public ActionResult MyIndex()
+        public ActionResult MyTickets()
         {
             var userId = User.Identity.GetUserId();
 
@@ -68,7 +68,7 @@ namespace BugTracker.Models
         }
 
         [Authorize(Roles = "Developer")]
-        public ActionResult MyProjectTickets()
+        public ActionResult MyAssignments()
         {
             var userId = User.Identity.GetUserId();
 

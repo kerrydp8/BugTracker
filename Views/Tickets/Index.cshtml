@@ -7,8 +7,7 @@
 }
 
 @{
-    var roleHelper = new UserRolesHelper();
-    var projHelper = new ProjectHelper();
+    var ticketHelper = new TicketHelper();
 }
 
 <h2>Index</h2>
@@ -89,6 +88,18 @@
             @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
         </td>
     }
+
+    @if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(item.Id, item.ProjectId))
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
+        </td>
+    }
+
 
 </tr>
     }
