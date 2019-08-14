@@ -45,10 +45,11 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(model => user.Email)
+                @user.LastName, @user.FirstName
             </td>
             <td>
-                @user.LastName, @user.FirstName
+                @Html.DisplayFor(model => user.Email)
+
             </td>
             <td>
                 @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
