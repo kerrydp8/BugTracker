@@ -45,6 +45,8 @@ namespace BugTracker.Models
 
             var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
 
+            //var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketType);
+
             var myTickets = new List<Ticket>();
 
             switch (myRole)
@@ -61,6 +63,21 @@ namespace BugTracker.Models
                     myTickets = db.Users.Find(userId).Projects.SelectMany(t => t.Tickets).ToList();
                     break;
             }
+            return View("Index", myTickets);
+            //return View();
+        }
+
+        [Authorize(Roles = "Developer")]
+        public ActionResult MyProjectTickets()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var myRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+
+            var myTickets = new List<Ticket>();
+
+            myTickets = db.Users.Find(userId).Projects.SelectMany(t => t.Tickets).ToList();
+
             return View("Index", myTickets);
         }
 
@@ -220,7 +237,7 @@ namespace BugTracker.Models
             UserRolesHelper helper = new UserRolesHelper();
             var ticket = db.Tickets.Find(id);
             var users = helper.UsersInRole("DEVELOPER").ToList();
-            ViewBag.AssignedToUserId = new SelectList(users, "Id", "FullName", ticket.AssignedToUserId);
+            ViewBag.AssignedToUserId = new SelectList(users, "Id", "FullNameWithEmail", ticket.AssignedToUserId);
             return View(ticket);
         }
 
