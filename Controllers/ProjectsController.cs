@@ -28,7 +28,7 @@ namespace DG_BugTracker.Controllers
 
 
         [Authorize(Roles = "Administrator, Developer, Project Manager, Submitter")]
-        public ActionResult MyIndex()
+        public ActionResult MyProjects()
         {
             return View("Index", projHelper.ListUserProjects(User.Identity.GetUserId()).ToList());
         }
