@@ -96,5 +96,6 @@ namespace BugTracker.Models
         public System.Data.Entity.DbSet<BugTracker.Models.TicketPriority> TicketPriorities { get; set; }
 
         public System.Data.Entity.DbSet<BugTracker.Models.TicketStatus> TicketStatuses { get; set; }
+        //public System.Data.Entity.DbSet<BugTracker.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

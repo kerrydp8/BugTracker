@@ -45,6 +45,18 @@ namespace BugTracker.Helpers
 
             return false;
         }
-         
+
+        public bool IsSubmitterTicket(string ownerId)
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+
+            if (ownerId == userId)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

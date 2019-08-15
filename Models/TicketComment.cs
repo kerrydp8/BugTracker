@@ -15,6 +15,8 @@ namespace BugTracker.Models
             public string CommentBody { get; set; }
             public DateTime Created { get; set; }
 
+            
+
         //nav
         public virtual Ticket Ticket { get; set; }
         public virtual ApplicationUser User {get; set;}

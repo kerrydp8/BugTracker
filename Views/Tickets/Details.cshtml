@@ -1,7 +1,12 @@
-﻿@model BugTracker.Models.Ticket
+﻿@using BugTracker.Helpers
+@model BugTracker.Models.Ticket
 
 @{
     ViewBag.Title = "Details";
+}
+
+@{
+    var ticketHelper = new TicketHelper();
 }
 
 <h2>Details</h2>
@@ -89,3 +94,126 @@
     @Html.ActionLink("Back to List", "Index") |
     @Html.ActionLink("Assign", "AssignTicket", new { id = Model.Id })
 </p>
+
+@*Conditionally render the Add Comment form*@
+@if (User.IsInRole("Administrator"))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+
+}
+
+@if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(Model.Id, Model.ProjectId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+
+}
+
+@if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(Model.AssignedToUserId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+}
+
+@if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(Model.OwnerUserId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+}
+
+
+
+@*Displaying the comments associated with the Ticket*@
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12 text-center h3">
+        Comment Section
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center h4">
+        @{
+            var count = Model.TicketComments.Count();
+            var word = count == 1 ? "comment" : "comments";
+        }
+        (@count @word...)
+    </div>
+</div>
+
+<br />
+
+
+
+@foreach (var ticketComment in Model.TicketComments.OrderByDescending(c => c.Created))
+{
+    <hr />
+    <div class="row">
+        Posted by @ticketComment.User.DisplayName on @ticketComment.Created.ToString("MMMM d, yyyy")
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @ticketComment.CommentBody
+        </div>
+    </div>
+
+    <hr />
+
+    if (User.IsInRole("Administrator"))
+    {
+        using (Html.BeginForm("Edit", "Comments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => ticketComment.Id)
+            @Html.HiddenFor(model => ticketComment.AuthorId)
+            @Html.HiddenFor(model => ticketComment.Created)
+            @Html.HiddenFor(model => ticketComment.TicketId)
+            <textarea name="commentBody">@ticketComment.CommentBody</textarea>
+            <button class="btn btn-primary" type="submit">Edit</button>
+        }
+
+        using (Html.BeginForm("Delete", "TicketComments", new { id = ticketComment.Id }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        }
+
+    }
+
+}
