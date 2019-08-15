@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        @using (Html.BeginForm("Create", "TicketAttachment", FormMethod.Post, new {enctype = "Multipart/form-data"}))
+                        @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new {enctype = "Multipart/form-data"}))
                         {
                             @Html.AntiForgeryToken()
 

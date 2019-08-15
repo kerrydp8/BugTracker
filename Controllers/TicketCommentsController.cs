@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using static System.Net.WebRequestMethods;
 
 namespace BugTracker.Models
 {
@@ -47,13 +49,16 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,AuthorId,CommentBody,Created")] TicketComment ticketComment)
+        public ActionResult Create([Bind(Include = "Id,TicketId,AuthorId,CommentBody,Created")] TicketComment ticketComment, string commentBody, int ticketId)
         {
             if (ModelState.IsValid)
             {
+                ticketComment.CommentBody = commentBody;
+                ticketComment.AuthorId = User.Identity.GetUserId();
+                ticketComment.Created = DateTimeOffset.Now;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Tickets", new { id = ticketId });
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);
@@ -87,7 +92,8 @@ namespace BugTracker.Models
             {
                 db.Entry(ticketComment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Details", "Tickets", new { id = ticketId });
+                return RedirectToAction("Index", "Tickets");
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);
             return View(ticketComment);
@@ -111,12 +117,13 @@ namespace BugTracker.Models
         // POST: TicketComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             TicketComment ticketComment = db.TicketComments.Find(id);
             db.TicketComments.Remove(ticketComment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Details", "Tickets", new { id = ticketId });
+            return RedirectToAction("Index", "Tickets");
         }
 
         protected override void Dispose(bool disposing)
