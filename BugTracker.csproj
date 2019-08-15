@@ -176,7 +176,6 @@
     </Compile>
     <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\TicketHelper.cs" />
-    <Compile Include="Helpers\ImageHelpers.cs" />
     <Compile Include="Helpers\UserProjectsHelper.cs" />
     <Compile Include="Helpers\ProjectHelper.cs" />
     <Compile Include="Helpers\UserRolesHelper.cs" />

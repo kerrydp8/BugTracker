@@ -10,9 +10,11 @@ using System.Web;
 
 namespace BugTracker.Helpers
 {
+    /*
     public class NotificationHelper
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        
         public static void CreateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
             var noChange = (oldTicket.AssignedToUserId == newTicket.AssignedToUserId);
@@ -91,4 +93,5 @@ namespace BugTracker.Helpers
             return db.TicketNotifications.Where(t => t.RecipientId == userId).Count();
         }
     }
+    */
 }

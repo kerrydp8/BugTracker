@@ -18,37 +18,41 @@
         </footer>
     </div>
 
-    <div class="dropdown-menu notification-menu">
+    <!--
+
+
+
+        <div class="dropdown-menu notification-menu">
         <div class="notification-title">
-            <span class="pull-right label label-default">@NotificationHelper.GetAllUserNotificationCount()</span>
+            <span class="pull-right label label-default">NotificationHelper.GetAllUserNotificationCount()</span>
         </div>
     </div>
 
     <div class="content">
         <ul>
-            @foreach (var notification in NotificationHelper.GetUnreadUserNotifications())
+            foreach (var notification in NotificationHelper.GetUnreadUserNotifications())
             {
                 <li>
                     <hr size="3" />
-                    @using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
+                    using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
                     {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("Id", notification.Id)
+                        Html.AntiForgeryToken()
+                        Html.Hidden("Id", notification.Id)
 
                         <div class="row">
                             <div class="col-md-2">
                                 <figure class="image">
-                                    <img src="@notification.Sender.AvatarUrl" alt="@notification.Sender.Email" class="img-circle" width="25" />
+                                    <img src="notification.Sender.AvatarUrl" alt="notification.Sender.Email" class="img-circle" width="25" />
                                 </figure>
                             </div>
                             <div class="col-md-10">
-                                <span class="title">@notification.Subject</span>
+                                <span class="title">notification.Subject</span>
                             </div>
                         </div>
                         <br />
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="message text-justify"><b>@notification.NotificationBody</b></span>
+                                <span class="message text-justify"><b>notification.NotificationBody</b></span>
                             </div>
                         </div>
                         <br />
@@ -67,8 +71,17 @@
         <div class="text-right">
             <a href="@Url.Action("MyNotifications","TicketNotifications")" class="view-more">View All</a>
         </div>
-       
+
     </div>
+
+
+
+
+
+
+        -->
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

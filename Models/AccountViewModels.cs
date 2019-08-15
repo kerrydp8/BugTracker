@@ -86,6 +86,10 @@ namespace BugTracker.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Photo")]
+        public string AvatarUrl{ get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be 1-100 characters.", MinimumLength = 1)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

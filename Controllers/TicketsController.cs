@@ -198,7 +198,7 @@ namespace BugTracker.Models
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
 
-                NotificationHelper.CreateAssignmentNotification(oldTicket, ticket);
+                //NotificationHelper.CreateAssignmentNotification(oldTicket, ticket);
 
                 return RedirectToAction("Index");
             }
