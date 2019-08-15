@@ -154,6 +154,90 @@
     }
 }
 
+@if (User.IsInRole("Administrator"))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <input name="image" type="file" class="form-control" id="fileUpload" />
+
+        <!--
+                                <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+            <button class="btn btn-primary" type="submit">Add</button>
+
+            -->
+
+
+    }
+
+}
+
+@if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(Model.Id, Model.ProjectId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <input name="image" type="file" class="form-control" id="fileUpload" />
+
+        <!--
+                            <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+
+        -->
+
+
+    }
+
+}
+
+@if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(Model.AssignedToUserId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <input name="image" type="file" class="form-control" id="fileUpload" />
+
+        <!--
+                            <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+
+        -->
+
+    }
+}
+
+@if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(Model.OwnerUserId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <input name="image" type="file" class="form-control" id="fileUpload" />
+
+        <!--
+                            <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+
+        -->
+
+    }
+}
+
 
 
 @*Displaying the comments associated with the Ticket*@
@@ -170,7 +254,7 @@
     <div class="col-md-12 text-center h4">
         @{
             var count = Model.TicketComments.Count();
-            var word = count == 1 ? "ticketComment" : "ticketComments";
+            var word = count == 1 ? "comments" : "comments";
         }
         (@count @word...)
     </div>
