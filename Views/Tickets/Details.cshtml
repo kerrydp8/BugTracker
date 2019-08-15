@@ -99,7 +99,7 @@
 @if (User.IsInRole("Administrator"))
 {
     @*Create a form to collect the Comment from the logged in user*@
-    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("TicketId", Model.Id)
@@ -114,7 +114,7 @@
 @if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(Model.Id, Model.ProjectId))
 {
     @*Create a form to collect the Comment from the logged in user*@
-    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("TicketId", Model.Id)
@@ -129,7 +129,7 @@
 @if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(Model.AssignedToUserId))
 {
     @*Create a form to collect the Comment from the logged in user*@
-    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("TicketId", Model.Id)
@@ -143,7 +143,7 @@
 @if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(Model.OwnerUserId))
 {
     @*Create a form to collect the Comment from the logged in user*@
-    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.Hidden("TicketId", Model.Id)
@@ -170,7 +170,7 @@
     <div class="col-md-12 text-center h4">
         @{
             var count = Model.TicketComments.Count();
-            var word = count == 1 ? "comment" : "comments";
+            var word = count == 1 ? "ticketComment" : "ticketComments";
         }
         (@count @word...)
     </div>
@@ -197,7 +197,7 @@
 
     if (User.IsInRole("Administrator"))
     {
-        using (Html.BeginForm("Edit", "Comments", FormMethod.Post))
+        using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => ticketComment.Id)
