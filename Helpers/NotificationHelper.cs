@@ -65,12 +65,30 @@ namespace BugTracker.Helpers
                 IsRead = false,
                 RecipientId = oldTicket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
-                NotificationBody = $"Please acknowledge that you have read this notification",
+                NotificationBody = $"Please acknowledge that you have read this notification by marking as read",
                 TicketId = newTicket.Id
             };
 
             db.TicketNotifications.Add(notification);
             db.SaveChanges();
+        }
+
+        public static List<TicketNotification> GetUnreadUserNotifications()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            return db.TicketNotifications.Where(t => t.RecipientId == userId && !t.IsRead).ToList();
+        }
+
+        public static int GetNewUserNotificationCount()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            return db.TicketNotifications.Where(t => t.RecipientId == userId && !t.IsRead).Count();
+        }
+
+        public static int GetAllUserNotificationCount()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            return db.TicketNotifications.Where(t => t.RecipientId == userId).Count();
         }
     }
 }
