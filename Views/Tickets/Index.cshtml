@@ -13,8 +13,9 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Ticket", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -101,6 +102,17 @@
     }
 
     @if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(item.AssignedToUserId))
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
+        </td>
+    }
+
+    @if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(item.OwnerUserId))
     {
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id })

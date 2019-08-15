@@ -46,6 +46,7 @@ namespace BugTracker.Helpers
             return false;
         }
 
+        //Checks for if the current Submitter owns this ticket (created it)
         public bool IsSubmitterTicket(string ownerId)
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
