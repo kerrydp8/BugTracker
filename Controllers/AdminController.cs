@@ -118,6 +118,7 @@ namespace BugTracker.Controllers
             return RedirectToAction("UserIndex");
         }
 
+        //[Authorize(Roles = "Project Manager")]
         public ActionResult ManageProjects(string userId)
         {
             var myProjects = projHelper.ListUserProjects(userId).Select(p => p.Id);
@@ -125,6 +126,7 @@ namespace BugTracker.Controllers
             return View();
         }
 
+        //[Authorize(Roles = "Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public ActionResult ManageProjects(List<int> projects, string userId)
