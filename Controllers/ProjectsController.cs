@@ -18,7 +18,6 @@ namespace DG_BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private ProjectHelper projHelper = new ProjectHelper();
 
-
         // GET: Projects
         [Authorize(Roles ="Administrator, Project Manager")]
         public ActionResult Index()
@@ -124,7 +123,7 @@ namespace DG_BugTracker.Controllers
         }
 
         // GET: Projects/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -149,6 +148,19 @@ namespace DG_BugTracker.Controllers
             db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteUserProjects(string userId)
+        {
+            var projects = projHelper.ListUserProjects(userId);
+
+            foreach (var proj in projects) //We might need to update this so that only one projects is removed. We're not quite sure how many projects the user can even have at a time
+                                           //but we'll come back to this. 
+            {
+                projHelper.RemoveUserFromProject(userId, proj.Id);
+            }
+
+            return RedirectToAction("UserIndex");
         }
 
         protected override void Dispose(bool disposing)

@@ -102,7 +102,7 @@ namespace BugTracker.Models
         {
             var userId = User.Identity.GetUserId();
             var myProjects = projHelper.ListUserProjects(userId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.ProjectId = new SelectList(db.Users.Find(userId).Projects, "Id", "Name"); //Submitters can only create tickets for projects they are on.
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
             return View();
@@ -189,7 +189,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketPriorityId,OwnerUserId,AssignedToUserId,Title,Description,Created,Updated")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,OwnerUserId,AssignedToUserId,Title,Description,Created,Updated")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -239,15 +239,18 @@ namespace BugTracker.Models
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrator, Project Manager")]
         public ActionResult AssignTicket(int? id)
         {
             UserRolesHelper helper = new UserRolesHelper();
             var ticket = db.Tickets.Find(id);
             var users = helper.UsersInRole("DEVELOPER").ToList();
+            
             ViewBag.AssignedToUserId = new SelectList(users, "Id", "FullNameWithEmail", ticket.AssignedToUserId);
             return View(ticket);
         }
 
+        [Authorize(Roles = "Administrator, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AssignTicket(Ticket model)

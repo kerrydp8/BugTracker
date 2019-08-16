@@ -12,9 +12,12 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New Ticket", "Create")
-</p>
+@if (User.IsInRole("Submitter"))
+{
+    <p>
+        @Html.ActionLink("Create New Ticket", "Create")
+    </p>
+}
 
 <table class="table">
     <tr>
@@ -50,81 +53,81 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.AssignedToUser.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.OwnerUser.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Project.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketType.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketPriorityId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Created)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Updated)
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedToUser.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerUser.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPriorityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
 
-    @if (User.IsInRole("Administrator"))
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-            @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
-        </td>
-    }
+            @if (User.IsInRole("Administrator"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
+                </td>
+            }
 
-    @if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(item.Id, item.ProjectId))
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
-        </td>
-    }
+            @if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(item.Id, item.ProjectId))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
+                </td>
+            }
 
-    @if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(item.AssignedToUserId))
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
-        </td>
-    }
+            @if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(item.AssignedToUserId))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
+                </td>
+            }
 
-    @if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(item.OwnerUserId))
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-            @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
-        </td>
-    }
+            @if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(item.OwnerUserId))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Dashboard", "Dashboard", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Assign", "AssignTicket", new { id = item.Id })
+                </td>
+            }
 
 
-</tr>
+        </tr>
     }
 
 </table>

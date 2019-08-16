@@ -58,6 +58,15 @@ namespace BugTracker.Helpers
 
             return false;
         }
+        public bool IsOnProject(int projectId)
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
 
+            if (db.Projects.Find(projectId).Users.Contains(db.Users.Find(userId)))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

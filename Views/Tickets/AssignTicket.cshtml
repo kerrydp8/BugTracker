@@ -17,7 +17,7 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AssignedToUserId, "Assign Developer", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AssignedToUserId, "Assign", new { @class = "control-label col-md-2" })
 
             <div class="col-md-10">
                 @Html.DropDownList("AssignedToUserId", null, new { @class = "form-control" })

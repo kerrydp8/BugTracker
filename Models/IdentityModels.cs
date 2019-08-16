@@ -77,8 +77,6 @@ namespace BugTracker.Models
 
         public System.Data.Entity.DbSet<BugTracker.Models.Project> Projects { get; set; }
 
-        public System.Data.Entity.DbSet<BugTracker.Models.ProjectUser> ProjectUsers { get; set; }
-
         public System.Data.Entity.DbSet<BugTracker.Models.Ticket> Tickets { get; set; }
 
         //public System.Data.Entity.DbSet<BugTracker.Models.ApplicationUser> ApplicationUsers { get; set; }
