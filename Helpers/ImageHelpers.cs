@@ -13,7 +13,6 @@ namespace BugTracker.Helpers
     {
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)
         {
-
             if (file == null)
                 return false;
 
@@ -24,75 +23,66 @@ namespace BugTracker.Helpers
             {
                 using (var img = Image.FromStream(file.InputStream))
                 {
-
-                    return ImageFormat.Jpeg.Equals(img.RawFormat) ||
-                           ImageFormat.Png.Equals(img.RawFormat) ||
-                           ImageFormat.Icon.Equals(img.RawFormat) ||
-                           ImageFormat.Bmp.Equals(img.RawFormat) ||
-                           ImageFormat.Gif.Equals(img.RawFormat);
+                    return ImageFormat.Jpeg.Equals(img.RawFormat)
+                        || ImageFormat.Png.Equals(img.RawFormat)
+                        || ImageFormat.Icon.Equals(img.RawFormat)
+                        || ImageFormat.Tiff.Equals(img.RawFormat)
+                        || ImageFormat.Bmp.Equals(img.RawFormat)
+                        || ImageFormat.Gif.Equals(img.RawFormat);
                 }
             }
-            catch { return false; }
-        }
-    }
-
-    public static bool IsValidAttachment(HttpPostedFileBase file)
-    {
-        try
-        {
-            var extValid = false;
-
-            foreach (var ext in WebConfigurationManager.AppSettings["AllowedAttachmentExtensions"].Split(','))
+            catch
             {
-                if(Path.GetExtension(file.FileName) == ext)
+                return false;
+            }
+        }
+
+        //Watch video near end to see how he added extension values to config file
+
+        public static bool IsValidAttachment(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file == null)
                 {
-                    extValid = true;
-                    break;
+                    return false;
                 }
+
+                if (file.ContentLength > 5 * 1024 * 1024 || file.ContentLength < 1024)
+                {
+                    return false;
+                }
+                var valid = IsWebFriendlyImage(file);
+
+                var extensionValid = false;
+
+                var validExtensions = new List<string>();
+                validExtensions.Add(".pdf");
+                validExtensions.Add(".doc");
+                validExtensions.Add(".docx");
+                validExtensions.Add(".xls");
+                validExtensions.Add(".xlsx");
+                validExtensions.Add(".txt");
+                validExtensions.Add(".html");
+                validExtensions.Add(".xml");
+                validExtensions.Add(".json");
+
+                foreach (var fileExtension in validExtensions)
+                {
+                    if (Path.GetExtension(file.FileName) == fileExtension)
+                    {
+                        extensionValid = true;
+                        break;
+                    }
+                }
+
+                return IsWebFriendlyImage(file) || extensionValid;
+            }
+            catch
+            {
+                return false;
             }
 
-            return IsWebFriendlyImage(file) || extValid;
-        }
-
-        catch
-        {
-            return false;
-        }
-    }
-
-    public string GetIconPath(string fileName)
-    {
-        switch (Path.GetExtension(fileName))
-        {
-
-            case ".png":
-            case ".bmp":
-            case ".tif":
-            case ".ico":
-            case ".jpg":
-            case ".jpeg":
-                return filePath;
-
-            case ".pdf":
-                return "/Images/pdf.png";
-
-            case ".doc":
-                return "/Images/doc.png";
-
-            case ".docx":
-                return "/Images/docx.png";
-
-            case ".xls":
-                return "/Images/xls.png";
-
-            case ".xlsx":
-                return "/Images/xlsx.png";
-
-            case ".zip":
-                return "/Images/zip.png";
-
-            default:
-                return "/Images/other.png";
         }
     }
 
