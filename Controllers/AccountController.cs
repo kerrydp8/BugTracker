@@ -12,6 +12,7 @@ using BugTracker.Models;
 using System.Web.Configuration;
 using System.Net.Mail;
 using BugTracker.Helpers;
+using System.IO;
 
 namespace BugTracker.Controllers
 {
@@ -149,7 +150,7 @@ namespace BugTracker.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase AvatarFile)
         {
             if (ModelState.IsValid)
             {
@@ -161,11 +162,11 @@ namespace BugTracker.Controllers
                     AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
                 };
 
-                if (ImageHelpers.IsWebFriendlyImage(model.Avatar))
+                if (ImageHelpers.IsWebFriendlyImage(AvatarFile))
                 {
-                    var fileName = Path.GetFileName(model.Avatar.FileName);
-                    model.Avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
-                    user.AvatarUrl = "/Avatars/" + fileName;
+                    var fileName = Path.GetFileName(AvatarFile.FileName);
+                    AvatarFile.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
+                    model.AvatarUrl = "/Avatars/" + fileName;
                 }
 
                 var result = await UserManager.CreateAsync(user, model.Password);

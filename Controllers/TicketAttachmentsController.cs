@@ -51,7 +51,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TicketId")] TicketAttachment ticketAttachment, string attachmentTitle, string attachmentDescription)
+        public ActionResult Create([Bind(Include = "TicketId")] TicketAttachment ticketAttachment, HttpPostedFileBase file, string attachmentTitle, string attachmentDescription)
         {
             if (ModelState.IsValid)
             {
@@ -61,10 +61,10 @@ namespace BugTracker.Models
                 ticketAttachment.Created = DateTime.Now;
                 ticketAttachment.UserId = User.Identity.GetUserId();
 
-                if (ImageHelpers.IsValidAttachment(attachment))
+                if (ImageHelpers.IsValidAttachment(file))
                 {
-                    var fileName = Path.GetFileName(attachment.FileName);
-                    attachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
+                    var fileName = Path.GetFileName(file.FileName);
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
                     ticketAttachment.AttachmentUrl = "/Attachments/" + fileName;
                 }
             }
