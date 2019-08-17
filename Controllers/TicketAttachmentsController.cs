@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BugTracker.Helpers;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -58,13 +61,19 @@ namespace BugTracker.Models
                 ticketAttachment.Created = DateTime.Now;
                 ticketAttachment.UserId = User.Identity.GetUserId();
 
-                db.TicketAttachments.Add(ticketAttachment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ImageHelpers.IsValidAttachment(attachment))
+                {
+                    var fileName = Path.GetFileName(attachment.FileName);
+                    attachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
+                    ticketAttachment.AttachmentUrl = "/Attachments/" + fileName;
+                }
             }
 
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
-            return View(ticketAttachment);
+           db.TicketAttachments.Add(ticketAttachment);
+           db.SaveChanges();
+           return RedirectToAction("Index");
+            //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
+            //return View(ticketAttachment);
         }
 
         // GET: TicketAttachments/Edit/5
