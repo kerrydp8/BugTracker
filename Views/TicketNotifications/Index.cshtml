@@ -12,13 +12,15 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Recipient.LastName)
+            <!--Html.DisplayNameFor(model => model.Recipient.LastName)-->
+            Recipient
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sender.LastName)
+            <!--Html.DisplayNameFor(model => model.Sender.LastName)-->
+            Sender
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ticket.OwnerUserId)
+            @Html.DisplayNameFor(model => model.Ticket.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Created)
@@ -44,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.Sender.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Ticket.OwnerUserId)
+            @Html.DisplayFor(modelItem => item.Ticket.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Created)

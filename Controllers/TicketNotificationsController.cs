@@ -47,7 +47,7 @@ namespace BugTracker.Models
         {
             ViewBag.RecipientId = new SelectList(db.Users, "Id", "LastName");
             ViewBag.SenderId = new SelectList(db.Users, "Id", "LastName");
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId");
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace BugTracker.Models
 
             ViewBag.RecipientId = new SelectList(db.Users, "Id", "LastName", ticketNotification.RecipientId);
             ViewBag.SenderId = new SelectList(db.Users, "Id", "LastName", ticketNotification.SenderId);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketNotification.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketNotification.TicketId);
             return View(ticketNotification);
         }
 
@@ -83,9 +83,10 @@ namespace BugTracker.Models
             {
                 return HttpNotFound();
             }
-            ViewBag.RecipientId = new SelectList(db.Users, "Id", "LastName", ticketNotification.RecipientId);
+            ViewBag.RecipientId = new SelectList(db.Users, "Id", "LastName", ticketNotification.RecipientId); //Finds the db.Property by Id followed by the
+            //property being used for the view.
             ViewBag.SenderId = new SelectList(db.Users, "Id", "LastName", ticketNotification.SenderId);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketNotification.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketNotification.TicketId);
             return View(ticketNotification);
         }
 
@@ -104,7 +105,7 @@ namespace BugTracker.Models
             }
             ViewBag.RecipientId = new SelectList(db.Users, "Id", "LastName", ticketNotification.RecipientId);
             ViewBag.SenderId = new SelectList(db.Users, "Id", "LastName", ticketNotification.SenderId);
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketNotification.TicketId);
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketNotification.TicketId);
             return View(ticketNotification);
         }
 

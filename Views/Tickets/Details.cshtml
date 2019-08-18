@@ -163,6 +163,8 @@
 }
 
 
+
+
 @*Displaying the comments associated with the Ticket*@
 
 <hr />
@@ -186,7 +188,6 @@
 <br />
 
 
-
 @foreach (var ticketComment in Model.TicketComments.OrderByDescending(c => c.Created))
 {
     <hr />
@@ -202,25 +203,54 @@
 
     <hr />
 
-    if (User.IsInRole("Administrator"))
+    using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
     {
-        using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => ticketComment.Id)
-            @Html.HiddenFor(model => ticketComment.AuthorId)
-            @Html.HiddenFor(model => ticketComment.Created)
-            @Html.HiddenFor(model => ticketComment.TicketId)
-            <textarea name="commentBody">@ticketComment.CommentBody</textarea>
-            <button class="btn btn-primary" type="submit">Edit</button>
-        }
-
-        using (Html.BeginForm("Delete", "TicketComments", new { id = ticketComment.Id }))
-        {
-            @Html.AntiForgeryToken()
-            <input type="submit" value="Delete" class="btn btn-danger" />
-        }
-
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => ticketComment.Id)
+        @Html.HiddenFor(model => ticketComment.AuthorId)
+        @Html.HiddenFor(model => ticketComment.Created)
+        @Html.HiddenFor(model => ticketComment.TicketId)
+        <textarea name="commentBody">@ticketComment.CommentBody</textarea>
+        <button class="btn btn-primary" type="submit">Edit</button>
     }
+
+    using (Html.BeginForm("Delete", "TicketComments", new { id = ticketComment.Id }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    }
+
+}
+
+<hr />
+
+
+<div class="row">
+    <div class="col-md-12 text-center h3">
+        Notifications
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center h4">
+        @{
+            var notificationCount = Model.TicketNotifications.Count();
+            var notif = count == 1 ? "notifications" : "notifications";
+        }
+        (@notificationCount @notif...)
+    </div>
+</div>
+
+<br />
+
+@foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
+{
+    <div class="row">
+        <div class="col-md-12">
+            "@ticketNotification.NotificationBody" posted by @ticketNotification.Sender.DisplayName
+        </div>
+    </div>
+
+    <hr />
 
 }
