@@ -36,9 +36,6 @@ namespace BugTracker.Helpers
                 return false;
             }
         }
-
-        //Watch video near end to see how he added extension values to config file
-
         public static bool IsValidAttachment(HttpPostedFileBase file)
         {
             try
@@ -84,6 +81,36 @@ namespace BugTracker.Helpers
             }
 
         }
+
+        public static string GetIconPath(string filePath)
+        {
+            switch (Path.GetExtension(filePath))
+            {
+                case ".png":
+                case ".bmp":
+                case ".tif":
+                case ".ico":
+                case ".jpg":
+                case ".jpeg":
+                    return filePath;
+
+                case ".pdf":
+                    return "Images/pdf.png";
+                case ".doc":
+                    return "Images/doc.png";
+                case ".docx":
+                    return "Images/docx.png";
+                case ".xls":
+                    return "Images/xls.png";
+                case ".xlsx":
+                    return "Images/xlsx.png";
+                case ".zip":
+                    return "Images/zip.png";
+                default:
+                    return "Images/other.png";
+            }
+        }
+
     }
 
 }

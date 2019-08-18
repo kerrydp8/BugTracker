@@ -69,13 +69,13 @@ namespace BugTracker.Models
                 }
             }
 
-           db.TicketAttachments.Add(ticketAttachment);
-           db.SaveChanges();
-           ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);
-           ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
+            db.TicketAttachments.Add(ticketAttachment);
+            db.SaveChanges();
+            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
             //return RedirectToAction("Index");
             //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
-            return View(ticketAttachment);
+            return RedirectToAction("Index", "Tickets");
         }
 
         // GET: TicketAttachments/Edit/5
