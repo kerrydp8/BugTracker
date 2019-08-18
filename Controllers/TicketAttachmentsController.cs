@@ -51,7 +51,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,AttachmentUrl,Description,Created,UserId")] TicketAttachment ticketAttachment, HttpPostedFileBase file, string attachmentTitle, string attachmentDescription)
+        public ActionResult Create([Bind(Include = "Id,TicketId,AttachmentUrl,Description,Created,UserId")] TicketAttachment ticketAttachment, HttpPostedFileBase attachment, string attachmentTitle, string attachmentDescription)
         {
             if (ModelState.IsValid)
             {
@@ -61,21 +61,23 @@ namespace BugTracker.Models
                 ticketAttachment.Created = DateTime.Now;
                 ticketAttachment.UserId = User.Identity.GetUserId();
 
-                if (ImageHelpers.IsValidAttachment(file))
+                if (ImageHelpers.IsValidAttachment(attachment))
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    file.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
+                    var fileName = Path.GetFileName(attachment.FileName);
+                    attachment.SaveAs(Path.Combine(Server.MapPath("~/Attachments/"), fileName));
                     ticketAttachment.AttachmentUrl = "/Attachments/" + fileName;
                 }
+                db.TicketAttachments.Add(ticketAttachment);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Tickets");
             }
 
-            db.TicketAttachments.Add(ticketAttachment);
-            db.SaveChanges();
+
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
             //return RedirectToAction("Index");
             //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
-            return RedirectToAction("Index", "Tickets");
+            return View(ticketAttachment);
         }
 
         // GET: TicketAttachments/Edit/5

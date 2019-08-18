@@ -11,6 +11,56 @@ namespace BugTracker.Helpers
 {
     public class ImageHelpers
     {
+
+        public static bool IsValidAttachment(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file == null)
+                {
+                    return false;
+                }
+
+                if (file.ContentLength > 5 * 1024 * 1024 || file.ContentLength < 1024)
+                {
+                    return false;
+                }
+
+
+                //var valid = IsWebFriendlyImage(file);
+
+                var extensionValid = false;
+
+                foreach (var ext in WebConfigurationManager.AppSettings["AllowedAttachmentExtensions"].Split(','))
+                {
+                    if(Path.GetExtension(file.FileName) == ext)
+                    {
+                        extensionValid = true;
+                        break;
+                    }
+                }
+
+                /*
+                var validExtensions = new List<string>();
+                validExtensions.Add(".pdf");
+                validExtensions.Add(".doc");
+                validExtensions.Add(".docx");
+                validExtensions.Add(".xls");
+                validExtensions.Add(".xlsx");
+                validExtensions.Add(".txt");
+                validExtensions.Add(".html");
+                validExtensions.Add(".xml");
+                validExtensions.Add(".json");
+                */
+
+                return IsWebFriendlyImage(file) || extensionValid;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)
         {
             if (file == null)
@@ -36,51 +86,6 @@ namespace BugTracker.Helpers
                 return false;
             }
         }
-        public static bool IsValidAttachment(HttpPostedFileBase file)
-        {
-            try
-            {
-                if (file == null)
-                {
-                    return false;
-                }
-
-                if (file.ContentLength > 5 * 1024 * 1024 || file.ContentLength < 1024)
-                {
-                    return false;
-                }
-                var valid = IsWebFriendlyImage(file);
-
-                var extensionValid = false;
-
-                var validExtensions = new List<string>();
-                validExtensions.Add(".pdf");
-                validExtensions.Add(".doc");
-                validExtensions.Add(".docx");
-                validExtensions.Add(".xls");
-                validExtensions.Add(".xlsx");
-                validExtensions.Add(".txt");
-                validExtensions.Add(".html");
-                validExtensions.Add(".xml");
-                validExtensions.Add(".json");
-
-                foreach (var fileExtension in validExtensions)
-                {
-                    if (Path.GetExtension(file.FileName) == fileExtension)
-                    {
-                        extensionValid = true;
-                        break;
-                    }
-                }
-
-                return IsWebFriendlyImage(file) || extensionValid;
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
 
         public static string GetIconPath(string filePath)
         {
@@ -104,6 +109,12 @@ namespace BugTracker.Helpers
                     return "Images/xls.png";
                 case ".xlsx":
                     return "Images/xlsx.png";
+                case ".txt":
+                    return "Images/txt.png";
+                case ".xml":
+                    return "Images/xml.png";
+                case ".json":
+                    return "Images/json.png";
                 case ".zip":
                     return "Images/zip.png";
                 default:
