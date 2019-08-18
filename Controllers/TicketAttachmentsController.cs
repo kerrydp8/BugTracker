@@ -51,7 +51,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TicketId")] TicketAttachment ticketAttachment, HttpPostedFileBase file, string attachmentTitle, string attachmentDescription)
+        public ActionResult Create([Bind(Include = "Id,TicketId,AttachmentUrl,Description,Created,UserId")] TicketAttachment ticketAttachment, HttpPostedFileBase file, string attachmentTitle, string attachmentDescription)
         {
             if (ModelState.IsValid)
             {
@@ -71,9 +71,11 @@ namespace BugTracker.Models
 
            db.TicketAttachments.Add(ticketAttachment);
            db.SaveChanges();
-           return RedirectToAction("Index");
+           ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);
+           ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
+            //return RedirectToAction("Index");
             //ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketAttachment.TicketId);
-            //return View(ticketAttachment);
+            return View(ticketAttachment);
         }
 
         // GET: TicketAttachments/Edit/5
@@ -97,7 +99,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TicketId,Title,Description,AttachmentUrl,Created")] TicketAttachment ticketAttachment)
+        public ActionResult Edit([Bind(Include = "Id,TicketId,AttachmentUrl,Description,Created,UserId")] TicketAttachment ticketAttachment)
         {
             if (ModelState.IsValid)
             {

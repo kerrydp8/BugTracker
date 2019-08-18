@@ -2,7 +2,7 @@
 @model BugTracker.Models.Ticket
 
 <style>
-    .btnPad{
+    .btnPad {
         margin-bottom: 20px
     }
 </style>
@@ -23,78 +23,78 @@
 
             <h2 class="panel-title">Attachment(s)</h2>
 
-            <div class="panel-body">
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-12">
+
+            @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
                 <div class="row">
                     <div class="col-md-12">
-
-                        @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new {enctype = "Multipart/form-data"}))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!--<h3>Title</h3>-->
-                                    <!--<input type="text" name="Title" />-->
-                                    @Html.TextBox("AttachmentTitle", null, new { @class="form-control cell-fill-input", placeholder="Title"})
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!--<h3>Description</h3>-->
-                                    <!--<textarea rows="5" cols="100" type="text" name="Description" />-->
-                                    @Html.TextArea("AttachmentDescription", new { @class = "form-control cell-fill-textarea", rows = 5, cols = 150, placeholder = "Description" })
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input type="file" name="attachment" />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary btn-sm">Add Attachment</button>
-                                </div>
-                            </div>
-                        }
-
-                        @foreach(var attachment in Model.TicketAttachments)
-                        {
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!--<img src="ImageHelpers.GetIconPath(attachment.AttachmentUrl)" />-->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <a target="_blank" href="@attachment.AttachmentUrl">@Path.GetFileNameWithoutExtension(attachment.AttachmentUrl)</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="col-md-6">@attachment.Created.ToString("MMM, d, yyyy")</div>
-                                        <div class="col-md-6">@attachment.User.FullNameWithEmail</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            @attachment.Title
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            @attachment.Description
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
+                        <!--<h3>Title</h3>-->
+                        <!--<input type="text" name="Title" />-->
+                        @Html.TextBox("AttachmentTitle", null, new { @class = "form-control cell-fill-input", placeholder = "Title" })
                     </div>
                 </div>
-            </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--<h3>Description</h3>-->
+                        <!--<textarea rows="5" cols="100" type="text" name="Description" />-->
+                        @Html.TextArea("AttachmentDescription", new { @class = "form-control cell-fill-textarea", rows = 5, cols = 150, placeholder = "Description" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="file" name="attachment" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-sm">Add Attachment</button>
+                    </div>
+                </div>
+            }
+
+            @foreach (var attachment in Model.TicketAttachments)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--<img src="ImageHelpers.GetIconPath(attachment.AttachmentUrl)" />-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a target="_blank" href="@attachment.AttachmentUrl">@Path.GetFileNameWithoutExtension(attachment.AttachmentUrl)</a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">@attachment.Created.ToString("MMM, d, yyyy")</div>
+                            <div class="col-md-6">@attachment.User.FullNameWithEmail</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @attachment.Title
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @attachment.Description
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
 
         </header>
     </section>

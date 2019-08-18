@@ -7,14 +7,18 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
+using System.Text;
 
 namespace BugTracker.Helpers
 {
-    /*
     public class NotificationHelper
     {
-        ApplicationDbContext db = new ApplicationDbContext();
-        
+
+        UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser> (new ApplicationDbContext()));
+
+        static ApplicationDbContext db = new ApplicationDbContext();
+
         public static void CreateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
             var noChange = (oldTicket.AssignedToUserId == newTicket.AssignedToUserId);
@@ -93,5 +97,4 @@ namespace BugTracker.Helpers
             return db.TicketNotifications.Where(t => t.RecipientId == userId).Count();
         }
     }
-    */
 }
