@@ -16,6 +16,12 @@ namespace BugTracker.Helpers
     {
         static ApplicationDbContext db = new ApplicationDbContext();
 
+        public static void ManageNotifications(Ticket oldTicket, Ticket newTicket)
+        {
+            CreateAssignmentNotification(oldTicket, newTicket);
+            CreateChangeNotifcation(oldTicket, newTicket);
+        }
+
         public static void CreateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
             var noChange = (oldTicket.AssignedToUserId == newTicket.AssignedToUserId);
@@ -74,6 +80,45 @@ namespace BugTracker.Helpers
 
             db.TicketNotifications.Add(notification);
             db.SaveChanges();
+        }
+
+        private static void CreateChangeNotifcation(Ticket oldTicket, Ticket newTicket)
+        {
+            var messageBody = new StringBuilder();
+
+            foreach (var property in WebConfigurationManager.AppSettings["TrackedTicketProperties"].Split(','))
+            {
+                var oldValue = oldTicket.GetType().GetProperty(property).GetValue(oldTicket, null).ToString();
+                var newValue = newTicket.GetType().GetProperty(property).GetValue(newTicket, null).ToString();
+
+                if (oldValue != newValue)
+                {
+                    messageBody.AppendLine(new String('-', 45));
+                    messageBody.AppendLine($"A change was made to Property: {property}.");
+                    messageBody.AppendLine($"The old value was: {oldValue.ToString()}");
+                    messageBody.AppendLine($"The new value is: {newValue.ToString()}");
+                }
+            }
+            if (!string.IsNullOrEmpty(messageBody.ToString()))
+            {
+                var message = new StringBuilder();
+                message.AppendLine($"The following changes were made to one of your Tickets on {newTicket.Updated}");
+                message.AppendLine(messageBody.ToString());
+                var senderId = HttpContext.Current.User.Identity.GetUserId();
+
+                var notification = new TicketNotification
+                {
+                    TicketId = newTicket.Id,
+                    Created = DateTime.Now,
+                    Subject = $"A change has occured on Ticket {newTicket.Id}",
+                    RecipientId = newTicket.AssignedToUserId,
+                    SenderId = senderId,
+                    NotificationBody = message.ToString(),
+                    IsRead = false
+                };
+                db.TicketNotifications.Add(notification);
+                db.SaveChanges();
+            }
         }
 
         public static List<TicketNotification> GetUnreadUserNotifications()

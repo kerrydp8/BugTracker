@@ -198,13 +198,11 @@ namespace BugTracker.Models
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
 
-                NotificationHelper.CreateAssignmentNotification(oldTicket, ticket);
+                NotificationHelper.ManageNotifications(oldTicket, ticket);
                 HistoryHelper.RecordHistory(oldTicket, ticket);
 
                 return RedirectToAction("Index");
             }
-
-
             ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "LastName", ticket.AssignedToUserId);
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "LastName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
