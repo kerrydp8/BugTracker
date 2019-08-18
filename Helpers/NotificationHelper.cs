@@ -14,9 +14,6 @@ namespace BugTracker.Helpers
 {
     public class NotificationHelper
     {
-
-        UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser> (new ApplicationDbContext()));
-
         static ApplicationDbContext db = new ApplicationDbContext();
 
         public static void CreateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
