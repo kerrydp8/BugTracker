@@ -1,0 +1,102 @@
+﻿@using BugTracker.Models
+@using BugTracker.Helpers
+@model IEnumerable<UserProfileViewModel>
+
+<style>
+    .avatar{
+        max-height: 30px;
+        max-width: 30px;
+    }
+</style>
+
+@{ 
+    var roleHelper = new UserRolesHelper();
+    var projHelper = new ProjectHelper();
+}
+
+<h2>User Index</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Avatar")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayName("Role")
+            </th>
+
+        </tr>
+
+        @foreach (var user in Model)
+        {
+
+    <tr>
+        <td class="avatar">
+            <img src="@user.AvatarUrl" class="img-responsive" />
+        </td>
+        <td>
+            @Html.DisplayFor(model => user.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(model => user.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => user.LastName)
+        </td>
+
+        <td>
+            @Html.DropDownList("Current Role", user.CurrentRole, "NONE")
+        </td>
+
+        <td>
+            @Html.ListBox("Current Projects", user.CurrentProjects)
+        </td>
+
+        <td>
+
+            @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+
+        </td>
+
+        <td>
+            @{
+                var userProjects = projHelper.ListUserProjects(user.Id);
+            }
+
+            @foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+            {
+                @projectName
+            }
+        </td>
+
+        <!--
+            <td>
+                roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+        </td>
+
+
+                <td>
+  
+            </td>
+    -->
+        <td>
+            @Html.ActionLink("Manage Role", "ManageRoles", "Admin", new { userId = user.Id }, null) |<!--Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |-->
+            @Html.ActionLink("Manage Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
+            @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
+            @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
+        </td>
+    </tr>
+        }
+    </table>
+
+@Html.ActionLink("Back To Dashboard", "Index", "Home")
+

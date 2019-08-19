@@ -1,0 +1,256 @@
+﻿@using BugTracker.Helpers
+@model BugTracker.Models.Ticket
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@{
+    var ticketHelper = new TicketHelper();
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ticket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedToUser.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedToUser.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerUser.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerUser.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TicketType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketStatus.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TicketStatus.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketPriorityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TicketPriorityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Updated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Updated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Assign", "AssignTicket", new { id = Model.Id })
+</p>
+
+@*Conditionally render the Add Comment form*@
+@if (User.IsInRole("Administrator"))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+
+}
+
+@if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(Model.Id, Model.ProjectId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+
+}
+
+@if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(Model.AssignedToUserId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+}
+
+@if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(Model.OwnerUserId))
+{
+    @*Create a form to collect the Comment from the logged in user*@
+    using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("TicketId", Model.Id)
+
+        <textarea name="CommentBody" placeholder="Add Comment..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+    }
+}
+
+
+
+
+@*Displaying the comments associated with the Ticket*@
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12 text-center h3">
+        Comment Section
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center h4">
+        @{
+            var count = Model.TicketComments.Count();
+            var word = count == 1 ? "comments" : "comments";
+        }
+        (@count @word...)
+    </div>
+</div>
+
+<br />
+
+
+@foreach (var ticketComment in Model.TicketComments.OrderByDescending(c => c.Created))
+{
+    <hr />
+    <div class="row">
+        Posted by @ticketComment.AuthorId <!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @ticketComment.CommentBody
+        </div>
+    </div>
+
+    <hr />
+
+    using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => ticketComment.Id)
+        @Html.HiddenFor(model => ticketComment.AuthorId)
+        @Html.HiddenFor(model => ticketComment.Created)
+        @Html.HiddenFor(model => ticketComment.TicketId)
+        <textarea name="commentBody">@ticketComment.CommentBody</textarea>
+        <button class="btn btn-primary" type="submit">Edit</button>
+    }
+
+    using (Html.BeginForm("Delete", "TicketComments", new { id = ticketComment.Id }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    }
+
+}
+
+<hr />
+
+
+<div class="row">
+    <div class="col-md-12 text-center h3">
+        Notifications
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center h4">
+        @{
+            var notificationCount = Model.TicketNotifications.Count();
+            var notif = count == 1 ? "notifications" : "notifications";
+        }
+        (@notificationCount @notif...)
+    </div>
+</div>
+
+<br />
+
+@foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
+{
+    <div class="row">
+        <div class="col-md-12">
+            "@ticketNotification.NotificationBody" posted by @ticketNotification.Sender.DisplayName
+        </div>
+    </div>
+
+    <hr />
+
+}
