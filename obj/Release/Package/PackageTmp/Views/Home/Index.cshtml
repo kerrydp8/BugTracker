@@ -113,6 +113,7 @@
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
                         <a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>
+                        <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
                         @if (User.IsInRole("Developer"))
                         {
                             <a class="collapse-item" href="@Url.Action("MyAssignments", "Tickets")">My Assignments</a>
