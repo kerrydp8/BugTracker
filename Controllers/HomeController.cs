@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
@@ -19,6 +20,7 @@ namespace BugTracker.Controllers
         private ProjectHelper projHelper = new ProjectHelper();
         public ActionResult Index()
         {
+
             return View();
         }
 
@@ -33,6 +35,11 @@ namespace BugTracker.Controllers
         {
             EmailModel model = new EmailModel();
             return View(model);
+        }
+
+        public ActionResult Tables()
+        {
+            return View();
         }
 
         [HttpPost]
