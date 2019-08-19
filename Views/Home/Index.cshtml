@@ -114,6 +114,14 @@
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
                         <a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
+                        @if (User.IsInRole("Administrator") || (User.IsInRole("Project Manager")))
+                        {
+                            <a class="collapse-item" href="@Url.Action("Index", "Projects")">View All Projects</a>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a class="collapse-item" href="@Url.Action("Index", "Tickets")">View All Tickets</a>
+                        }
                         @if (User.IsInRole("Developer"))
                         {
                             <a class="collapse-item" href="@Url.Action("MyAssignments", "Tickets")">My Assignments</a>
