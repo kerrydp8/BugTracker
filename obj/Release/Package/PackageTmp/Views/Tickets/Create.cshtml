@@ -97,10 +97,7 @@
                     {
                         <a class="collapse-item" href="@Url.Action("Index", "Projects")">View All Projects</a>
                     }
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <a class="collapse-item" href="@Url.Action("Index", "Tickets")">View All Tickets</a>
-                    }
+                    <a class="collapse-item" href="@Url.Action("Index", "Tickets")">View All Tickets</a>
                     @if (User.IsInRole("Developer"))
                     {
                         <a class="collapse-item" href="@Url.Action("MyAssignments", "Tickets")">My Assignments</a>
