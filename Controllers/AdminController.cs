@@ -41,11 +41,11 @@ namespace BugTracker.Controllers
 
             return View(users);
         }
-
         public ActionResult ManageUserRoles(string userId)
         {
-            var currentRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
+            //var currentRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
             ViewBag.UserId = userId;
+            ViewBag.RoleName = new SelectList(db.Roles.ToList(), "Name", "Name");
             return View();
         }
 
