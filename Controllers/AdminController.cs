@@ -14,6 +14,7 @@ namespace BugTracker.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private ProjectHelper projHelper = new ProjectHelper();
+        //private UserProfileViewModel userProfile = new UserProfileViewModel();
 
         // GET: Admin
         public ActionResult UserIndex()
@@ -46,6 +47,7 @@ namespace BugTracker.Controllers
             //var currentRole = roleHelper.ListUserRoles(userId).FirstOrDefault();
             ViewBag.UserId = userId;
             ViewBag.RoleName = new SelectList(db.Roles.ToList(), "Name", "Name");
+            //return View(userProfile);
             return View();
         }
 
@@ -122,6 +124,7 @@ namespace BugTracker.Controllers
         {
             var myProjects = projHelper.ListUserProjects(userId).Select(p => p.Id);
             ViewBag.Projects = new MultiSelectList(db.Projects.ToList(), "Id", "Name", myProjects);
+            ViewBag.UserId = userId;
             return View();
         }
 
