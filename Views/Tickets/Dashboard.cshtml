@@ -349,7 +349,7 @@
                                                 <div class="col-md-12">
                                                     <!--<h3>Description</h3>-->
                                                     <!--<textarea rows="5" cols="100" type="text" name="Description" />-->
-                                                    @Html.TextArea("AttachmentDescription", new { @class = "form-control cell-fill-textarea", rows = 5, cols = 150, placeholder = "Description" })
+                                                    @Html.TextArea("AttachmentDescription", new { @class = "form-control cell-fill-textarea input", rows = 5, cols = 150, placeholder = "Description" })
                                                 </div>
                                             </div>
 
@@ -443,13 +443,6 @@
                             </li>
                         }
                     </ul>
-
-                    <hr />
-
-                    <div class="text-right">
-                        <a href="@Url.Action("MyNotifications","TicketNotifications")" class="view-more">View All</a>
-                    </div>
-
                 </div>
 
                 <div class="dropdown-menu notification-menu">
@@ -469,6 +462,7 @@
                             <h2 class="panel-title">Histories</h2>
 
                             <div class="panel-body">
+                                <br />
                                 <div class="row">
                                     <div class="col-md-12">
                                         @foreach (var history in Model.TicketHistories)
@@ -482,10 +476,10 @@
                                                         Property
                                                     </th>
                                                     <th>
-                                                        Old Value
+                                                        Original
                                                     </th>
                                                     <th>
-                                                        New Value
+                                                        New
                                                     </th>
                                                 </tr>
                                                 <tr>
@@ -510,40 +504,40 @@
                                             <!--
 
 
-                        <div class="row">
-            <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        history.TicketId
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        history.PropertyName
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        history.OldValue
-                    </div>
-                </div>
-                if (history.NewValue != null)
-                {
-                    <div class="row">
-                        <div class="col-md-12">
-                            history.NewValue
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+                                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                history.TicketId
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                history.PropertyName
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                history.OldValue
+                                            </div>
+                                        </div>
+                                        if (history.NewValue != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    history.NewValue
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
 
 
 
 
 
 
-            -->
+                                    -->
                                         }
                                     </div>
                                 </div>
@@ -552,9 +546,31 @@
                     </section>
                 </div>
 
-                <li class="nav-active">
-                    <a href="@Url.Action("Index", "TicketHistories")">
-                        <i class="fa-fa-home" aria-hidden="true"></i>
-                        <span>All Histories</span>
-                    </a>
-                </li>
+                <a href="@Url.Action("Index", "TicketHistories")">
+                    <i class="fa-fa-home" aria-hidden="true"></i>
+                    <span>View All Histories</span>
+                </a>
+                <div class="text-right">
+                    <a href="@Url.Action("MyNotifications","TicketNotifications")" class="view-more">View All Notifications</a>
+                </div>
+
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+
+                <!-- Bootstrap core JavaScript-->
+                <script src="~/vendor/jquery/jquery.min.js"></script>
+                <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+                <!-- Core plugin JavaScript-->
+                <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+                <!-- Custom scripts for all pages-->
+                <script src="~/js/sb-admin-2.min.js"></script>
+
+                <!-- Page level plugins -->
+                <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+                <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+                <!-- Page level custom scripts -->
+                <script src="~/js/demo/datatables-demo.js"></script>

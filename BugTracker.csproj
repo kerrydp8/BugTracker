@@ -209,6 +209,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Attachments\baseball.jpg" />
+    <Content Include="Attachments\Big Brother.png" />
+    <Content Include="Avatars\default_avatar.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -230,6 +233,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="private.config" />
+    <Content Include="Attachments\Kerry Peay Resume.docx" />
     <None Include="Properties\PublishProfiles\KerryPeayBugTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="js\datatables.js" />
@@ -2102,8 +2106,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Attachments\" />
-    <Folder Include="Avatars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
