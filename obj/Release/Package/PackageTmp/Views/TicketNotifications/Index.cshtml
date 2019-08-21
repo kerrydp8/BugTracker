@@ -42,7 +42,14 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker </div>
+                @if (User.IsInRole("Admininstrator"))
+                {
+                    <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker - Admin </div>
+                }
+                else
+                {
+                    <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker </div>
+                }
             </a>
 
             <!-- Divider -->

@@ -65,7 +65,14 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker </div>
+                @if (User.IsInRole("Admininstrator"))
+                {
+                    <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker - Admin </div>
+                }
+                else
+                {
+                    <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker </div>
+                }
             </a>
 
             <!-- Divider -->
@@ -454,11 +461,13 @@
 
                 <hr />
 
-                <div class="row">
-                    <div class="col-md-12 text-center h3">
-                        Comment Section
+                <section>
+                    <div class="row">
+                        <div class="col-md-12 text-center h3">
+                            Comment Section
+                        </div>
                     </div>
-                </div>
+                </section>
 
                 <div class="row">
                     <div class="col-md-12 text-center h4">
@@ -477,7 +486,7 @@
                 {
                     <hr />
                     <div class="row">
-                        Posted by @ticketComment.AuthorId <!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
+                          Posted by @ticketComment.AuthorId <!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
                     </div>
 
                     <div class="row">
