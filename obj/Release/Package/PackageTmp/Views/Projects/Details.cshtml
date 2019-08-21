@@ -74,7 +74,7 @@
                     <i class="fas fa-fw fa-folder"></i>
                     @if ((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")))
                     {
-                        <span>Current Projects & Tickets</span>
+                        <span>Current Tasks</span>
                     }
                     else
                     {
@@ -110,10 +110,6 @@
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
                         <a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
-                        @if (User.IsInRole("Developer"))
-                        {
-                            <a class="collapse-item" href="@Url.Action("MyAssignments", "Tickets")">My Assignments</a>
-                        }
                         @if (User.IsInRole("Developer"))
                         {
                             <a class="collapse-item" href="@Url.Action("MyAssignments", "Tickets")">My Assignments</a>
