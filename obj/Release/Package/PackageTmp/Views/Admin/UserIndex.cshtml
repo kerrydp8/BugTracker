@@ -292,6 +292,8 @@
 
                 <h2>Project Users</h2>
 
+                <h4 class="text-right">@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</h4>
+
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                         <th>
@@ -336,15 +338,15 @@
 
                             <!--
 
-                    <td>
-                        Html.DropDownList("Current Role", user.CurrentRole, "NONE")
-                    </td>
+                   <td>
+                       Html.DropDownList("Current Role", user.CurrentRole, "NONE")
+                   </td>
 
-                    <td>
-                        Html.ListBox("Current Projects", user.CurrentProjects)
-                    </td>
+                   <td>
+                       Html.ListBox("Current Projects", user.CurrentProjects)
+                   </td>
 
-                 -->
+                -->
 
                             <td>
 
@@ -370,7 +372,7 @@
                 </td>
                 -->
                             <td>
-                                @Html.ActionLink("Manage Roles", "ManageRoles", "Admin", new { userId = user.Id }, null) |<!--Html.ActionLink("Add Role", "ManageUserRoles", "Admin", new { userId = user.Id }, null) |-->
+                                <!--Html.ActionLink("Manage Roles", "ManageRoles", "Admin", new { userId = user.Id }, null) |-->
                                 @Html.ActionLink("Manage User's Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
                                 @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
                                 @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
