@@ -306,26 +306,48 @@
                                     </div>
                                     <hr />
                                     <form class="user input">
-                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.AssignedToUserId, "Assign", new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.DropDownList("AssignedToUserId", null, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AssignedToUserId, "Assign", new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownList("AssignedToUserId", null, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="text-right">
+                                        @Html.ActionLink("Back to Tickets", "Index", "Tickets")
                                     </div>
                                 </div>
-                                </form>
-                                <div class="text-right">
-                                    @Html.ActionLink("Back to Tickets", "Index", "Tickets")
-                                </div>
-                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             }
+
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <!-- Bootstrap core JavaScript-->
+            <script src="~/vendor/jquery/jquery.min.js"></script>
+            <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            <!-- Core plugin JavaScript-->
+            <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+            <!-- Custom scripts for all pages-->
+            <script src="~/js/sb-admin-2.min.js"></script>
+
+            <!-- Page level plugins -->
+            <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+            <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+            <!-- Page level custom scripts -->
+            <script src="~/js/demo/datatables-demo.js"></script>
 
