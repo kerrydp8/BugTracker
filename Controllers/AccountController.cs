@@ -154,7 +154,8 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = model.FirstName,
+                var user = new ApplicationUser {
+                    FirstName = model.FirstName,
                     LastName = model.LastName,
                     DisplayName = model.DisplayName,
                     UserName = model.Email,

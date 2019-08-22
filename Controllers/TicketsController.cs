@@ -260,6 +260,8 @@ namespace BugTracker.Models
 
             db.SaveChanges();
 
+            //string url = this.Request.UrlReferrer.AbsolutePath;
+
             var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);
 
             try
@@ -280,6 +282,7 @@ namespace BugTracker.Models
             }
 
             return RedirectToAction("Index", "Tickets");
+            //return View(url);
         }
 
         protected override void Dispose(bool disposing)
