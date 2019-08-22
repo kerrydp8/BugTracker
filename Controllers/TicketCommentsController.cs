@@ -92,8 +92,10 @@ namespace BugTracker.Models
             {
                 db.Entry(ticketComment).State = EntityState.Modified;
                 db.SaveChanges();
-                //return RedirectToAction("Details", "Tickets", new { id = ticketId });
+                //return RedirectToAction("Details", "Tickets", new { id = TicketId });
                 return RedirectToAction("Index", "Tickets");
+                //string url = this.Request.UrlReferrer.AbsolutePath;
+                //return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting an attachment.
             }
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);
             return View(ticketComment);
