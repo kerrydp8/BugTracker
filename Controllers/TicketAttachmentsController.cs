@@ -70,7 +70,8 @@ namespace BugTracker.Models
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
                 //return RedirectToAction("Index", "Tickets");
-                return RedirectToAction("Dashboard", "Tickets", new { id = TicketId});
+                return RedirectToAction("Dashboard", "Tickets", new { id = TicketId}); //When a ticket is added, the user will be redirected back to the... 
+                //...Ticket Dashboard
                 //return View();
             }
 

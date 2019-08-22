@@ -100,25 +100,25 @@ namespace BugTracker.Helpers
                 case ".gif":
                     return filePath;
                 case ".pdf":
-                    return "filePath/pdf.png";
+                    return "/Images/pdf.png";
                 case ".doc":
-                    return "filePath/doc.png";
+                    return "/Images/doc.png";
                 case ".docx":
-                    return "Images/docx.png";
+                    return "/Images/docx.png";
                 case ".xls":
-                    return "filePath/xls.png";
+                    return "/Images/xls.png";
                 case ".xlsx":
-                    return "filePath/xlsx.png";
+                    return "/Images/xlsx.png";
                 case ".txt":
-                    return "filePath/txt.png";
+                    return "/Images/txt.png";
                 case ".xml":
-                    return "filePath/xml.png";
+                    return "/Images/xml.png";
                 case ".json":
-                    return "filePath/json.png";
+                    return "/Images/json.png";
                 case ".zip":
-                    return "filePath/zip.png";
+                    return "/Images/zip.png";
                 default:
-                    return "filePath/other.png";
+                    return "/Images/other.png";
             }
         }
 
