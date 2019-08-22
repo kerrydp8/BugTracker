@@ -461,9 +461,6 @@
                     }
                 }
 
-
-
-
                 @*Displaying the comments associated with the Ticket*@
 
                 <hr />
@@ -493,7 +490,7 @@
                 {
                     <hr />
                     <div class="row">
-                        Posted by @ticketComment.AuthorId <!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
+                            Posted by @ticketComment.AuthorId<!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
                     </div>
 
                     <div class="row">
@@ -504,10 +501,7 @@
 
                     <hr />
 
-
                     <!--
-
-
                             using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
                         {
                             Html.AntiForgeryToken()
