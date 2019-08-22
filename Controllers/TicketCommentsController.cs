@@ -123,7 +123,11 @@ namespace BugTracker.Models
             db.TicketComments.Remove(ticketComment);
             db.SaveChanges();
             //return RedirectToAction("Details", "Tickets", new { id = ticketId });
-            return RedirectToAction("Index", "Tickets");
+            //return RedirectToAction("Index", "Tickets");
+
+            string url = this.Request.UrlReferrer.AbsolutePath;
+
+            return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting an attachment.
         }
 
         protected override void Dispose(bool disposing)

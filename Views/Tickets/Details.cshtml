@@ -525,42 +525,46 @@
 
                 <hr />
 
+                <div class="text-right">
+                    @Html.ActionLink("Back to My Tickets", "MyTickets", "Tickets")
+                </div>
+
                 <!--
 
 
 
-                <div class="row">
-                    <div class="col-md-12 text-center h3">
-                        Notifications
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-12 text-center h3">
+            Notifications
+        </div>
+    </div>
 
-                <div class="row">
-                    <div class="col-md-12 text-center h4">
-                        {
-                            var notificationCount = Model.TicketNotifications.Count();
-                            var notif = count == 1 ? "notifications" : "notifications";
-                        }
-                        (notificationCount notif...)
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-12 text-center h4">
+            {
+                var notificationCount = Model.TicketNotifications.Count();
+                var notif = count == 1 ? "notifications" : "notifications";
+            }
+            (notificationCount notif...)
+        </div>
+    </div>
 
-                <br />
+    <br />
 
-                foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
-                {
-                    <div class="row">
-                        <div class="col-md-12">
-                            "ticketNotification.NotificationBody" posted by ticketNotification.Sender.DisplayName
-                        </div>
-                    </div>
+    foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                "ticketNotification.NotificationBody" posted by ticketNotification.Sender.DisplayName
+            </div>
+        </div>
 
-                    <hr />
+        <hr />
 
-                }
+    }
 
 
-                    -->
+        -->
                 <!-- End of Main Content -->
                 <!-- Footer -->
 
