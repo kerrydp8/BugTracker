@@ -255,10 +255,10 @@ namespace BugTracker.Models
         public async Task<ActionResult> AssignTicket(Ticket model)
         {
             var ticket = db.Tickets.Find(model.Id);
+            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
             ticket.AssignedToUserId = model.AssignedToUserId;
             db.SaveChanges();
 
-            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
             NotificationHelper.ManageNotifications(oldTicket, ticket);
 
             //string url = this.Request.UrlReferrer.AbsolutePath;
