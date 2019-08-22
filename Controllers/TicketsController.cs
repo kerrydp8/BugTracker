@@ -244,7 +244,7 @@ namespace BugTracker.Models
             UserRolesHelper helper = new UserRolesHelper();
             var ticket = db.Tickets.Find(id);
             var users = helper.UsersInRole("DEVELOPER").ToList();
-            
+
             ViewBag.AssignedToUserId = new SelectList(users, "Id", "FullNameWithEmail", ticket.AssignedToUserId);
             return View(ticket);
         }
@@ -256,9 +256,10 @@ namespace BugTracker.Models
         {
             var ticket = db.Tickets.Find(model.Id);
             ticket.AssignedToUserId = model.AssignedToUserId;
-
-
             db.SaveChanges();
+
+            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+            NotificationHelper.ManageNotifications(oldTicket, ticket);
 
             //string url = this.Request.UrlReferrer.AbsolutePath;
 

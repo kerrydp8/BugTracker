@@ -309,6 +309,7 @@
 
                 @using (Html.BeginForm("AssignTicket", "Tickets", FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
                     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -332,7 +333,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">
-                                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                                    <input type="submit" value="Assign" class="btn btn-primary" />
                                                 </div>
                                             </div>
                                         </form>
