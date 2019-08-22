@@ -51,7 +51,7 @@ namespace BugTracker.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,AttachmentUrl,Description,Created,UserId")] TicketAttachment ticketAttachment, HttpPostedFileBase attachment, string attachmentTitle, string attachmentDescription)
+        public ActionResult Create([Bind(Include = "Id,TicketId,AttachmentUrl,Description,Created,UserId")] TicketAttachment ticketAttachment, HttpPostedFileBase attachment, string attachmentTitle, string attachmentDescription, int TicketId)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,9 @@ namespace BugTracker.Models
                 }
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Tickets");
+                //return RedirectToAction("Index", "Tickets");
+                return RedirectToAction("Dashboard", "Tickets", new { id = TicketId});
+                //return View();
             }
 
 
