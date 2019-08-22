@@ -323,8 +323,8 @@
                     <section class="panel panel-warning">
                         <header class="panel-heading">
                             <div class="panel-actions">
-                                <a href="#" class="fa fa-caret-down"></a>
-                                <a href="#" class="fa fa-times"></a>
+                                <!--<a href="#" class="fa fa-caret-down"></a>-->
+                                <!--<a href="#" class="fa fa-times"></a>-->
                             </div>
 
                             <h2 class="panel-title">Attachment(s)</h2>
@@ -372,7 +372,7 @@
                                                 <div class="col-md-4">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <img src="@ImageHelpers.GetIconPath(attachment.AttachmentUrl)" />
+                                                            <img src="@ImageHelpers.GetIconPath(attachment.AttachmentUrl)" width="300" height="300" />
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -396,6 +396,33 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!--
+
+
+                                              using (Html.BeginForm("Edit", "TicketAttachments", FormMethod.Post))
+                                                {
+                                                    Html.AntiForgeryToken()
+
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <input type="file" name="attachment" />
+                                                            <br />
+                                                            <button type="submit" class="btn btn-primary btn-sm">Change Attachment</button>
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+                                              -->
+
+                                            using (Html.BeginForm("Delete", "TicketAttachments", new { id = attachment.Id }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                            }
+
+                                            <hr />
                                         }
 
                                     </div>
@@ -405,7 +432,6 @@
                         </header>
                     </section>
                 </div>
-
                 <div class="content">
                     <ul>
                         @foreach (var notification in @NotificationHelper.GetUnreadUserNotifications())
@@ -455,8 +481,8 @@
                     <section class="panel panel-warning">
                         <header class="panel-heading">
                             <div class="panel-actions">
-                                <a href="#" class="fa fa-caret-down"></a>
-                                <a href="#" class="fa fa-times"></a>
+                                <!--<a href="#" class="fa fa-caret-down"></a>-->
+                                <!--<a href="#" class="fa fa-times"></a>-->
                             </div>
 
                             <h2 class="panel-title">Histories</h2>
@@ -502,8 +528,6 @@
                                             </table>
 
                                             <!--
-
-
                                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="row">
@@ -531,12 +555,6 @@
                                         }
                                     </div>
                                 </div>
-
-
-
-
-
-
                                     -->
                                         }
                                     </div>

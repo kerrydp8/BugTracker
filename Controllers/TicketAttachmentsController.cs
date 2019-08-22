@@ -139,7 +139,11 @@ namespace BugTracker.Models
             TicketAttachment ticketAttachment = db.TicketAttachments.Find(id);
             db.TicketAttachments.Remove(ticketAttachment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            //return RedirectToAction("Dashboard", "Tickets"); - DOES NOT WORK
+            string url = this.Request.UrlReferrer.AbsolutePath;
+
+            return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting an attachment.
         }
 
         protected override void Dispose(bool disposing)
