@@ -135,7 +135,7 @@ namespace BugTracker.Models
 
             string url = this.Request.UrlReferrer.AbsolutePath;
 
-            return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting an attachment.
+            return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting a comment.
         }
 
         protected override void Dispose(bool disposing)

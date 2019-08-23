@@ -67,5 +67,6 @@ namespace BugTracker.Helpers
             }
             return false;
         }
+
     }
 }

@@ -52,7 +52,8 @@ namespace BugTracker.Models
             switch (myRole)
             {
                 case "Developer":
-                    myTickets = db.Tickets.Where(t => t.AssignedToUserId == userId).ToList();
+                    //myTickets = db.Tickets.Where(t => t.AssignedToUserId == userId).ToList();
+                    myTickets = db.Users.Find(userId).Projects.SelectMany(t => t.Tickets).ToList();
                     break;
 
                 case "Submitter":
@@ -76,7 +77,8 @@ namespace BugTracker.Models
 
             var myTickets = new List<Ticket>();
 
-            myTickets = db.Users.Find(userId).Projects.SelectMany(t => t.Tickets).ToList();
+            //myTickets = db.Users.Find(userId).Projects.SelectMany(t => t.Tickets).ToList();
+            myTickets = db.Tickets.Where(t => t.AssignedToUserId == userId).ToList();
 
             return View("Index", myTickets);
         }
