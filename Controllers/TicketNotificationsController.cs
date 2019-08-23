@@ -152,8 +152,6 @@ namespace BugTracker.Models
             notification.IsRead = true;
             db.SaveChanges();
 
-            //return RedirectToAction("Index", "Home");
-
             string url = this.Request.UrlReferrer.AbsolutePath;
 
             return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting an attachment.
