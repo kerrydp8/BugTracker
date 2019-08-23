@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BugTracker.Helpers;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -53,12 +54,17 @@ namespace BugTracker.Models
         {
             if (ModelState.IsValid)
             {
+                Ticket ticket = db.Tickets.Find(ticketId); //Finds the ticket in which the comment belongs
                 ticketComment.CommentBody = commentBody;
                 ticketComment.AuthorId = User.Identity.GetUserId();
                 ticketComment.Created = DateTimeOffset.Now;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Tickets", new { id = ticketId });
+
+                NotificationHelper.GenerateCommentNotification(ticket); //Passes the ticket in to create a notification that a comment was added to the ticket.
+
+
+                return RedirectToAction("Details", "Tickets", new { id = ticketId }); //Returns user to the page of the ticket they were commenting on
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);

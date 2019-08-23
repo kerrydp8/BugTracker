@@ -259,7 +259,8 @@ namespace BugTracker.Models
             ticket.AssignedToUserId = model.AssignedToUserId;
             db.SaveChanges();
 
-            NotificationHelper.ManageNotifications(oldTicket, ticket);
+            //NotificationHelper.ManageNotifications(oldTicket, ticket);
+            NotificationHelper.CreateAssignmentNotification(oldTicket, ticket);
 
             //string url = this.Request.UrlReferrer.AbsolutePath;
 

@@ -82,6 +82,23 @@ namespace BugTracker.Helpers
             db.SaveChanges();
         }
 
+        public static void GenerateCommentNotification(Ticket ticket)
+        {
+            var notification = new TicketNotification
+            {
+                Created = DateTime.Now,
+                Subject = $"A comment was added to Ticket Id {ticket.Id} on {DateTime.Now}",
+                IsRead = false,
+                RecipientId = ticket.AssignedToUserId,
+                SenderId = HttpContext.Current.User.Identity.GetUserId(),
+                NotificationBody = $"Please acknowledge that you have read this notification by marking as read",
+                TicketId = ticket.Id
+            };
+
+            db.TicketNotifications.Add(notification);
+            db.SaveChanges();
+        }
+
         private static void CreateChangeNotifcation(Ticket oldTicket, Ticket newTicket)
         {
             var messageBody = new StringBuilder();
