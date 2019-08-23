@@ -12,6 +12,32 @@ namespace BugTracker.Helpers
     public class ImageHelpers
     {
 
+        public static bool IsWebFriendlyImage(HttpPostedFileBase file)
+        {
+            if (file == null)
+                return false;
+
+            if (file.ContentLength > 2 * 1024 * 1024 || file.ContentLength < 1024)
+                return false;
+
+            try
+            {
+                using (var img = Image.FromStream(file.InputStream))
+                {
+                    return ImageFormat.Jpeg.Equals(img.RawFormat)
+                        || ImageFormat.Png.Equals(img.RawFormat)
+                        || ImageFormat.Icon.Equals(img.RawFormat)
+                        || ImageFormat.Tiff.Equals(img.RawFormat)
+                        || ImageFormat.Bmp.Equals(img.RawFormat)
+                        || ImageFormat.Gif.Equals(img.RawFormat);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool IsValidAttachment(HttpPostedFileBase file)
         {
             try
@@ -54,32 +80,6 @@ namespace BugTracker.Helpers
                 */
 
                 return IsWebFriendlyImage(file) || extensionValid;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static bool IsWebFriendlyImage(HttpPostedFileBase file)
-        {
-            if (file == null)
-                return false;
-
-            if (file.ContentLength > 2 * 1024 * 1024 || file.ContentLength < 1024)
-                return false;
-
-            try
-            {
-                using (var img = Image.FromStream(file.InputStream))
-                {
-                    return ImageFormat.Jpeg.Equals(img.RawFormat)
-                        || ImageFormat.Png.Equals(img.RawFormat)
-                        || ImageFormat.Icon.Equals(img.RawFormat)
-                        || ImageFormat.Tiff.Equals(img.RawFormat)
-                        || ImageFormat.Bmp.Equals(img.RawFormat)
-                        || ImageFormat.Gif.Equals(img.RawFormat);
-                }
             }
             catch
             {
