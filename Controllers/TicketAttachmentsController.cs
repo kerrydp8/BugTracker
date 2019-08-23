@@ -55,7 +55,7 @@ namespace BugTracker.Models
         {
             if (ModelState.IsValid)
             {
-
+                Ticket ticket = db.Tickets.Find(TicketId); //Finds the ticket in which the comment belongs
                 ticketAttachment.Title = attachmentTitle;
                 ticketAttachment.Description = attachmentDescription;
                 ticketAttachment.Created = DateTime.Now;
@@ -69,13 +69,12 @@ namespace BugTracker.Models
                 }
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
+                NotificationHelper.GenerateAttachmentNotification(ticket); //Passes in the ticket to notify the user that an attachment has been added to this ticket.
                 //return RedirectToAction("Index", "Tickets");
                 return RedirectToAction("Dashboard", "Tickets", new { id = TicketId}); //When a ticket is added, the user will be redirected back to the... 
                 //...Ticket Dashboard
                 //return View();
             }
-
-
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
             //return RedirectToAction("Index");
