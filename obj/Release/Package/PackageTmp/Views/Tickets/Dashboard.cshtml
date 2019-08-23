@@ -319,6 +319,51 @@
 
                 <h5 class="text-right">@Html.ActionLink("Back to Tickets", "Index", "Tickets")</h5>
 
+                <div class="content">
+                    <ul>
+                        @foreach (var notification in @NotificationHelper.GetUnreadUserNotifications())
+                        {
+                            <li>
+                                <hr size="3" />
+                                @using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("Id", notification.Id)
+
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <figure class="image">
+                                                <img src="@notification.Sender.AvatarUrl" alt="@notification.Sender.Email" class="img-circle" width="25" />
+                                            </figure>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span class="title">@notification.Subject</span>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="message text-justify"><b>@notification.NotificationBody</b></span>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                                        </div>
+                                    </div>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="dropdown-menu notification-menu">
+                    <div class="notification-title">
+                        <span class="pull-right label label-default">@NotificationHelper.GetAllUserNotificationCount()</span>
+                    </div>
+                </div>
+
                 <div class="col-md-6">
                     <section class="panel panel-warning">
                         <header class="panel-heading">
@@ -400,21 +445,21 @@
                                             <!--
 
 
-                                              using (Html.BeginForm("Edit", "TicketAttachments", FormMethod.Post))
-                                                {
-                                                    Html.AntiForgeryToken()
+                                using (Html.BeginForm("Edit", "TicketAttachments", FormMethod.Post))
+                                  {
+                                      Html.AntiForgeryToken()
 
-                                                    <div class="row">
-                                                        <div class="col-md-10">
-                                                            <input type="file" name="attachment" />
-                                                            <br />
-                                                            <button type="submit" class="btn btn-primary btn-sm">Change Attachment</button>
-                                                        </div>
-                                                    </div>
-                                                }
+                                      <div class="row">
+                                          <div class="col-md-10">
+                                              <input type="file" name="attachment" />
+                                              <br />
+                                              <button type="submit" class="btn btn-primary btn-sm">Change Attachment</button>
+                                          </div>
+                                      </div>
+                                  }
 
 
-                                              -->
+                                -->
 
                                             using (Html.BeginForm("Delete", "TicketAttachments", new { id = attachment.Id }))
                                             {
@@ -432,50 +477,7 @@
                         </header>
                     </section>
                 </div>
-                <div class="content">
-                    <ul>
-                        @foreach (var notification in @NotificationHelper.GetUnreadUserNotifications())
-                        {
-                            <li>
-                                <hr size="3" />
-                                @using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.Hidden("Id", notification.Id)
 
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <figure class="image">
-                                                <img src="@notification.Sender.AvatarUrl" alt="@notification.Sender.Email" class="img-circle" width="25" />
-                                            </figure>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <span class="title">@notification.Subject</span>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <span class="message text-justify"><b>@notification.NotificationBody</b></span>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
-                                        </div>
-                                    </div>
-                                }
-                            </li>
-                        }
-                    </ul>
-                </div>
-
-                <div class="dropdown-menu notification-menu">
-                    <div class="notification-title">
-                        <span class="pull-right label label-default">@NotificationHelper.GetAllUserNotificationCount()</span>
-                    </div>
-                </div>
 
                 <div class="col-md-6">
                     <section class="panel panel-warning">
@@ -568,10 +570,6 @@
                     <i class="fa-fa-home" aria-hidden="true"></i>
                     <span>View All Histories</span>
                 </a>
-                <div class="text-right">
-                    <a href="@Url.Action("Index","TicketNotifications")" class="view-more">View All Notifications</a>
-                </div>
-
                 <a class="scroll-to-top rounded" href="#page-top">
                     <i class="fas fa-angle-up"></i>
                 </a>
@@ -592,3 +590,7 @@
 
                 <!-- Page level custom scripts -->
                 <script src="~/js/demo/datatables-demo.js"></script>
+
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
