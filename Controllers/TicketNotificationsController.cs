@@ -143,6 +143,21 @@ namespace BugTracker.Models
             }
             base.Dispose(disposing);
         }
+        /*
+        public ActionResult MarkAsRead(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TicketNotification ticketNotification = db.TicketNotifications.Find(id);
+            if (ticketNotification == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticketNotification);
+        }
+        */
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -155,6 +170,8 @@ namespace BugTracker.Models
             string url = this.Request.UrlReferrer.AbsolutePath;
 
             return Redirect(url); //This and the above lines of code redirect the user to the same page after deleting an attachment.
+
+            //return RedirectToAction("Index", "Tickets");
         }
     }
 }

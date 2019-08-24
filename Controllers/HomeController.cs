@@ -20,7 +20,18 @@ namespace BugTracker.Controllers
         private ProjectHelper projHelper = new ProjectHelper();
         public ActionResult Index()
         {
-
+            /*
+            var user = db.Users.Select(u => new UserProfileViewModel
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                DisplayName = u.DisplayName,
+                AvatarUrl = u.AvatarUrl,
+                Email = u.Email
+            }).ToList();
+            */
+            //return View(user);
             return View();
         }
 
