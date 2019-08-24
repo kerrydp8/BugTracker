@@ -64,7 +64,7 @@ namespace BugTracker.Models
                 NotificationHelper.GenerateCommentNotification(ticket); //Passes the ticket in to create a notification that a comment was added to the ticket.
 
 
-                return RedirectToAction("Details", "Tickets", new { id = ticketId }); //Returns user to the page of the ticket they were commenting on
+                return RedirectToAction("Dashboard", "Tickets", new { id = ticketId }); //Returns user to the page of the ticket they were commenting on
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "OwnerUserId", ticketComment.TicketId);
