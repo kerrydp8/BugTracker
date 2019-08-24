@@ -11,6 +11,8 @@
 </style>
 
 @{
+    //This instance of the db is needed to get the current user's information. So is the using Identity statement to get the user's current Id.
+
     ApplicationDbContext db = new ApplicationDbContext();
     var id = User.Identity.GetUserId();
     var currentUser = db.Users.Find(id);

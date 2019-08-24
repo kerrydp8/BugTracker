@@ -1,4 +1,6 @@
-﻿@using BugTracker.Helpers
+﻿@using Microsoft.AspNet.Identity;
+@using BugTracker.Models
+@using BugTracker.Helpers
 @model BugTracker.Models.Ticket
 
 <style>
@@ -9,6 +11,12 @@
 
 @{
     ViewBag.Title = "Dashboard";
+}
+
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var user = db.Users.Find(id);
 }
 
 <!DOCTYPE html>
@@ -113,7 +121,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
-                        @if(User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter")))){<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
+                        @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
+                        {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
                         @if (User.IsInRole("Developer"))
                         {
@@ -296,8 +305,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">User.Identity.DisplayName</span>-->
-                                <!--<img class="img-profile rounded-circle" src="Model.User.AvatarUrl">-->
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.DisplayName</span>
+                                <img class="img-profile rounded-circle" src="@user.AvatarUrl" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -323,37 +332,37 @@
                     <ul>
                         @foreach (var notification in NotificationHelper.GetUnreadUserNotifications())
                         {
-                        <li>
-                            <hr size="3" />
-                            @using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("Id", notification.Id)
+                            <li>
+                                <hr size="3" />
+                                @using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("Id", notification.Id)
 
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <figure class="image">
-                                            <img src="@notification.Sender.AvatarUrl" alt="@notification.Sender.Email" class="img-circle" width="25" />
-                                        </figure>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <figure class="image">
+                                                <img src="@notification.Sender.AvatarUrl" alt="@notification.Sender.Email" class="img-circle" width="25" />
+                                            </figure>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span class="title">@notification.Subject</span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-10">
-                                        <span class="title">@notification.Subject</span>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="message text-justify"><b>@notification.NotificationBody</b></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <span class="message text-justify"><b>@notification.NotificationBody</b></span>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
-                                    </div>
-                                </div>
-                            }
-                        </li>
+                                }
+                            </li>
                         }
                     </ul>
                 </div>
@@ -449,21 +458,21 @@
                                             <!--
 
 
-                                using (Html.BeginForm("Edit", "TicketAttachments", FormMethod.Post))
-                                  {
-                                      Html.AntiForgeryToken()
+                                            using (Html.BeginForm("Edit", "TicketAttachments", FormMethod.Post))
+                                              {
+                                                  Html.AntiForgeryToken()
 
-                                      <div class="row">
-                                          <div class="col-md-10">
-                                              <input type="file" name="attachment" />
-                                              <br />
-                                              <button type="submit" class="btn btn-primary btn-sm">Change Attachment</button>
-                                          </div>
-                                      </div>
-                                  }
+                                                  <div class="row">
+                                                      <div class="col-md-10">
+                                                          <input type="file" name="attachment" />
+                                                          <br />
+                                                          <button type="submit" class="btn btn-primary btn-sm">Change Attachment</button>
+                                                      </div>
+                                                  </div>
+                                              }
 
 
-                                -->
+                                            -->
 
                                             using (Html.BeginForm("Delete", "TicketAttachments", new { id = attachment.Id }))
                                             {
@@ -534,34 +543,34 @@
                                             </table>
 
                                             <!--
-                                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                history.TicketId
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                history.PropertyName
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                history.OldValue
-                                            </div>
-                                        </div>
-                                        if (history.NewValue != null)
-                                        {
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    history.NewValue
+                                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            history.TicketId
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            history.PropertyName
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            history.OldValue
+                                                        </div>
+                                                    </div>
+                                                    if (history.NewValue != null)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                history.NewValue
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
-                                        }
-                                    </div>
-                                </div>
-                                    -->
+                                                -->
                                         }
                                     </div>
                                 </div>

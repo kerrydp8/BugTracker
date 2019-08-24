@@ -1,8 +1,18 @@
-﻿@model IEnumerable<BugTracker.Models.TicketNotification>
+﻿@using Microsoft.AspNet.Identity;
+@using BugTracker.Models
+@using BugTracker.Helpers
+@model IEnumerable<BugTracker.Models.TicketNotification>
 
 @{
     ViewBag.Title = "Index";
 }
+
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var user = db.Users.Find(id);
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +116,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
-                        @if(User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter")))){<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
+                        @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
+                        {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
                         @if (User.IsInRole("Developer"))
                         {
@@ -289,8 +300,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">User.Identity.DisplayName</span>-->
-                                <!--<img class="img-profile rounded-circle" src="Model.User.AvatarUrl">-->
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.DisplayName</span>
+                                <img class="img-profile rounded-circle" src="@user.AvatarUrl" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -311,11 +322,11 @@
                 <h2 class="text-center">Notifications</h2>
                 <!--
 
-                                        <p>
-                        Html.ActionLink("Create New", "Create")
-                    </p>
+                                            <p>
+                            Html.ActionLink("Create New", "Create")
+                        </p>
 
-            -->
+                -->
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                         <th>
@@ -339,10 +350,10 @@
                             Message<!--Html.DisplayNameFor(model => model.NotificationBody)-->
                         </th>
                         <!--
-                <th>
-               Html.DisplayNameFor(model => model.IsRead)
-               </th>
-            -->
+                            <th>
+                           Html.DisplayNameFor(model => model.IsRead)
+                           </th>
+                        -->
                         <th></th>
                     </tr>
 
@@ -369,11 +380,11 @@
                             </td>
                             <!--
 
-                               <td>
-                               Html.DisplayFor(modelItem => item.IsRead)
-                               </td>
+                                           <td>
+                                           Html.DisplayFor(modelItem => item.IsRead)
+                                           </td>
 
-                -->
+                            -->
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |

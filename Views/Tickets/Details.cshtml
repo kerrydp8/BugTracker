@@ -1,4 +1,6 @@
-﻿@using BugTracker.Helpers
+﻿@using Microsoft.AspNet.Identity;
+@using BugTracker.Models
+@using BugTracker.Helpers
 @model BugTracker.Models.Ticket
 
 @{
@@ -7,6 +9,10 @@
 
 @{
     var ticketHelper = new TicketHelper();
+
+    ApplicationDbContext db = new ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var user = db.Users.Find(id);
 }
 
 <!DOCTYPE html>
@@ -111,7 +117,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
-                        @if(User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter")))){<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
+                        @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
+                        {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
                         @if (User.IsInRole("Developer"))
                         {
@@ -294,8 +301,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">User.Identity.DisplayName</span>-->
-                                <!--<img class="img-profile rounded-circle" src="Model.User.AvatarUrl">-->
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.DisplayName</span>
+                                <img class="img-profile rounded-circle" src="@user.AvatarUrl" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -490,7 +497,7 @@
                 {
                     <hr />
                     <div class="row">
-                            Posted by @ticketComment.AuthorId<!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
+                        Posted by @ticketComment.AuthorId<!--Needs to be changed to User.DisplayName but we need to seed one for the Administrator account -->on @ticketComment.Created.ToString("MMMM d, yyyy")
                     </div>
 
                     <div class="row">
@@ -502,20 +509,20 @@
                     <hr />
 
                     <!--
-                            using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
-                        {
-                            Html.AntiForgeryToken()
-                            Html.HiddenFor(model => model.Id)
-                            Html.HiddenFor(model => ticketComment.AuthorId)
-                            Html.HiddenFor(model => ticketComment.Created)
-                           Html.HiddenFor(model => ticketComment.TicketId)
-                            <textarea name="commentBody">ticketComment.CommentBody</textarea>
-                            <button class="btn btn-primary" type="submit">Edit</button>
-                        }
+                             using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
+                         {
+                             Html.AntiForgeryToken()
+                             Html.HiddenFor(model => model.Id)
+                             Html.HiddenFor(model => ticketComment.AuthorId)
+                             Html.HiddenFor(model => ticketComment.Created)
+                            Html.HiddenFor(model => ticketComment.TicketId)
+                             <textarea name="commentBody">ticketComment.CommentBody</textarea>
+                             <button class="btn btn-primary" type="submit">Edit</button>
+                         }
 
 
 
-                   -->
+                    -->
 
                     using (Html.BeginForm("Delete", "TicketComments", new { id = ticketComment.Id }))
                     {
@@ -535,38 +542,38 @@
 
 
 
-    <div class="row">
-        <div class="col-md-12 text-center h3">
-            Notifications
-        </div>
-    </div>
+                <div class="row">
+                    <div class="col-md-12 text-center h3">
+                        Notifications
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-md-12 text-center h4">
-            {
-                var notificationCount = Model.TicketNotifications.Count();
-                var notif = count == 1 ? "notifications" : "notifications";
-            }
-            (notificationCount notif...)
-        </div>
-    </div>
+                <div class="row">
+                    <div class="col-md-12 text-center h4">
+                        {
+                            var notificationCount = Model.TicketNotifications.Count();
+                            var notif = count == 1 ? "notifications" : "notifications";
+                        }
+                        (notificationCount notif...)
+                    </div>
+                </div>
 
-    <br />
+                <br />
 
-    foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
-    {
-        <div class="row">
-            <div class="col-md-12">
-                "ticketNotification.NotificationBody" posted by ticketNotification.Sender.DisplayName
-            </div>
-        </div>
+                foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            "ticketNotification.NotificationBody" posted by ticketNotification.Sender.DisplayName
+                        </div>
+                    </div>
 
-        <hr />
+                    <hr />
 
-    }
+                }
 
 
-        -->
+                    -->
                 <!-- End of Main Content -->
                 <!-- Footer -->
 

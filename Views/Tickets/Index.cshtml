@@ -1,4 +1,5 @@
-﻿@using BugTracker.Helpers
+﻿@using Microsoft.AspNet.Identity;
+@using BugTracker.Helpers
 @using BugTracker.Models
 @model IEnumerable<BugTracker.Models.Ticket>
 
@@ -8,6 +9,12 @@
 
 @{
     var ticketHelper = new TicketHelper();
+    //This instance of the db is needed to get the current user's information. So is the using Identity statement to get the user's current Id.
+    //You can use multiple models so long as the using Models statement is used.
+
+    ApplicationDbContext db = new ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var user = db.Users.Find(id);
 }
 
 <!DOCTYPE html>
@@ -113,7 +120,7 @@
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
 
-                        @if(User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
+                        @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
                         {
                             <a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>
                         }
@@ -300,8 +307,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">User.Identity.DisplayName</span>-->
-                                <!--<img class="img-profile rounded-circle" src="Model.User.AvatarUrl">-->
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.DisplayName</span>
+                                <img class="img-profile rounded-circle" src="@user.AvatarUrl" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
