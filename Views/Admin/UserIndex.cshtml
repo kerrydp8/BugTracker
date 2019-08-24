@@ -1,4 +1,5 @@
-﻿@using BugTracker.Models
+﻿@using Microsoft.AspNet.Identity;
+@using BugTracker.Models
 @using BugTracker.Helpers
 @model IEnumerable<UserProfileViewModel>
 
@@ -10,6 +11,9 @@
 </style>
 
 @{
+    ApplicationDbContext db = new ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var currentUser = db.Users.Find(id);
     var roleHelper = new UserRolesHelper();
     var projHelper = new ProjectHelper();
 }
@@ -92,7 +96,7 @@
                 <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
-                     
+
                         @if (User.IsInRole("Administrator") || (User.IsInRole("Project Manager")))
                         {
                             <a class="collapse-item" href="@Url.Action("Index", "Projects")">View All Projects</a>
@@ -116,7 +120,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
                         <a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>
-                        @if(User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter")))){<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
+                        @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
+                        {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
                         @if (User.IsInRole("Developer"))
                         {
@@ -299,8 +304,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!--<span class="mr-2 d-none d-lg-inline text-gray-600 small">User.Identity.DisplayName</span>-->
-                                <!--<img class="img-profile rounded-circle" src="Model.User.AvatarUrl">-->
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@currentUser.DisplayName</span>
+                                <img class="img-profile rounded-circle" src="@currentUser.AvatarUrl" />
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -366,15 +371,15 @@
 
                             <!--
 
-                   <td>
-                       Html.DropDownList("Current Role", user.CurrentRole, "NONE")
-                   </td>
+                               <td>
+                                   Html.DropDownList("Current Role", user.CurrentRole, "NONE")
+                               </td>
 
-                   <td>
-                       Html.ListBox("Current Projects", user.CurrentProjects)
-                   </td>
+                               <td>
+                                   Html.ListBox("Current Projects", user.CurrentProjects)
+                               </td>
 
-                -->
+                            -->
 
                             <td>
 
@@ -395,10 +400,10 @@
                             </td>
 
                             <!--
-                <td>
-                    roleHelper.ListUserRoles(user.Id).FirstOrDefault()
-                </td>
-                -->
+                            <td>
+                                roleHelper.ListUserRoles(user.Id).FirstOrDefault()
+                            </td>
+                            -->
                             <td>
                                 <!--Html.ActionLink("Manage Roles", "ManageRoles", "Admin", new { userId = user.Id }, null) |-->
                                 @Html.ActionLink("Manage User's Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
