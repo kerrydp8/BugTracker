@@ -53,7 +53,7 @@ namespace BugTracker.Helpers
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"You were unassigned from Ticket Id {newTicket.Id} on {DateTime.Now}",
+                Subject = $"You were unassigned from {newTicket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = oldTicket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
@@ -70,7 +70,7 @@ namespace BugTracker.Helpers
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"You were assigned to Ticket Id {newTicket.Id} on {DateTime.Now}",
+                Subject = $"You were assigned to {newTicket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = oldTicket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
@@ -87,7 +87,7 @@ namespace BugTracker.Helpers
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"A comment was added to Ticket Id {ticket.Id} on {DateTime.Now}",
+                Subject = $"A comment was added to {ticket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = ticket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
@@ -104,7 +104,7 @@ namespace BugTracker.Helpers
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"An attachment was added to Ticket Id {ticket.Id} on {DateTime.Now}",
+                Subject = $"An attachment was added to {ticket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = ticket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
@@ -144,7 +144,7 @@ namespace BugTracker.Helpers
                 {
                     TicketId = newTicket.Id,
                     Created = DateTime.Now,
-                    Subject = $"A change has occured on Ticket {newTicket.Id}",
+                    Subject = $"A change has occured on {newTicket.Title}",
                     RecipientId = newTicket.AssignedToUserId,
                     SenderId = senderId,
                     NotificationBody = message.ToString(),
