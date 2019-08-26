@@ -37,7 +37,8 @@ namespace BugTracker.Helpers
             {
                 GenerateAssignmentNotification(oldTicket, newTicket);
             }
-            else if (unassignment)
+            //else if (unassignment)
+            if (unassignment)
             {
                 GenerateUnAssignmentNotification(oldTicket, newTicket);
             }
