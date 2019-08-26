@@ -11,6 +11,7 @@ namespace BugTracker.Controllers
     [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
+
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private ProjectHelper projHelper = new ProjectHelper();

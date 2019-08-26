@@ -170,6 +170,13 @@ namespace BugTracker.Controllers
                     model.AvatarUrl = "/Avatars/" + fileName;
                 }
 
+                /*
+                if (model.AvatarUrl == null)
+                {
+                    model.AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"];
+                }
+                */
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

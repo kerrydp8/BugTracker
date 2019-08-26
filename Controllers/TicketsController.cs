@@ -1,4 +1,6 @@
-﻿using BugTracker.Helpers;
+﻿using PagedList;
+using PagedList.Mvc;
+using BugTracker.Helpers;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -32,10 +34,39 @@ namespace BugTracker.Models
 
         // GET: Tickets
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchStr)
         {
             var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketType);
-            return View(tickets.ToList());
+
+            ViewBag.Search = searchStr;
+            var ticketList = IndexSearch(searchStr);
+
+            int pageSize = 5; // the number of posts you want to display per page             
+            int pageNumber = (page ?? 1);
+
+            return View(ticketList.ToPagedList(pageNumber, pageSize)); //Lists all of the posts in the order they were created (descending order)
+
+            //return View(tickets.ToList());
+        }
+
+        public IQueryable<Ticket> IndexSearch(string searchStr)
+        {
+            IQueryable<Ticket> result = null;
+
+            if (searchStr != null)
+            {
+                result = db.Tickets.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                p.Description.Contains(searchStr) || p.TicketComments.Any(c => c.CommentBody.Contains(searchStr) ||
+                c.User.FirstName.Contains(searchStr) || c.User.LastName.Contains(searchStr) ||
+                c.User.DisplayName.Contains(searchStr) || c.User.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.Tickets.AsQueryable();
+            }
+
+            return result.OrderByDescending(p => p.Created);
         }
 
         [Authorize(Roles = "Submitter,Developer,Project Manager")]

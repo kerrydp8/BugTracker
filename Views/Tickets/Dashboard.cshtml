@@ -375,9 +375,17 @@
                     </div>
                 </div>
 
-                <div class="text-right">
-                    <a href="@Url.Action("Index","TicketNotifications")" class="view-more">View All Notifications</a>
+                <!--
+
+                    <div class="text-right">
+                    <a href="Url.Action("Index","TicketNotifications")" class="view-more">View All Notifications</a>
                 </div>
+
+    -->
+                <a href="@Url.Action("Index", "TicketHistories")">
+                    <i class="fa-fa-home" aria-hidden="true"></i>
+                    <span>View All Histories</span>
+                </a>
 
                 <div class="col-md-6">
                     <section class="panel panel-warning">
@@ -581,10 +589,6 @@
                     </section>
                 </div>
 
-                <a href="@Url.Action("Index", "TicketHistories")">
-                    <i class="fa-fa-home" aria-hidden="true"></i>
-                    <span>View All Histories</span>
-                </a>
                 <a class="scroll-to-top rounded" href="#page-top">
                     <i class="fas fa-angle-up"></i>
                 </a>
