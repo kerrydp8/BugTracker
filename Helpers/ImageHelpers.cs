@@ -97,7 +97,6 @@ namespace BugTracker.Helpers
                 case ".ico":
                 case ".jpg":
                 case ".jpeg":
-                case ".gif":
                     return filePath;
                 case ".pdf":
                     return "/Images/pdf.png";
@@ -109,12 +108,6 @@ namespace BugTracker.Helpers
                     return "/Images/xls.png";
                 case ".xlsx":
                     return "/Images/xlsx.png";
-                case ".txt":
-                    return "/Images/txt.png";
-                case ".xml":
-                    return "/Images/xml.png";
-                case ".json":
-                    return "/Images/json.png";
                 case ".zip":
                     return "/Images/zip.png";
                 default:
