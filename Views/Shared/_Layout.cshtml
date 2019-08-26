@@ -11,16 +11,59 @@
 
 </head>
 <body>
+
+    <div class="content">
+        <ul>
+            @foreach (var notification in NotificationHelper.GetUnreadUserNotifications())
+            {
+                <li>
+                    <hr size="3" />
+                    @using (Html.BeginForm("MarkAsRead", "TicketNotifications"))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("Id", notification.Id)
+                        <div class="row">
+                            <div class="col-md-2">
+                                <figure class="image">
+                                    <img src="@notification.Sender.AvatarUrl" alt="@notification.Sender.Email" class="img-circle" width="25" />
+                                </figure>
+                            </div>
+                            <div class="col-md-10">
+                                <span class="title">@notification.Subject</span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="message text-justify"><b>@notification.NotificationBody</b></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-sm btn-primary">Mark as read</button>
+                            </div>
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+
+    <br />
+    <hr />
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
 
 
         <!--
-              <footer>
-        <p>&copy; DateTime.Now.Year - Kerry Peay's Bug Tracker</p>
-    </footer>
-    -->
+                  <footer>
+            <p>&copy; DateTime.Now.Year - Kerry Peay's Bug Tracker</p>
+        </footer>
+        -->
     </div>
 
     @Scripts.Render("~/bundles/jquery")

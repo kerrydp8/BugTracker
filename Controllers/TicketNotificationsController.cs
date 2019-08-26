@@ -143,21 +143,6 @@ namespace BugTracker.Models
             }
             base.Dispose(disposing);
         }
-        /*
-        public ActionResult MarkAsRead(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TicketNotification ticketNotification = db.TicketNotifications.Find(id);
-            if (ticketNotification == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ticketNotification);
-        }
-        */
 
         [HttpPost]
         [ValidateAntiForgeryToken]
