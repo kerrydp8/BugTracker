@@ -52,32 +52,16 @@ namespace BugTracker.Helpers
                     return false;
                 }
 
-
-                //var valid = IsWebFriendlyImage(file);
-
                 var extensionValid = false;
 
                 foreach (var ext in WebConfigurationManager.AppSettings["AllowedAttachmentExtensions"].Split(','))
                 {
-                    if(Path.GetExtension(file.FileName) == ext)
+                    if (Path.GetExtension(file.FileName) == ext)
                     {
                         extensionValid = true;
                         break;
                     }
                 }
-
-                /*
-                var validExtensions = new List<string>();
-                validExtensions.Add(".pdf");
-                validExtensions.Add(".doc");
-                validExtensions.Add(".docx");
-                validExtensions.Add(".xls");
-                validExtensions.Add(".xlsx");
-                validExtensions.Add(".txt");
-                validExtensions.Add(".html");
-                validExtensions.Add(".xml");
-                validExtensions.Add(".json");
-                */
 
                 return IsWebFriendlyImage(file) || extensionValid;
             }

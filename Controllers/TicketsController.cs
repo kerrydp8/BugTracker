@@ -42,10 +42,10 @@ namespace BugTracker.Models
             ViewBag.Search = searchStr;
             var ticketList = IndexSearch(searchStr);
 
-            int pageSize = 5; // the number of posts you want to display per page             
+            int pageSize = 5; // the number of tickets you want to display per page             
             int pageNumber = (page ?? 1);
 
-            return View(ticketList.ToPagedList(pageNumber, pageSize)); //Lists all of the posts in the order they were created (descending order)
+            return View(ticketList.ToPagedList(pageNumber, pageSize)); //Lists all of the tickets in the order they were created (descending order)
 
             //return View(tickets.ToList());
         }

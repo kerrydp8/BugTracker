@@ -89,6 +89,8 @@ namespace BugTracker.Models
         [Display(Name = "Photo")]
         public string AvatarUrl{ get; set; }
 
+        //public HttpPostedFileBase Avatar { get; set; }
+
         public HttpPostedFileBase Avatar { get; set; }
 
         [Required]

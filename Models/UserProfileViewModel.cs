@@ -34,6 +34,8 @@ namespace BugTracker.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        //public HttpPostedFileBase Avatar { get; set; }
+
         public HttpPostedFileBase Avatar { get; set; }
 
         public IEnumerable<SelectListItem> CurrentRole { get; set; }

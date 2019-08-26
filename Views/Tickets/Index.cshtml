@@ -1,10 +1,10 @@
-﻿@using Microsoft.AspNet.Identity;
+﻿@model PagedList.IPagedList<BugTracker.Models.Ticket>
+@using Microsoft.AspNet.Identity;
 @using BugTracker.Helpers
 @using BugTracker.Models
 @using PagedList
 @using PagedList.Mvc
 
-@model IPagedList<BugTracker.Models.Ticket>
 
 @{
     ViewBag.Title = "Index";
@@ -332,7 +332,7 @@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-                <!-- Begin Page Content --> 
+                <!-- Begin Page Content -->
 
                 <div class="container-fluid">
 
