@@ -39,6 +39,7 @@ namespace BugTracker.Models
         {
             var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketType);
 
+            /*
             ViewBag.Search = searchStr;
             var ticketList = IndexSearch(searchStr);
 
@@ -46,10 +47,12 @@ namespace BugTracker.Models
             int pageNumber = (page ?? 1);
 
             return View(ticketList.ToPagedList(pageNumber, pageSize)); //Lists all of the tickets in the order they were created (descending order)
+            */
 
-            //return View(tickets.ToList());
+            return View(tickets.ToList());
         }
 
+        /*
         public IQueryable<Ticket> IndexSearch(string searchStr)
         {
             IQueryable<Ticket> result = null;
@@ -69,6 +72,7 @@ namespace BugTracker.Models
 
             return result.OrderByDescending(p => p.Created);
         }
+        */
 
         [Authorize(Roles = "Submitter,Developer,Project Manager")]
         public ActionResult MyTickets()
