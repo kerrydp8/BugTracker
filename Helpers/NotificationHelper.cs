@@ -16,13 +16,13 @@ namespace BugTracker.Helpers
     {
         static ApplicationDbContext db = new ApplicationDbContext();
 
-        public static void ManageNotifications(Ticket oldTicket, Ticket newTicket)
+        public void ManageNotifications(Ticket oldTicket, Ticket newTicket)
         {
             CreateAssignmentNotification(oldTicket, newTicket);
             CreateChangeNotifcation(oldTicket, newTicket);
         }
 
-        public static void CreateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
+        private void CreateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
             var noChange = (oldTicket.AssignedToUserId == newTicket.AssignedToUserId);
             var assignment = (string.IsNullOrEmpty(oldTicket.AssignedToUserId));
@@ -34,14 +34,11 @@ namespace BugTracker.Helpers
             }
 
             if (assignment)
-            {
                 GenerateAssignmentNotification(oldTicket, newTicket);
-            }
-            //else if (unassignment)
-            if (unassignment)
-            {
+
+            else if (unassignment)
                 GenerateUnAssignmentNotification(oldTicket, newTicket);
-            }
+
             else
             {
                 GenerateAssignmentNotification(oldTicket, newTicket);
@@ -49,16 +46,16 @@ namespace BugTracker.Helpers
             }
         }
 
-        private static void GenerateUnAssignmentNotification(Ticket oldTicket, Ticket newTicket)
+        private void GenerateUnAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"You were unassigned from {newTicket.Title} on {DateTime.Now}",
+                Subject = $"You were unassigned from Ticket Id {newTicket.Id} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = oldTicket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
-                NotificationBody = $"Please acknowledge that you have read this notification",
+                NotificationBody = $"Please acknowledge that you have read this notification by marking it as read",
                 TicketId = newTicket.Id
             };
 
@@ -66,16 +63,17 @@ namespace BugTracker.Helpers
             db.SaveChanges();
         }
 
-        private static void GenerateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
+        private void GenerateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
+            var senderId = HttpContext.Current.User.Identity.GetUserId();
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"You were assigned to {newTicket.Title} on {DateTime.Now}",
+                Subject = $"You were assigned to Ticket Id {newTicket.Id} on {DateTime.Now}",
                 IsRead = false,
-                RecipientId = oldTicket.AssignedToUserId,
-                SenderId = HttpContext.Current.User.Identity.GetUserId(),
-                NotificationBody = $"Please acknowledge that you have read this notification by marking as read",
+                RecipientId = newTicket.AssignedToUserId,
+                SenderId = senderId,
+                NotificationBody = $"Please acknowledge that you have read this notification by marking it as read",
                 TicketId = newTicket.Id
             };
 

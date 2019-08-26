@@ -19,6 +19,7 @@ namespace BugTracker.Models
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private ProjectHelper projHelper = new ProjectHelper();
+        NotificationHelper nh = new NotificationHelper();
 
         [Authorize] 
         public ActionResult Dashboard(int? id)
@@ -134,7 +135,7 @@ namespace BugTracker.Models
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
-            var myProjects = projHelper.ListUserProjects(userId);
+            //var myProjects = projHelper.ListUserProjects(userId);
             ViewBag.ProjectId = new SelectList(db.Users.Find(userId).Projects, "Id", "Name"); //Submitters can only create tickets for projects they are on.
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
@@ -231,7 +232,7 @@ namespace BugTracker.Models
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
 
-                NotificationHelper.ManageNotifications(oldTicket, ticket);
+                nh.ManageNotifications(oldTicket, ticket);
                 HistoryHelper.RecordHistory(oldTicket, ticket);
 
                 return RedirectToAction("Index");
@@ -293,7 +294,8 @@ namespace BugTracker.Models
             db.SaveChanges();
 
             //NotificationHelper.ManageNotifications(oldTicket, ticket);
-            NotificationHelper.CreateAssignmentNotification(oldTicket, ticket);
+            //nh.CreateAssignmentNotification(oldTicket, ticket);
+            nh.ManageNotifications(oldTicket, ticket);
 
             //string url = this.Request.UrlReferrer.AbsolutePath;
 
