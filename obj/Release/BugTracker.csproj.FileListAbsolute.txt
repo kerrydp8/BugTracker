@@ -103,3 +103,7 @@ C:\Users\Peay\source\repos\BugTracker\BugTracker\obj\Release\BugTracker.csproj.C
 C:\Users\Peay\source\repos\BugTracker\BugTracker\obj\Release\BugTracker.csproj.CopyComplete
 C:\Users\Peay\source\repos\BugTracker\BugTracker\obj\Release\BugTracker.dll
 C:\Users\Peay\source\repos\BugTracker\BugTracker\obj\Release\BugTracker.pdb
+C:\Users\Peay\source\repos\BugTracker\BugTracker\bin\PagedList.dll
+C:\Users\Peay\source\repos\BugTracker\BugTracker\bin\PagedList.Mvc.dll
+C:\Users\Peay\source\repos\BugTracker\BugTracker\bin\PagedList.xml
+C:\Users\Peay\source\repos\BugTracker\BugTracker\bin\PagedList.Mvc.xml
