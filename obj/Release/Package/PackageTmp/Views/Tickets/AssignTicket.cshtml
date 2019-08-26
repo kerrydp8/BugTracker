@@ -38,6 +38,12 @@
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="~/css/datatables.min.css" rel="stylesheet" />
 
+    <style>
+        div.a {
+            font-size: 120%;
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -160,7 +166,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.DisplayName</span>
+                                <div class="a"><font color="black">@user.DisplayName</font></div>
                                 <img class="img-profile rounded-circle" src="@user.AvatarUrl" />
                             </a>
                             <!-- Dropdown - User Information -->
