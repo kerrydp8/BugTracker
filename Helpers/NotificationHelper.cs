@@ -51,7 +51,7 @@ namespace BugTracker.Helpers
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"You were unassigned from Ticket Id {newTicket.Id} on {DateTime.Now}",
+                Subject = $"You were unassigned from {newTicket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = oldTicket.AssignedToUserId,
                 SenderId = HttpContext.Current.User.Identity.GetUserId(),
@@ -69,7 +69,7 @@ namespace BugTracker.Helpers
             var notification = new TicketNotification
             {
                 Created = DateTime.Now,
-                Subject = $"You were assigned to Ticket Id {newTicket.Id} on {DateTime.Now}",
+                Subject = $"You were assigned to {newTicket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = newTicket.AssignedToUserId,
                 SenderId = senderId,

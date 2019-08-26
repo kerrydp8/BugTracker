@@ -9,21 +9,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <style>
-        button
-        {
-            align-content: center;
-        }
-    </style>
-
 </head>
 <body>
 
     @if (User.Identity.IsAuthenticated)
     {
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myNotifications"><img src="https://cdn0.iconfinder.com/data/icons/40-lined-icons-2/100/23_mail-512.png" height="25" width="25"></button>
-
+        
         <!-- Modal -->
         <div class="modal fade" id="myNotifications" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -80,17 +71,22 @@
             </div>
         </div>   
     }
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
+<div class="container body-content">
+
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myNotifications"><img src="https://cdn0.iconfinder.com/data/icons/40-lined-icons-2/100/23_mail-512.png" height="50" width="110">@NotificationHelper.GetNewUserNotificationCount()</button>
+
+    @RenderBody()
+
+    <hr />
 
 
-        <!--
-                  <footer>
-            <p>&copy; DateTime.Now.Year - Kerry Peay's Bug Tracker</p>
-        </footer>
-        -->
-    </div>
+    <!--
+              <footer>
+        <p>&copy; DateTime.Now.Year - Kerry Peay's Bug Tracker</p>
+    </footer>
+    -->
+</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
