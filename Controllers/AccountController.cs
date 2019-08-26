@@ -163,7 +163,8 @@ namespace BugTracker.Controllers
                     AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
                 };
 
-                if (ImageHelpers.IsWebFriendlyImage(AvatarFile))
+                //if (ImageHelpers.IsWebFriendlyImage(AvatarFile))
+                if (ImageHelpers.IsWebFriendlyImage(model.Avatar))
                 {
                     var fileName = Path.GetFileName(AvatarFile.FileName);
                     AvatarFile.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), fileName));
