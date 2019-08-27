@@ -23,7 +23,6 @@ namespace BugTracker.Models
             [StringLength(50, ErrorMessage = "The length of this field must be 5-50 characters long.", MinimumLength = 5)]  
             public string Description { get; set; }
             public DateTime Created { get; set; }
-
             public DateTime? Updated { get; set; }
 
             //Nav properties

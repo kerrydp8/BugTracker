@@ -16,12 +16,6 @@ namespace BugTracker.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
-        public string UserName { get; private set; }
-        public string Email { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string DisplayName { get; private set; }
-
         protected override void Seed(BugTracker.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
