@@ -157,7 +157,8 @@ namespace BugTracker.Models
         {
             if (ModelState.IsValid)
             {
-                ticket.Created = DateTime.Now;
+                ticket.Created = DateTime.UtcNow.ToLocalTime();
+                //ticket.Created = DateTime.Now;
                 ticket.OwnerUserId = User.Identity.GetUserId();
                 ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id;
 

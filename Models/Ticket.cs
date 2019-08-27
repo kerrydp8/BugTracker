@@ -24,7 +24,7 @@ namespace BugTracker.Models
             public string Description { get; set; }
             public DateTime Created { get; set; }
             public DateTime? Updated { get; set; }
-
+         
             //Nav properties
             public virtual Project Project { get; set; }
             public virtual TicketType TicketType { get; set; }
