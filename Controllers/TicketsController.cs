@@ -157,7 +157,9 @@ namespace BugTracker.Models
         {
             if (ModelState.IsValid)
             {
-                ticket.Created = DateTime.UtcNow.ToLocalTime();
+                var localDate = DateTime.UtcNow.AddHours(-4); //Takes extra four hours off so the appropriate time is returned.
+
+                ticket.Created = localDate;
                 //ticket.Created = DateTime.Now;
                 ticket.OwnerUserId = User.Identity.GetUserId();
                 ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id;
@@ -237,6 +239,9 @@ namespace BugTracker.Models
             {
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
 
+                var localDate = DateTime.UtcNow.AddHours(-4); //Takes extra four hours off so the appropriate time is returned.
+
+                ticket.Updated = localDate;
                 db.Entry(ticket).State = EntityState.Modified;
                 db.SaveChanges();
 

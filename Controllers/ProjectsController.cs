@@ -82,7 +82,9 @@ namespace DG_BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                project.Created = DateTime.UtcNow.ToLocalTime();
+                var localDate = DateTime.UtcNow.AddHours(-4); //Takes extra four hours off so the appropriate time is returned.
+
+                project.Created = localDate;
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
