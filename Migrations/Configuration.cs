@@ -16,6 +16,12 @@ namespace BugTracker.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
+        public string UserName { get; private set; }
+        public string Email { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string DisplayName { get; private set; }
+
         protected override void Seed(BugTracker.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
@@ -96,8 +102,7 @@ namespace BugTracker.Migrations
                     Email = "kerrydp8@outlook.com",
                     FirstName = "Kerry",
                     LastName = "Peay",
-                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"],
-                    DisplayName = "kerrydp8"
+                    DisplayName = "kerrydp8",
                 }, "Wiiugamer12");
             }
 
@@ -109,7 +114,6 @@ namespace BugTracker.Migrations
                     Email = "DustinHoffman@Mailinator.com",
                     FirstName = "Dustin",
                     LastName = "Hoffman",
-                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"],
                     DisplayName = "DHoff"
                 }, "DustinHoffman1!");
             }
@@ -123,7 +127,6 @@ namespace BugTracker.Migrations
                     Email = "LeonardoDiCaprio@Mailinator.com",
                     FirstName = "Leonardo",
                     LastName = "DiCaprio",
-                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"],
                     DisplayName = "LDicap"
                 }, "LeonardoDiCaprio2!");
             }
@@ -137,7 +140,6 @@ namespace BugTracker.Migrations
                     Email = "JessicaChastain@Mailinator.com",
                     FirstName = "Jessica",
                     LastName = "Chastain",
-                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"],
                     DisplayName = "JChastain"
                 }, "JessicaChastain3!");
             }

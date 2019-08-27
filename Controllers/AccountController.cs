@@ -13,6 +13,8 @@ using System.Web.Configuration;
 using System.Net.Mail;
 using BugTracker.Helpers;
 using System.IO;
+using System.Security.Principal;
+using System.Web.Security;
 
 namespace BugTracker.Controllers
 {

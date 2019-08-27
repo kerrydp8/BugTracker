@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    @if (User.Identity.IsAuthenticated)
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
     {
         <!-- Modal -->
         <div class="modal fade" id="myNotifications" role="dialog">
@@ -69,12 +69,13 @@
                 </div>
             </div>
         </div>
-    }
 
-    @if (NotificationHelper.GetNewUserNotificationCount() != 0)
-    {
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myNotifications"><img src="https://cdn0.iconfinder.com/data/icons/40-lined-icons-2/100/23_mail-512.png" height="50" width="50">@NotificationHelper.GetNewUserNotificationCount()</button>
+        if (NotificationHelper.GetNewUserNotificationCount() != 0)
+        {
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myNotifications"><img src="https://cdn0.iconfinder.com/data/icons/40-lined-icons-2/100/23_mail-512.png" height="50" width="50">@NotificationHelper.GetNewUserNotificationCount()</button>
+        }
+
     }
 
     <div class="container body-content">
