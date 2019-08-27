@@ -153,7 +153,7 @@ namespace BugTracker.Models
             base.Dispose(disposing);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MarkAsRead(int id)
