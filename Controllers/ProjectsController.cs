@@ -82,6 +82,7 @@ namespace DG_BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.Created = DateTime.UtcNow.ToLocalTime();
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
