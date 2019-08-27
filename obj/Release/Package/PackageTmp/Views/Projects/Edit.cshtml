@@ -195,6 +195,7 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Created)
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
@@ -223,13 +224,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group input">
-                                                @Html.LabelFor(model => model.Created, htmlAttributes: new { @class = "control-label col-md-2 input" })
-                                                <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.Created, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.Created, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
+                                            <!--
+
+                                             <div class="form-group input">
+        Html.LabelFor(model => model.Created, htmlAttributes: new { class = "control-label col-md-2 input" })
+        <div class="col-md-10">
+            Html.EditorFor(model => model.Created, new { htmlAttributes = new { class = "form-control" } })
+            Html.ValidationMessageFor(model => model.Created, "", new { class = "text-danger" })
+        </div>
+    </div>
+
+        -->
+
                                             <div class="form-group input2">
                                                 <div class="col-md-offset-2 col-md-10">
                                                     <input type="submit" value="Save" class="btn btn-primary" />
