@@ -33,6 +33,7 @@ namespace DG_BugTracker.Controllers
         }
 
         // GET: Projects/Details/5
+        [Authorize(Roles = "Administrator, Project Manager")]
         public ActionResult Details(int? id)
         {
             if (id == null)

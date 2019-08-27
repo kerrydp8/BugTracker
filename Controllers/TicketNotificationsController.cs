@@ -14,6 +14,7 @@ namespace BugTracker.Models
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Administrator")]
         // GET: TicketNotifications
         public ActionResult Index()
         {
@@ -21,12 +22,14 @@ namespace BugTracker.Models
             return View(ticketNotifications.ToList());
         }
 
+        [Authorize]
         public ActionResult MyNotifications()
         {
             var userId = User.Identity.GetUserId();
             return View("Index", db.TicketNotifications.Where(t => t.RecipientId == userId).ToList());
         }
 
+        [Authorize(Roles = "Administrator")]
         // GET: TicketNotifications/Details/5
         public ActionResult Details(int? id)
         {
@@ -42,6 +45,7 @@ namespace BugTracker.Models
             return View(ticketNotification);
         }
 
+        [Authorize(Roles = "Administrator")]
         // GET: TicketNotifications/Create
         public ActionResult Create()
         {
@@ -54,6 +58,7 @@ namespace BugTracker.Models
         // POST: TicketNotifications/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,TicketId,RecipientId,SenderId,Created,Subject,NotificationBody,IsRead")] TicketNotification ticketNotification)
@@ -71,6 +76,7 @@ namespace BugTracker.Models
             return View(ticketNotification);
         }
 
+        [Authorize(Roles = "Administrator")]
         // GET: TicketNotifications/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -93,6 +99,7 @@ namespace BugTracker.Models
         // POST: TicketNotifications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,TicketId,RecipientId,SenderId,Created,Subject,NotificationBody,IsRead")] TicketNotification ticketNotification)
@@ -110,6 +117,7 @@ namespace BugTracker.Models
         }
 
         // GET: TicketNotifications/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,6 +132,7 @@ namespace BugTracker.Models
             return View(ticketNotification);
         }
 
+        [Authorize(Roles = "Administrator")]
         // POST: TicketNotifications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -144,6 +153,7 @@ namespace BugTracker.Models
             base.Dispose(disposing);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MarkAsRead(int id)

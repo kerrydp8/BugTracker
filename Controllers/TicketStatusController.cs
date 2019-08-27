@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
+    [Authorize(Roles = "Administrator")]
     public class TicketStatusController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

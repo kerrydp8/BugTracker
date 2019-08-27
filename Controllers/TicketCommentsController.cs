@@ -12,6 +12,7 @@ using static System.Net.WebRequestMethods;
 
 namespace BugTracker.Models
 {
+    [Authorize(Roles = "Administrator")]
     public class TicketCommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

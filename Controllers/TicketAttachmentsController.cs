@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace BugTracker.Models
 {
+    [Authorize(Roles = "Administrator")]
     public class TicketAttachmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -23,7 +24,7 @@ namespace BugTracker.Models
             var ticketAttachments = db.TicketAttachments.Include(t => t.Ticket);
             return View(ticketAttachments.ToList());
         }
-
+        
         // GET: TicketAttachments/Details/5
         public ActionResult Details(int? id)
         {

@@ -120,6 +120,7 @@ namespace BugTracker.Models
         }
 
         // GET: Tickets/Details/5
+        [Authorize(Roles = "Administrator, Project Manager, Developer, Submitter")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -149,6 +150,7 @@ namespace BugTracker.Models
         // POST: Tickets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Submitter")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectId,TicketTypeId,TicketPriorityId,Title,Description")] Ticket ticket)
@@ -225,6 +227,7 @@ namespace BugTracker.Models
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Administrator, Project Manager, Developer, Submitter")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ProjectId,TicketTypeId,TicketStatusId,TicketPriorityId,OwnerUserId,AssignedToUserId,Title,Description,Created,Updated")] Ticket ticket)
@@ -250,6 +253,7 @@ namespace BugTracker.Models
             return View(ticket);
         }
 
+        [Authorize(Roles = "Submitter")]
         // GET: Tickets/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -265,6 +269,7 @@ namespace BugTracker.Models
             return View(ticket);
         }
 
+        [Authorize(Roles = "Submitter")]
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
