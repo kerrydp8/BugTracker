@@ -8,7 +8,21 @@
     <title>Kerry Peay's Bug Tracker</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="shortcut icon" type="image/x-icon" href="~/Icons/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Icons/favicon.ico" /> <!--Made a new folder called Icons and added the favicon.ico file.-->
+    <!--The above link sets the favicon for the application. We're using this in layout so it will work on all pages throughout the application.-->
+
+    <style>
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
+    </style>
 
 </head>
 <body>
@@ -84,17 +98,17 @@
         @RenderBody()
 
         <hr />
-
-
-        <!--
-                  <footer>
-            <p>&copy; DateTime.Now.Year - Kerry Peay's Bug Tracker</p>
-        </footer>
-        -->
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Kerry Peay's Bug Tracker 2019</span>
+        </div>
+    </div>
+</footer>
