@@ -163,7 +163,6 @@
                     </button>
 
                     <!-- Topbar Search -->
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -210,15 +209,15 @@
                                         </th>
 
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Project.Name)
+                                            Project<!--Html.DisplayNameFor(model => model.Project.Name)-->
                                         </th>
 
                                         <th>
-                                            @Html.DisplayNameFor(model => model.TicketType.Name)
+                                            Type<!--Html.DisplayNameFor(model => model.TicketType.Name)-->
                                         </th>
 
                                         <th>
-                                            @Html.DisplayNameFor(model => model.TicketStatus.Name)
+                                            Status <!--Html.DisplayNameFor(model => model.TicketStatus.Name)-->
                                         </th>
 
                                         <th>
@@ -280,46 +279,57 @@
                     </div>
                 </div>
 
-                <div class="text-right">
-                    @Html.ActionLink("Back to My Tickets", "MyTickets", "Tickets")
-                </div>
+                @if (User.IsInRole("Submitter") || (User.IsInRole("Developer") || (User.IsInRole("Project Manager"))))
+                {
+                    <div class="text-right">
+                        @Html.ActionLink("Back to My Tickets", "MyTickets", "Tickets")
+                    </div>
+                }
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div class="text-right">
+                        @Html.ActionLink("Back to Tickets", "Index", "Tickets")
+                    </div>
+                }
+
 
                 <!--
 
 
 
-                <div class="row">
-                    <div class="col-md-12 text-center h3">
-                        Notifications
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-12 text-center h3">
+            Notifications
+        </div>
+    </div>
 
-                <div class="row">
-                    <div class="col-md-12 text-center h4">
-                        {
-                            var notificationCount = Model.TicketNotifications.Count();
-                            var notif = count == 1 ? "notifications" : "notifications";
-                        }
-                        (notificationCount notif...)
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-12 text-center h4">
+            {
+                var notificationCount = Model.TicketNotifications.Count();
+                var notif = count == 1 ? "notifications" : "notifications";
+            }
+            (notificationCount notif...)
+        </div>
+    </div>
 
-                <br />
+    <br />
 
-                foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
-                {
-                    <div class="row">
-                        <div class="col-md-12">
-                            "ticketNotification.NotificationBody" posted by ticketNotification.Sender.DisplayName
-                        </div>
-                    </div>
+    foreach (var ticketNotification in Model.TicketNotifications.OrderByDescending(c => c.Created))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                "ticketNotification.NotificationBody" posted by ticketNotification.Sender.DisplayName
+            </div>
+        </div>
 
-                    <hr />
+        <hr />
 
-                }
+    }
 
 
-                    -->
+        -->
                 <!-- End of Main Content -->
                 <!-- Footer -->
 

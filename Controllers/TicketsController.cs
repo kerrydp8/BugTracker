@@ -312,6 +312,9 @@ namespace BugTracker.Models
             //nh.CreateAssignmentNotification(oldTicket, ticket);
             nh.ManageNotifications(oldTicket, ticket);
 
+            ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id; //Should automatically change the ticket's status once it has
+            //been assigned. 
+
             //string url = this.Request.UrlReferrer.AbsolutePath;
 
             var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);

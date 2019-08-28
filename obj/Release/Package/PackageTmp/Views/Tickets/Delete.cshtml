@@ -167,7 +167,7 @@
                     </button>
 
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">             
+                    <ul class="navbar-nav ml-auto">
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -212,15 +212,15 @@
                                         </th>
 
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Project.Name)
+                                            Project<!--Html.DisplayNameFor(model => model.Project.Name)-->
                                         </th>
 
                                         <th>
-                                            @Html.DisplayNameFor(model => model.TicketType.Name)
+                                            Type<!--Html.DisplayNameFor(model => model.TicketType.Name)-->
                                         </th>
 
                                         <th>
-                                            @Html.DisplayNameFor(model => model.TicketStatus.Name)
+                                            Status<!--Html.DisplayNameFor(model => model.TicketStatus.Name)-->
                                         </th>
 
                                         <th>
@@ -291,9 +291,20 @@
                     </div>
                 }
 
-                <div class="text-right">
-                    @Html.ActionLink("Back to My Tickets", "MyTickets", "Tickets")
-                </div>
+                @if (User.IsInRole("Submitter") || (User.IsInRole("Developer") || (User.IsInRole("Submitter"))))
+                {
+                    <div class="text-right">
+                        @Html.ActionLink("Back to My Tickets", "MyTickets", "Tickets")
+                    </div>
+                }
+
+                else
+                {
+                    <div class="text-right">
+                        @Html.ActionLink("Back to Tickets", "Index", "Tickets")
+                    </div>
+                }
+
 
             </div>
 
