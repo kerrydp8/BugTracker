@@ -48,9 +48,12 @@ namespace BugTracker.Helpers
 
         private void GenerateUnAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
+            var localDate = DateTime.UtcNow.AddHours(-4);
+
             var notification = new TicketNotification
             {
-                Created = DateTime.Now,
+
+                Created = localDate,
                 Subject = $"You were unassigned from {newTicket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = oldTicket.AssignedToUserId,
@@ -65,10 +68,13 @@ namespace BugTracker.Helpers
 
         private void GenerateAssignmentNotification(Ticket oldTicket, Ticket newTicket)
         {
+
+            var localDate = DateTime.UtcNow.AddHours(-4);
+
             var senderId = HttpContext.Current.User.Identity.GetUserId();
             var notification = new TicketNotification
             {
-                Created = DateTime.Now,
+                Created = localDate,
                 Subject = $"You were assigned to {newTicket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = newTicket.AssignedToUserId,
@@ -83,9 +89,11 @@ namespace BugTracker.Helpers
 
         public static void GenerateCommentNotification(Ticket ticket)
         {
+            var localDate = DateTime.UtcNow.AddHours(-4);
+
             var notification = new TicketNotification
             {
-                Created = DateTime.Now,
+                Created = localDate,
                 Subject = $"A comment was added to {ticket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = ticket.AssignedToUserId,
@@ -100,9 +108,11 @@ namespace BugTracker.Helpers
 
         public static void GenerateAttachmentNotification(Ticket ticket)
         {
+            var localDate = DateTime.UtcNow.AddHours(-4);
+
             var notification = new TicketNotification
             {
-                Created = DateTime.Now,
+                Created = localDate,
                 Subject = $"An attachment was added to {ticket.Title} on {DateTime.Now}",
                 IsRead = false,
                 RecipientId = ticket.AssignedToUserId,
@@ -118,6 +128,7 @@ namespace BugTracker.Helpers
         private static void CreateChangeNotifcation(Ticket oldTicket, Ticket newTicket)
         {
             var messageBody = new StringBuilder();
+            var localDate = DateTime.UtcNow.AddHours(-4);
 
             foreach (var property in WebConfigurationManager.AppSettings["TrackedTicketProperties"].Split(','))
             {
@@ -142,7 +153,7 @@ namespace BugTracker.Helpers
                 var notification = new TicketNotification
                 {
                     TicketId = newTicket.Id,
-                    Created = DateTime.Now,
+                    Created = localDate,
                     Subject = $"A change has occured on {newTicket.Title}",
                     RecipientId = newTicket.AssignedToUserId,
                     SenderId = senderId,

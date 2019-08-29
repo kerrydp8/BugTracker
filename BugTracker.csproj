@@ -249,6 +249,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="private.config" />
     <Content Include="Attachments\Kerry Peay Resume.docx" />
+    <Content Include=".gitignore" />
     <None Include="Properties\PublishProfiles\KerryPeayBugTracker - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="js\datatables.js" />
