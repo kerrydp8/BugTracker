@@ -24,18 +24,19 @@ namespace BugTracker.Helpers
             {
                 using (var img = Image.FromStream(file.InputStream))
                 {
-                    return ImageFormat.Jpeg.Equals(img.RawFormat)
-                        || ImageFormat.Png.Equals(img.RawFormat)
-                        || ImageFormat.Icon.Equals(img.RawFormat)
-                        || ImageFormat.Tiff.Equals(img.RawFormat)
-                        || ImageFormat.Bmp.Equals(img.RawFormat)
-                        || ImageFormat.Gif.Equals(img.RawFormat);
+                    return ImageFormat.Jpeg.Equals(img.RawFormat) ||
+                           ImageFormat.Png.Equals(img.RawFormat) ||
+                           ImageFormat.Icon.Equals(img.RawFormat) ||
+                           ImageFormat.Bmp.Equals(img.RawFormat) ||
+                           ImageFormat.Tiff.Equals(img.RawFormat) ||
+                           ImageFormat.Gif.Equals(img.RawFormat);
                 }
             }
             catch
             {
                 return false;
             }
+
         }
 
         public static bool IsValidAttachment(HttpPostedFileBase file)

@@ -43,85 +43,85 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "Multipart/form-data" }))
         {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-5 d-none d-lg-block"><img src="https://i.ibb.co/kMNx4LK/Bug-Tracker-Logo-2.png" alt="Bug-Tracker-Logo-2" border="0" width="450" height="450"></div>
-                        <div class="col-lg-7">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block"><img src="https://i.ibb.co/kMNx4LK/Bug-Tracker-Logo-2.png" alt="Bug-Tracker-Logo-2" border="0" width="450" height="450"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form class="user">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                    </div>
                                 </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                                        </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.DisplayName, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.DisplayName, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.AvatarUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <input name="Avatar" type="file" />
+                                        @Html.ValidationMessageFor(m => m.AvatarUrl, "", new { @class = "text-danger" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.AvatarUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            <input name="image" type="file" class="form-control" id="fileUpload" />
-                                            @Html.ValidationMessageFor(model => model.AvatarUrl, "", new { @class = "text-danger" })
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                                        <div class="col-md-10">
-                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" class="btn btn-primary" value="Register" />
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" class="btn btn-primary" value="Register" />
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </form>
+                                </div>
                                 <hr>
-                                <div class="text-center">
-                                    <a class="small" href="">@Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="">@Html.ActionLink("Already have an account? Login.", "Login", "Account")</a>
-                                </div>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="">@Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="">@Html.ActionLink("Already have an account? Login.", "Login", "Account")</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         }
-     </div>
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="~/vendor/jquery/jquery.min.js"></script>

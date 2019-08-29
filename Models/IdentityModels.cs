@@ -19,7 +19,7 @@ namespace BugTracker.Models
         //public string DisplayName {get; set;}
         public string AvatarUrl { get; set; }
 
-        [NotMapped]
+        [NotMapped] //Not included in the database
         public string FullNameWithEmail
         {
             get

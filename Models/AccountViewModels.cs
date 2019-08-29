@@ -89,8 +89,6 @@ namespace BugTracker.Models
         [Display(Name = "Photo")]
         public string AvatarUrl{ get; set; }
 
-        //public HttpPostedFileBase Avatar { get; set; }
-
         public HttpPostedFileBase Avatar { get; set; }
 
         [Required]
@@ -100,7 +98,7 @@ namespace BugTracker.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
@@ -119,7 +117,7 @@ namespace BugTracker.Models
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 

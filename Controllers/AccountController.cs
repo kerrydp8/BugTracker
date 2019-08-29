@@ -162,7 +162,8 @@ namespace BugTracker.Controllers
                     DisplayName = model.DisplayName,
                     UserName = model.Email,
                     Email = model.Email,
-                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"] 
+                    //AvatarUrl = model.AvatarUrl
                 };
 
                 if (ImageHelpers.IsWebFriendlyImage(model.Avatar))
