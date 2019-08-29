@@ -94,6 +94,12 @@ namespace BugTracker.Helpers
                     return "/Images/xlsx.png";
                 case ".zip":
                     return "/Images/zip.png";
+                case ".txt":
+                    return "/Images/other.png";
+                case ".xml":
+                    return "/Images/other.png";
+                case ".json":
+                    return "/Images/other.png";
                 default:
                     return "/Images/other.png";
             }
