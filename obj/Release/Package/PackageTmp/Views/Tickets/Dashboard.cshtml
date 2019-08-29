@@ -244,6 +244,7 @@
                                         {
                                             @Html.AntiForgeryToken()
                                             @Html.Hidden("TicketId", Model.Id)
+
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <!--<h3>Title</h3>-->
@@ -251,6 +252,8 @@
                                                     @Html.TextBox("AttachmentTitle", null, new { @class = "form-control cell-fill-input", placeholder = "Title" })
                                                 </div>
                                             </div>
+
+                                            <br />
 
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -260,18 +263,24 @@
                                                 </div>
                                             </div>
 
+                                            <br />
+
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <input type="file" name="attachment" />
                                                 </div>
                                             </div>
 
+                                            <br />
+
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-primary btn-sm">Add Attachment</button>
+                                                    <button type="submit" class="btn btn-primary btn-sm">Add Attachment (Limit: 10MB)</button>
                                                 </div>
                                             </div>
                                         }
+
+                                        <br />
 
                                         @foreach (var attachment in Model.TicketAttachments)
                                         {

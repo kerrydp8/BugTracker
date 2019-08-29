@@ -231,6 +231,13 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Icons\favicon.ico" />
+    <Content Include="Images\doc.png" />
+    <Content Include="Images\docx.png" />
+    <Content Include="Images\other.png" />
+    <Content Include="Images\pdf.png" />
+    <Content Include="Images\xls.png" />
+    <Content Include="Images\xlsx.png" />
+    <Content Include="Images\zip.png" />
     <Content Include="img\undraw_posting_photo.svg" />
     <Content Include="js\demo\chart-area-demo.js" />
     <Content Include="js\demo\chart-bar-demo.js" />
