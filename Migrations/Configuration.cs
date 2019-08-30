@@ -11,6 +11,7 @@ namespace BugTracker.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<BugTracker.Models.ApplicationDbContext>
     {
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
@@ -18,10 +19,19 @@ namespace BugTracker.Migrations
 
         protected override void Seed(BugTracker.Models.ApplicationDbContext context)
         {
+            var localDate = DateTime.UtcNow.AddHours(-4);
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+            context.Projects.AddOrUpdate(
+                p => p.Name,
+                new Project { Name = "Portfolio", Description = "A portfolio that provides a look into my background.", Created = localDate },
+                new Project { Name = "Blog", Description = "A blog that showcases programming tips.", Created = localDate },
+                new Project { Name = "Bug Tracker", Description = "An application used to document bugs and assign users to fix them.", Created = localDate }
+                );
 
             context.TicketTypes.AddOrUpdate(
              t => t.Name,
