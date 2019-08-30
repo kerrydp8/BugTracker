@@ -123,9 +123,11 @@ namespace BugTracker.Controllers
             return View();
         }
 
+        [AllowAnonymous] //Users should be able to access the Demo Logins without authorization (which is literally the point)
         public ActionResult DemoUser()
         {
             return View();
         }
+
     }
 }

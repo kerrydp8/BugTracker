@@ -2119,6 +2119,7 @@
     <Content Include="Views\Manage\ChangeDisplayName.cshtml" />
     <Content Include="Views\Tickets\Dashboard.cshtml" />
     <Content Include="Views\Tickets\AssignTicket.cshtml" />
+    <Content Include="Views\Home\DemoUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
