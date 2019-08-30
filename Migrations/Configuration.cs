@@ -97,7 +97,21 @@ namespace BugTracker.Migrations
                     FirstName = "Kerry",
                     LastName = "Peay",
                     DisplayName = "kerrydp8",
-                }, "Wiiugamer12");
+                    AvatarUrl = WebConfigurationManager.AppSettings["KerryAvatar"]
+                }, "Wiiugamer12!"); ;
+            }
+
+            if (!context.Users.Any(u => u.Email == "DemoAdmin@Mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoAdmin@Mailinator.com",
+                    Email = "DemoAdmin@Mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Admin",
+                    DisplayName = "DemoAdmin",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, WebConfigurationManager.AppSettings["DemoUserPassword"]);
             }
 
             if (!context.Users.Any(u => u.Email == "DustinHoffman@Mailinator.com"))
@@ -108,8 +122,22 @@ namespace BugTracker.Migrations
                     Email = "DustinHoffman@Mailinator.com",
                     FirstName = "Dustin",
                     LastName = "Hoffman",
-                    DisplayName = "DHoff"
-                }, "DustinHoffman1!");
+                    DisplayName = "DHoff",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, "Wiiugamer12!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "DemoPM@Mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoPM@Mailinator.com",
+                    Email = "DemoPM@Mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "PM",
+                    DisplayName = "DemoPM",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, WebConfigurationManager.AppSettings["DemoUserPassword"]);
             }
 
 
@@ -121,8 +149,22 @@ namespace BugTracker.Migrations
                     Email = "LeonardoDiCaprio@Mailinator.com",
                     FirstName = "Leonardo",
                     LastName = "DiCaprio",
-                    DisplayName = "LDicap"
-                }, "LeonardoDiCaprio2!");
+                    DisplayName = "LDicap",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, "Wiiugamer12!");
+            }
+
+            if (!context.Users.Any(u => u.Email == "DemoDeveloper@Mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoDeveloper@Mailinator.com",
+                    Email = "DemoDeveloper@Mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Developer",
+                    DisplayName = "DemoDeveloper",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, WebConfigurationManager.AppSettings["DemoUserPassword"]);
             }
 
 
@@ -134,21 +176,47 @@ namespace BugTracker.Migrations
                     Email = "JessicaChastain@Mailinator.com",
                     FirstName = "Jessica",
                     LastName = "Chastain",
-                    DisplayName = "JChastain"
-                }, "JessicaChastain3!");
+                    DisplayName = "JChastain",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, "Wiiugamer12!");
             }
 
-            var userId = userManager.FindByEmail("kerrydp8@outlook.com").Id;
-            userManager.AddToRole(userId, "Administrator");
+            if (!context.Users.Any(u => u.Email == "DemoSubmitter@Mailinator.com"))
+            {
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoSubmitter@Mailinator.com",
+                    Email = "DemoSubmitter@Mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Submitter",
+                    DisplayName = "DemoSubmitter",
+                    AvatarUrl = WebConfigurationManager.AppSettings["DefaultAvatar"]
+                }, WebConfigurationManager.AppSettings["DemoUserPassword"]);
+            }
 
-            userId = userManager.FindByEmail("DustinHoffman@Mailinator.com").Id;
-            userManager.AddToRole(userId, "Project Manager");
+            var adminId = userManager.FindByEmail("kerrydp8@outlook.com").Id;
+            userManager.AddToRole(adminId, "Administrator");
 
-            userId = userManager.FindByEmail("LeonardoDiCaprio@Mailinator.com").Id;
-            userManager.AddToRole(userId, "Developer");
+            adminId = userManager.FindByEmail("DemoAdmin@Mailinator.com").Id;
+            userManager.AddToRole(adminId, "Administrator");
 
-            userId = userManager.FindByEmail("JessicaChastain@Mailinator.com").Id;
-            userManager.AddToRole(userId, "Submitter");
+            var pmId = userManager.FindByEmail("DustinHoffman@Mailinator.com").Id;
+            userManager.AddToRole(pmId, "Project Manager");
+
+            pmId = userManager.FindByEmail("DemoPM@Mailinator.com").Id;
+            userManager.AddToRole(pmId, "Project Manager");
+
+            var devId = userManager.FindByEmail("LeonardoDiCaprio@Mailinator.com").Id;
+            userManager.AddToRole(devId, "Developer");
+
+            devId = userManager.FindByEmail("DemoDeveloper@Mailinator.com").Id;
+            userManager.AddToRole(devId, "Developer");
+
+            var subId = userManager.FindByEmail("JessicaChastain@Mailinator.com").Id;
+            userManager.AddToRole(subId, "Submitter");
+
+            subId = userManager.FindByEmail("DemoSubmitter@Mailinator.com").Id;
+            userManager.AddToRole(subId, "Submitter");
         }
     }
 
