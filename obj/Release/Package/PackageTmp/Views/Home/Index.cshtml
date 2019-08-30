@@ -58,7 +58,11 @@
         }
 
         div.b {
-            font-size: 200%
+            font-size: 200%;
+        }
+
+        div.c{
+            font-size: 90%;
         }
     </style>
 
@@ -227,9 +231,10 @@
                                         <h6 class="m-0 font-weight-bold text-primary">My Projects</h6>
                                     </div>
                                     <div class="card-body">
-                                        @foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+                                        @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
                                         {
-                                            <div class="b">@projectName</div>
+                                            <div class="b">@project.Name</div>
+                                            <div class="c">Added on @project.Created</div>
                                             <br />
                                         }
                                     </div>
@@ -245,16 +250,17 @@
                                     </div>
                                     <div class="card-body">
                                         <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                        {
-                            <div class="a">projectName</div>
-                            <br />
-                        }-->
+    {
+        <div class="a">projectName</div>
+        <br />
+    }-->
                                         <!--This for-loop must be here to display all the projects in the array. If you just put
-                             db.Projects.ToList() instead of doing this, it would only display the name of the
-                             List itself. Ditto for tickets.-->
+    db.Projects.ToList() instead of doing this, it would only display the name of the
+    List itself. Ditto for tickets.-->
                                         @foreach (var project in allProjects)
                                         {
                                             <div class="b">@project.Name</div>
+                                            <div class="c">Added on @project.Created</div>
                                             <br />
                                         }
                                     </div>

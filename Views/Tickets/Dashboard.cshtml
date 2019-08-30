@@ -550,20 +550,20 @@
                             <hr />
 
                             <!--
-                         using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
-                     {
-                         Html.AntiForgeryToken()
-                         Html.HiddenFor(model => model.Id)
-                         Html.HiddenFor(model => ticketComment.AuthorId)
-                         Html.HiddenFor(model => ticketComment.Created)
-                        Html.HiddenFor(model => ticketComment.TicketId)
-                         <textarea name="commentBody">ticketComment.CommentBody</textarea>
-                         <button class="btn btn-primary" type="submit">Edit</button>
-                     }
+                 using (Html.BeginForm("Edit", "TicketComments", FormMethod.Post))
+             {
+                 Html.AntiForgeryToken()
+                 Html.HiddenFor(model => model.Id)
+                 Html.HiddenFor(model => ticketComment.AuthorId)
+                 Html.HiddenFor(model => ticketComment.Created)
+                Html.HiddenFor(model => ticketComment.TicketId)
+                 <textarea name="commentBody">ticketComment.CommentBody</textarea>
+                 <button class="btn btn-primary" type="submit">Edit</button>
+             }
 
 
 
-                -->
+        -->
 
                             using (Html.BeginForm("Delete", "TicketComments", new { id = ticketComment.Id }))
                             {
@@ -572,7 +572,7 @@
                             }
 
                         }
-                    </div>
+                        </div>
                 </div>
 
                 <hr />
