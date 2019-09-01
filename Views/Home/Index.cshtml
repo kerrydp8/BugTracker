@@ -311,26 +311,27 @@
                         </div>
                     </div>
 
-                    <!-- Project Card Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
-                        </div>
-                        <div class="card-body">
-                            @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
-                            {
-                                <div class="b">@project.Name</div>
-                                <div class="c">Added on @project.Created</div>
-                                <br />
-                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
-                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
-                                <br />
-                                <br />
-                                <hr />
-                            }
+                    <div class="col-md-6">
+                        <!-- Project Card Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
+                            </div>
+                            <div class="card-body">
+                                @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
+                                {
+                                    <div class="b">@project.Name</div>
+                                    <div class="c">Added on @project.Created</div>
+                                    <br />
+                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                    <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                    <br />
+                                    <br />
+                                    <hr />
+                                }
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row">
