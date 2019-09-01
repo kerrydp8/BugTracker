@@ -64,6 +64,11 @@
         div.c{
             font-size: 90%;
         }
+
+        .btn{
+            color: white;
+        }
+
     </style>
 
 </head>
@@ -217,18 +222,163 @@
                 <br />
 
                 <div class="container-fluid">
+                    
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <!-- Project Card Example -->
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+                {
+                    <div class="a">projectName</div>
+                    <br />
+                }-->
+                                            <!--This for-loop must be here to display all the projects in the array. If you just put
+                db.Projects.ToList() instead of doing this, it would only display the name of the
+                List itself. Ditto for tickets.-->
+                                            @foreach (var project in allProjects)
+                                            {
+                                                <div class="b">@project.Name</div>
+                                                <div class="c">Added on @project.Created</div>
+                                                <br />
+                                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
+                            <div class="col-md-6">
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
+                                            </div>
 
-                        <!-- Project Column -->
-                        <div class="col-lg-6">
-                            @if ((User.IsInRole("Developer")) || (User.IsInRole("Submitter")))
+                                            <div class="card-body">
+                                                @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
+                                                {
+                                                    <div class="b">@ticket.Title</div>
+                                                    <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                                    <br />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    }
+
+
+                    @if(User.IsInRole("Project Manager"))
+                    {
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Project Card Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
+                            </div>
+                            <div class="card-body">
+                                <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+                {
+                    <div class="a">projectName</div>
+                    <br />
+                }-->
+                                <!--This for-loop must be here to display all the projects in the array. If you just put
+                db.Projects.ToList() instead of doing this, it would only display the name of the
+                List itself. Ditto for tickets.-->
+                                @foreach (var project in allProjects)
+                                {
+                                    <div class="b">@project.Name</div>
+                                    <div class="c">Added on @project.Created</div>
+                                    <br />
+                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                    <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                    <br />
+                                    <br />
+                                    <hr />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
                             {
+                                <div class="b">@project.Name</div>
+                                <div class="c">Added on @project.Created</div>
+                                <br />
+                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                <br />
+                                <br />
+                                <hr />
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
+                            </div>
+
+                            <div class="card-body">
+                                @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
+                                {
+                                    <div class="b">@ticket.Title</div>
+                                    <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                    <br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-center">My Tickets</h6>
+                            </div>
+
+                            <div class="card-body">
+                                @foreach (var ticket in pmTickets)
+                                {
+                                    <div class="b">@ticket.Title</div>
+                                    <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                    <br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    }
+
+                    @if (User.IsInRole("Developer"))
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
                                 <!-- Project Card Example -->
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">My Projects</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
                                     </div>
                                     <div class="card-body">
                                         @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
@@ -236,165 +386,136 @@
                                             <div class="b">@project.Name</div>
                                             <div class="c">Added on @project.Created</div>
                                             <br />
+                                            <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                            <br />
+                                            <br />
+                                            <hr />
                                         }
                                     </div>
                                 </div>
-                            }
+                            </div>
+                        </div>
 
-                            @if ((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")))
-                            {
-                                <!-- Project Card Example -->
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">Current Projects</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
                                     </div>
+
                                     <div class="card-body">
-                                        <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-    {
-        <div class="a">projectName</div>
-        <br />
-    }-->
-                                        <!--This for-loop must be here to display all the projects in the array. If you just put
-    db.Projects.ToList() instead of doing this, it would only display the name of the
-    List itself. Ditto for tickets.-->
-                                        @foreach (var project in allProjects)
+                                        @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
                                         {
-                                            <div class="b">@project.Name</div>
-                                            <div class="c">Added on @project.Created</div>
+                                            <div class="b">@ticket.Title</div>
+                                            <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                             <br />
                                         }
                                     </div>
                                 </div>
-                            }
-
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row"> <!--An extra row for PMs to see projects that they are assigned to.-->
-
-                            @if (User.IsInRole("Project Manager"))
-                            {
-                                <!-- Project Card Example -->
+                            </div>
+                            <div class="col-md-6">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">My Projects</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Tickets for My Projects</h6>
                                     </div>
+
                                     <div class="card-body">
-                                        @foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+                                        @foreach (var ticket in devTickets)
                                         {
-                                            <div class="b">@projectName</div>
+                                            <div class="b">@ticket.Title</div>
+                                            <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                             <br />
                                         }
                                     </div>
                                 </div>
-                            }
-
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                <div class="row">
-                    <!-- Ticket Column -->
-                    <div class="col-lg-4">
-
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Current Tickets</h6>
-                            </div>
-
-                            <div class="card-body">
-                                @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
-                                {
-                                    <div class="b">@ticket.Title</div>
-                                    <br />
-                                }
                             </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">My Assignments</h6>
+                                    </div>
 
-                    @if (User.IsInRole("Project Manager"))
-                    {
-                        <!-- Ticket Column -->
-                        <div class="col-lg-4">
-
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">My Tickets</h6>
-                                </div>
-
-                                <div class="card-body">
-                                    @foreach (var ticket in pmTickets)
-                                    {
-                                        <div class="b">@ticket.Title</div>
-                                        <br />
-                                    }
+                                    <div class="card-body">
+                                        @foreach (var ticket in assignments)
+                                        {
+                                            <div class="b">@ticket.Title</div>
+                                            <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <br />
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    }
-
-                    @if (User.IsInRole("Developer"))
-                    {
-                        <!-- Ticket Column -->
-                        <div class="col-lg-4">
-
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tickets for My Projects</h6>
-                                </div>
-
-                                <div class="card-body">
-                                    @foreach (var ticket in devTickets)
-                                    {
-                                        <div class="b">@ticket.Title</div>
-                                        <br />
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Ticket Column -->
-                        <div class="col-lg-4">
-
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">My Assignments</h6>
-                                </div>
-
-                                <div class="card-body">
-                                    @foreach (var ticket in assignments)
-                                    {
-                                        <div class="b">@ticket.Title</div>
-                                        <br />
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
                     }
 
                     @if (User.IsInRole("Submitter"))
                     {
-                        <!-- Ticket Column -->
-                        <div class="col-lg-4">
-
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">My Tickets</h6>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Project Card Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
+                                        {
+                                            <div class="b">@project.Name</div>
+                                            <div class="c">Added on @project.Created</div>
+                                            <br />
+                                            <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                            <br />
+                                            <br />
+                                            <hr />
+                                        }
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
+                                    </div>
 
-                                <div class="card-body">
-                                    @foreach (var ticket in subTickets)
-                                    {
-                                        <div class="b">@ticket.Title</div>
-                                        <br />
-                                    }
+                                    <div class="card-body">
+                                        @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
+                                        {
+                                            <div class="b">@ticket.Title</div>
+                                            <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <br />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">My Tickets</h6>
+                                    </div>
+
+                                    <div class="card-body">
+                                        @foreach (var ticket in subTickets)
+                                        {
+                                            <div class="b">@ticket.Title</div>
+                                            <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <br />
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     }
-
                 </div>
 
                     <!-- /.container-fluid -->
