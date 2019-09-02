@@ -8,6 +8,7 @@
     <title>Kerry Peay's Bug Tracker</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     <link rel="shortcut icon" type="image/x-icon" href="~/Icons/favicon.ico" /> <!--Made a new folder called Icons and added the favicon.ico file.-->
     <!--The above link sets the favicon for the application. We're using this in layout so it will work on all pages throughout the application.-->
 
@@ -96,11 +97,16 @@
 
         @RenderBody()
 
+        <br />
+        <br />
         <hr />
+        <br />
+
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
     </div>
+
 </body>
 </html>
 

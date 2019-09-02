@@ -19,10 +19,6 @@
     var subTickets = db.Tickets.Where(t => t.OwnerUserId == id).ToList(); //Tickets that the submitter owns
     var pmTickets = db.Users.Find(id).Projects.SelectMany(t => t.Tickets).ToList(); //Tickets for the project managed by the PM
     var assignments = db.Tickets.Where(t => t.AssignedToUserId == id).ToList(); //Tickets that the Developer is assigned to
-
-
-
-
 }
 
 <!DOCTYPE html>
@@ -61,14 +57,17 @@
             font-size: 200%;
         }
 
-        div.c{
+        div.c {
             font-size: 90%;
         }
 
-        .actionText{
+        .actionText {
             color: white;
         }
 
+        .chartHeight {
+            height: 550px;
+        }
     </style>
 
 </head>
@@ -86,7 +85,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                @if(User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator"))
                 {
                     <div class="sidebar-brand-text mx-3"> Kerry Peay's Bug Tracker - Admin </div>
                 }
@@ -145,7 +144,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
-                        @if((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
+                        @if ((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer")))
+                        {<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
                         @if (User.IsInRole("Project Manager") || (User.IsInRole("Submitter")))
                         {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         @if (User.IsInRole("Developer"))
@@ -222,223 +222,223 @@
                 <br />
 
                 <div class="container-fluid">
-                    
+
                     @if (User.IsInRole("Administrator"))
                     {
                         <div class="row">
                             <div class="col-md-6">
-                                    <!-- Project Card Example -->
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-    {
-        <div class="a">projectName</div>
-        <br />
-    }-->
-                                            <!--This for-loop must be here to display all the projects in the array. If you just put
-    db.Projects.ToList() instead of doing this, it would only display the name of the
-    List itself. Ditto for tickets.-->
-                                                @if (allProjects.Count() == 0)
-                                                {
-                                                    <div class="b">There are currently no projects.</div>
-                                                }
-
-                                                else
-                                                {
-                                                    foreach (var project in allProjects)
-                                                    {
-                                                        <div class="b">@project.Name</div>
-                                                        <div class="c">Added on @project.Created</div>
-                                                        <br />
-                                                        <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
-                                                        <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
-                                                        <br />
-                                                        <br />
-                                                        <hr />
-                                                    }
-                                                }
-
-                                        </div>
+                                <!-- Project Card Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
                                     </div>
+                                    <div class="card-body">
+                                        <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+                        {
+                            <div class="a">projectName</div>
+                            <br />
+                        }-->
+                                        <!--This for-loop must be here to display all the projects in the array. If you just put
+                        db.Projects.ToList() instead of doing this, it would only display the name of the
+                        List itself. Ditto for tickets.-->
+                                        @if (allProjects.Count() == 0)
+                                        {
+                                            <div class="b">There are currently no projects.</div>
+                                        }
+
+                                        else
+                                        {
+                                            foreach (var project in allProjects)
+                                            {
+                                                <div class="b">@project.Name</div>
+                                                <div class="c">Added on @project.Created</div>
+                                                <br />
+                                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-md-6">
-                                        <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
-                                                <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
-                                            </div>
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
+                                    </div>
 
-                                            <div class="card-body">
+                                    <div class="card-body">
 
-                                                @if (allTickets.Count() == 0)
+                                        @if (allTickets.Count() == 0)
+                                        {
+                                            <div class="b">There are currently no open tickets.</div>
+                                        }
+
+                                        else
+                                        {
+                                            foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
+                                            {
+                                                <div class="b">@ticket.Title</div>
+                                                <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+
+                                                if (ticket.AssignedToUserId != null)
                                                 {
-                                                    <div class="b">There are currently no open tickets.</div>
+                                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-                                                else
-                                                {
-                                                    foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
-                                                    {
-                                                        <div class="b">@ticket.Title</div>
-                                                        <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
 
-                                                        if (ticket.AssignedToUserId != null)
-                                                        {
-                                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
-                                                        }
 
-                                                    
-
-                                                    <br />
-                                                    <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
-                                                    <br />
-                                                    <br />
-                                                    <hr />
-                                                    }
-                                                }
-                                            </div>
-                                        </div>
+                                                <br />
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
+                                            }
+                                        }
                                     </div>
                                 </div>
+                            </div>
+                        </div>
                     }
 
-                    @if(User.IsInRole("Project Manager"))
+                    @if (User.IsInRole("Project Manager"))
                     {
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Project Card Example -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Project Card Example -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+                        {
+                            <div class="a">projectName</div>
+                            <br />
+                        }-->
+                                        <!--This for-loop must be here to display all the projects in the array. If you just put
+                        db.Projects.ToList() instead of doing this, it would only display the name of the
+                        List itself. Ditto for tickets.-->
+                                        @if (allProjects.Count() == 0)
+                                        {
+                                            <div class="b">There are currently no projects.</div>
+                                        }
+
+                                        else
+                                        {
+                                            foreach (var project in allProjects)
+                                            {
+                                                <div class="b">@project.Name</div>
+                                                <div class="c">Added on @project.Created</div>
+
+                                                <br />
+                                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--
+                           <div class="col-md-6">
+            <!-- Project Card Example
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
+                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
                             </div>
                             <div class="card-body">
-                                <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-    {
-        <div class="a">projectName</div>
-        <br />
-    }-->
-                                <!--This for-loop must be here to display all the projects in the array. If you just put
-    db.Projects.ToList() instead of doing this, it would only display the name of the
-    List itself. Ditto for tickets.-->
-                                @if (allProjects.Count() == 0)
+                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
                                 {
-                                    <div class="b">There are currently no projects.</div>
-                                }
-
-                                else
-                                {
-                                    foreach (var project in allProjects)
-                                    {
-                                        <div class="b">@project.Name</div>
-                                        <div class="c">Added on @project.Created</div>
-
+                                    <div class="b">project.Name</div>
+                                    <div class="c">Added on project.Created</div>
                                     <br />
-                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
-                                     <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
+                                    <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
                                     <br />
                                     <br />
                                     <hr />
-                                    }
                                 }
                             </div>
                         </div>
                     </div>
+                        -->
 
-                                        <!--
-                                           <div class="col-md-6">
-                            <!-- Project Card Example 
-                                        <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
-                                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
-                                            </div>
-                                            <div class="card-body">
-                                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        @if (allTickets.Count() == 0)
+                                        {
+                                            <div class="b">There are currently no open tickets.</div>
+                                        }
+                                        else
+                                        {
+                                            foreach (var ticket in allTickets)
+                                            {
+                                                <div class="b">@ticket.Title</div>
+                                                <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+
+                                                if (ticket.AssignedToUserId != null)
                                                 {
-                                                    <div class="b">project.Name</div>
-                                                    <div class="c">Added on project.Created</div>
-                                                    <br />
-                                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
-                                                    <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
-                                                    <br />
-                                                    <br />
-                                                    <hr />
+                                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
-                                            </div>
-                                        </div>
-                                    </div> 
-                                        -->
 
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary text-center">Current Tickets</h6>
-                            </div>
-
-                            <div class="card-body">
-
-                                @if (allTickets.Count() == 0)
-                                {
-                                    <div class="b">There are currently no open tickets.</div>
-                                }
-                                else
-                                {
-                                    foreach (var ticket in allTickets)
-                                    {
-                                        <div class="b">@ticket.Title</div>
-                                        <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
-
-                                        if (ticket.AssignedToUserId != null)
-                                        {
-                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
+                                            }
                                         }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">My Tickets</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        @if (pmTickets.Count() == 0)
+                                        {
+                                            <div class="b">You currently have no tickets.</div>
+                                        }
+                                        else
+                                        {
+                                            foreach (var ticket in pmTickets)
+                                            {
+                                                <div class="b">@ticket.Title</div>
+                                                <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
 
-                                        <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
-                                        <br />
-                                        <br />
-                                        <hr />
-                                    }
-                                }
+                                                if (ticket.AssignedToUserId != null)
+                                                {
+                                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                                }
+
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
+                                            }
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary text-center">My Tickets</h6>
-                            </div>
-                            <div class="card-body">
-                                @if (pmTickets.Count() == 0)
-                                {
-                                    <div class="b">You currently have no tickets.</div>
-                                }
-                                else
-                                {
-                                    foreach (var ticket in pmTickets)
-                                    {
-                                        <div class="b">@ticket.Title</div>
-                                        <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
-
-                                        if (ticket.AssignedToUserId != null)
-                                        {
-                                            <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
-                                        }
-
-                                        <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
-                                        <br />
-                                        <br />
-                                        <hr />
-                                    }
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     }
 
                     @if (User.IsInRole("Developer"))
@@ -451,27 +451,27 @@
                                         <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
                                     </div>
                                     <div class="card-body">
-                                            
-                                        @if (projHelper.ListUserProjects(user.Id).ToList().Count() == 0)
-                                            {
-                                                <div class="b">You are not currently assigned to any projects.</div>
-                                            }
 
-                                            else
+                                        @if (projHelper.ListUserProjects(user.Id).ToList().Count() == 0)
+                                        {
+                                            <div class="b">You are not currently assigned to any projects.</div>
+                                        }
+
+                                        else
+                                        {
+                                            foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
                                             {
-                                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
-                                                {
-                                                    <div class="b">@project.Name</div>
-                                                    <div class="c">Added on @project.Created</div>
-                                                    <br />
-                                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
-                                                    <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
-                                                    <br />
-                                                    <br />
-                                                    <hr />
-                                                }
+                                                <div class="b">@project.Name</div>
+                                                <div class="c">Added on @project.Created</div>
+                                                <br />
+                                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
                                             }
-                                        </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -484,30 +484,30 @@
                                     </div>
 
                                     <div class="card-body">
-                                            
+
                                         @if (allTickets.Count() == 0)
-                                            {
-                                                <div class="b">There are currently no open tickets.</div>
-                                            }
+                                        {
+                                            <div class="b">There are currently no open tickets.</div>
+                                        }
 
-                                            else
+                                        else
+                                        {
+                                            foreach (var ticket in allTickets)
                                             {
-                                                foreach (var ticket in allTickets)
+                                                <div class="b">@ticket.Title</div>
+                                                <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+
+                                                if (ticket.AssignedToUserId != null)
                                                 {
-                                                    <div class="b">@ticket.Title</div>
-                                                    <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
-
-                                                    if (ticket.AssignedToUserId != null)
-                                                    {
-                                                        <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
-                                                    }
-
-                                                    <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
-                                                    <br />
-                                                    <br />
-                                                    <hr />
+                                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
+
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
                                             }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -518,30 +518,30 @@
                                     </div>
 
                                     <div class="card-body">
-                                            @if (devTickets.Count() == 0)
-                                            {
-                                                <div class="b">There are currently no tickets for any of your projects.</div>
-                                            }
+                                        @if (devTickets.Count() == 0)
+                                        {
+                                            <div class="b">There are currently no tickets for any of your projects.</div>
+                                        }
 
-                                            else
+                                        else
+                                        {
+                                            foreach (var ticket in devTickets)
                                             {
-                                                foreach (var ticket in devTickets)
+
+                                                <div class="b">@ticket.Title</div>
+                                                <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
+
+                                                if (ticket.AssignedToUserId != null)
                                                 {
-
-                                                    <div class="b">@ticket.Title</div>
-                                                    <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
-
-                                                    if (ticket.AssignedToUserId != null)
-                                                    {
-                                                        <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
-                                                    }
-
-                                                    <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
-                                                    <br />
-                                                    <br />
-                                                    <hr />
+                                                    <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
+
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <br />
+                                                <br />
+                                                <hr />
                                             }
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -556,7 +556,7 @@
                                     <div class="card-body">
                                         @if (assignments.Count() == 0)
                                         {
-                                        <div class="b">You are currently not assigned to any tickets.</div>
+                                            <div class="b">You are currently not assigned to any tickets.</div>
                                         }
                                         else
                                         {
@@ -651,10 +651,10 @@
                                     </div>
 
                                     <div class="card-body">
-                                            
+
                                         @if (subTickets.Count() == 0)
                                         {
-                                                <div class="b">You have not created any tickets yet.</div>
+                                            <div class="b">You have not created any tickets yet.</div>
                                         }
 
                                         else
@@ -682,45 +682,110 @@
                             </div>
                         </div>
                     }
-                </div>
-
-                    <!-- /.container-fluid -->
 
                 </div>
-                    <!-- End of Main Content -->
-                    <!-- Footer -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Bar Chart -->
+                        <div class="card shadow mb-4 chartHeight">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary text-center">Ticket Statuses</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar">
+                                    <canvas id="myBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     
-                    <!-- End of Footer -->
+                <!--
+         <div class="row">
+         <div id="RealMorrisBarChart" class="col-md-6 chart250"></div>
+         <div id="RealMorrisDonutChart" class="col-md-6 chart250"></div>
+     </div>
 
-                </div>
-                <!-- End of Content Wrapper -->
+     <hr class="chartHR" />
+
+     <div class="row">
+         <div id="RealFusion3DBarChart" class="col-md-6 chart250"></div>
+         <div id="RealDonutChart1" class="col-md-6 chart250"></div>
+     </div>
+    -->
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Page Wrapper -->
-            <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <!-- End of Footer -->
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="~/vendor/jquery/jquery.min.js"></script>
-            <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        </div>
+        <!-- End of Content Wrapper -->
 
-            <!-- Core plugin JavaScript-->
-            <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-            <!-- Custom scripts for all pages-->
-            <script src="~/js/sb-admin-2.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-            <!-- Page level plugins -->
-            <script src="~/vendor/chart.js/Chart.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-            <!-- Page level custom scripts -->
-            <script src="~/js/demo/chart-area-demo.js"></script>
-            <script src="~/js/demo/chart-pie-demo.js"></script>
-            <script src="~/js/datatables.js"></script>
-            <script src="~/js/datatables.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/js/demo/chart-area-demo.js"></script>
+    <script src="~/js/demo/chart-pie-demo.js"></script>
+    <script src="~/js/datatables.js"></script>
+    <script src="~/js/datatables.min.js"></script>
 
 </body>
 
 </html>
+
+<script>
+    var ctx = document.getElementById('myBarChart').getContext('2d');
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Unassigned', 'Assigned', 'In Progress', 'Closed'],
+            datasets: [{
+                label: 'Ticket Statuses',
+                data: [12, 19, 3, 5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
