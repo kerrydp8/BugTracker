@@ -14,7 +14,7 @@
     var ticketHelper = new TicketHelper();
     var userProjects = projHelper.ListUserProjects(user.Id);
     var allProjects = db.Projects.ToList(); //A list of every project that has been created
-    var allTickets = db.Tickets.ToList();
+    var allTickets = db.Tickets.ToList(); //A list of every ticket that has been submitted
     var devTickets = db.Users.Find(id).Projects.SelectMany(t => t.Tickets).ToList(); //Tickets for projects that the Developer is on
     var subTickets = db.Tickets.Where(t => t.OwnerUserId == id).ToList(); //Tickets that the submitter owns
     var pmTickets = db.Users.Find(id).Projects.SelectMany(t => t.Tickets).ToList(); //Tickets for the project managed by the PM
@@ -233,34 +233,33 @@
                                             <h6 class="m-0 font-weight-bold text-primary text-center">Current Projects</h6>
                                         </div>
                                         <div class="card-body">
-                                         <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                                            {
-                                                <div class="a">projectName</div>
-                                                <br />
-                                            }-->
-                                                                                    <!--This for-loop must be here to display all the projects in the array. If you just put
-                                            db.Projects.ToList() instead of doing this, it would only display the name of the
-                                            List itself. Ditto for tickets.-->
-                                            @foreach (var project in allProjects)
-                                            {
-
-                                                if (allProjects.Count == 0)
+                                            <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
+    {
+        <div class="a">projectName</div>
+        <br />
+    }-->
+                                            <!--This for-loop must be here to display all the projects in the array. If you just put
+    db.Projects.ToList() instead of doing this, it would only display the name of the
+    List itself. Ditto for tickets.-->
+                                                @if (allProjects.Count() == 0)
                                                 {
                                                     <div class="b">There are currently no projects.</div>
                                                 }
 
                                                 else
                                                 {
-                                                    <div class="b">@project.Name</div>
-                                                    <div class="c">Added on @project.Created</div>
-                                                    <br />
-                                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
-                                                    <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
-                                                    <br />
-                                                    <br />
-                                                    <hr />
+                                                    foreach (var project in allProjects)
+                                                    {
+                                                        <div class="b">@project.Name</div>
+                                                        <div class="c">Added on @project.Created</div>
+                                                        <br />
+                                                        <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
+                                                        <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
+                                                        <br />
+                                                        <br />
+                                                        <hr />
+                                                    }
                                                 }
-                                            }
 
                                         </div>
                                     </div>
@@ -273,14 +272,15 @@
                                             </div>
 
                                             <div class="card-body">
-                                                @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
-                                                {
-                                                    if (allTickets.Count == 0)
-                                                    {
-                                                        <div class="b">There are currently no open tickets.</div>
-                                                    }
 
-                                                    else
+                                                @if (allTickets.Count() == 0)
+                                                {
+                                                    <div class="b">There are currently no open tickets.</div>
+                                                }
+
+                                                else
+                                                {
+                                                    foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
                                                     {
                                                         <div class="b">@ticket.Title</div>
                                                         <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
@@ -290,12 +290,16 @@
                                                             <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                         }
 
-                                                        <br />
-                                                        <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
-                                                        <br />
-                                                        <br />
-                                                        <hr />
                                                     }
+
+                                                    <br />
+                                                    foreach (var ticket in allTickets)
+                                                    {
+                                                        <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                    }
+                                                    <br />
+                                                    <br />
+                                                    <hr />
                                                 }
                                             </div>
                                         </div>
@@ -323,7 +327,7 @@
     List itself. Ditto for tickets.-->
                                 @foreach (var project in allProjects)
                                 {
-                                    if (allProjects.Count == 0)
+                                    if (allProjects.Count() == 0)
                                     {
                                         <div class="b">There are currently no projects.</div>
                                     }
@@ -380,7 +384,7 @@
                             <div class="card-body">
                                 @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
                                 {
-                                    if (allTickets.Count == 0)
+                                    if (allTickets.Count() == 0)
                                     {
                                         <div class="b">There are currently no open tickets.</div>
                                     }
@@ -411,7 +415,7 @@
                             <div class="card-body">
                                 @foreach (var ticket in pmTickets)
                                 {
-                                    if (pmTickets.Count == 0)
+                                    if (pmTickets.Count() == 0)
                                     {
                                         <div class="b">You currently have no tickets.</div>
                                     }
@@ -449,7 +453,7 @@
                                     <div class="card-body">
                                         @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
                                         {
-                                            if (projHelper.ListUserProjects(user.Id).ToList().Count == 0)
+                                            if (projHelper.ListUserProjects(user.Id).ToList().Count() == 0)
                                             {
                                                 <div class="b">You are not currently assigned to any projects.</div>
                                             }
@@ -481,7 +485,7 @@
                                     <div class="card-body">
                                         @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
                                         {
-                                            if (allTickets.Count == 0)
+                                            if (allTickets.Count() == 0)
                                             {
                                                 <div class="b">There are currently no open tickets.</div>
                                             }
@@ -514,7 +518,7 @@
                                     <div class="card-body">
                                         @foreach (var ticket in devTickets)
                                         {
-                                            if (devTickets.Count == 0)
+                                            if (devTickets.Count() == 0)
                                             {
                                                 <div class="b">There are currently no tickets for any of your projects.</div>
                                             }
@@ -549,7 +553,7 @@
                                     <div class="card-body">
                                         @foreach (var ticket in assignments)
                                         {
-                                            if (assignments.Count == 0)
+                                            if (assignments.Count() == 0)
                                             {
                                                 <div class="b">You are currently not assigned to any tickets.</div>
                                             }
@@ -581,7 +585,7 @@
                                     <div class="card-body">
                                         @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
                                         {
-                                            if (projHelper.ListUserProjects(user.Id).ToList().Count == 0)
+                                            if (projHelper.ListUserProjects(user.Id).ToList().Count() == 0)
                                             {
                                                 <div class="b">You are currently not assigned to any projects.</div>
                                             }
@@ -612,7 +616,7 @@
                                     <div class="card-body">
                                         @foreach (var ticket in allTickets) //Pulling all the tickets to be categorized by the conditional statement below
                                         {
-                                            if (allTickets.Count == 0)
+                                            if (allTickets.Count() == 0)
                                             {
                                                 <div class="b">There are currently no open tickets.</div>
                                             }
@@ -641,7 +645,7 @@
                                     <div class="card-body">
                                         @foreach (var ticket in subTickets)
                                         {
-                                            if (subTickets.Count == 0)
+                                            if (subTickets.Count() == 0)
                                             {
                                                 <div class="b">You have no created any tickets yet.</div>
                                             }
