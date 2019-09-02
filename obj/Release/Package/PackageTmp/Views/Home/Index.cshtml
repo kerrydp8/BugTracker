@@ -65,7 +65,7 @@
             font-size: 90%;
         }
 
-        .btn{
+        .actionText{
             color: white;
         }
 
@@ -254,7 +254,6 @@
                                             }
                                         </div>
                                     </div>
-                                }
                             </div>
 
                             <div class="col-md-6">
@@ -270,6 +269,10 @@
                                                     <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                     <br />
+                                                    <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                    <br />
+                                                    <br />
+                                                    <hr />
                                                 }
                                             </div>
                                         </div>
@@ -281,7 +284,7 @@
                     @if(User.IsInRole("Project Manager"))
                     {
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- Project Card Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
@@ -311,25 +314,29 @@
                         </div>
                     </div>
 
-                    <!-- Project Card Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
-                        </div>
-                        <div class="card-body">
-                            @foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
-                            {
-                                <div class="b">@project.Name</div>
-                                <div class="c">Added on @project.Created</div>
-                                <br />
-                                <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.-->
-                                <button class="btn btn-default">@Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { @id = project.Id }, htmlAttributes: new { })</button>
-                                <br />
-                                <br />
-                                <hr />
-                            }
-                        </div>
-                    </div>
+                                        <!--
+                                           <div class="col-md-6">
+                            <!-- Project Card Example 
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
+                                                {
+                                                    <div class="b">project.Name</div>
+                                                    <div class="c">Added on project.Created</div>
+                                                    <br />
+                                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
+                                                    <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
+                                                    <br />
+                                                    <br />
+                                                    <hr />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div> 
+                                        -->
 
                 </div>
 
@@ -346,7 +353,10 @@
                                     <div class="b">@ticket.Title</div>
                                     <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                    <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                     <br />
+                                    <br />
+                                    <hr />
                                 }
                             </div>
                         </div>
@@ -363,7 +373,10 @@
                                     <div class="b">@ticket.Title</div>
                                     <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                    <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                     <br />
+                                    <br />
+                                    <hr />
                                 }
                             </div>
                         </div>
@@ -410,7 +423,10 @@
                                             <div class="b">@ticket.Title</div>
                                             <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                             <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                             <br />
+                                            <br />
+                                            <hr />
                                         }
                                     </div>
                                 </div>
@@ -427,7 +443,10 @@
                                             <div class="b">@ticket.Title</div>
                                             <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                             <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                             <br />
+                                            <br />
+                                            <hr />
                                         }
                                     </div>
                                 </div>
@@ -446,7 +465,10 @@
                                             <div class="b">@ticket.Title</div>
                                             <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                             <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                             <br />
+                                            <br />
+                                            <hr />
                                         }
                                     </div>
                                 </div>
@@ -492,7 +514,10 @@
                                             <div class="b">@ticket.Title</div>
                                             <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                             <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                             <br />
+                                            <br />
+                                            <hr />
                                         }
                                     </div>
                                 </div>
@@ -509,7 +534,10 @@
                                             <div class="b">@ticket.Title</div>
                                             <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
                                             <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
+                                            <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                             <br />
+                                            <br />
+                                            <hr />
                                         }
                                     </div>
                                 </div>
