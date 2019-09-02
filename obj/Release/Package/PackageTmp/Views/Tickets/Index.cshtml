@@ -313,7 +313,7 @@
                                                 @Html.DisplayFor(modelItem => item.Description)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.TicketStatusId)
+                                                @Html.DisplayFor(modelItem => item.TicketStatus.Name) <!--Only displaying the Name property of Ticket Status. Not all of it.-->
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Created)
