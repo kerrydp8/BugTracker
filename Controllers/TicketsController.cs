@@ -306,8 +306,8 @@ namespace BugTracker.Models
             var ticket = db.Tickets.Find(model.Id);
             var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
             ticket.AssignedToUserId = model.AssignedToUserId;
-            ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id; //Should automatically change the ticket's status once it has
-            //been assigned. 
+            ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id; //Automatically updates to Assigned when assigned to dev.
+            //The issue was placement. This needed to happen before the changes were saved into the database.
             db.SaveChanges();
 
             //NotificationHelper.ManageNotifications(oldTicket, ticket);
