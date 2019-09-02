@@ -55,10 +55,12 @@ namespace BugTracker.Models
         {
             if (ModelState.IsValid)
             {
+                var localDate = DateTime.UtcNow.AddHours(-4);
+
                 Ticket ticket = db.Tickets.Find(ticketId); //Finds the ticket in which the comment belongs
                 ticketComment.CommentBody = commentBody;
                 ticketComment.AuthorId = User.Identity.GetUserId();
-                ticketComment.Created = DateTimeOffset.Now;
+                ticketComment.Created = localDate;
                 db.TicketComments.Add(ticketComment);
                 db.SaveChanges();
 
