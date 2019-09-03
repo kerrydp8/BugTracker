@@ -19,6 +19,10 @@
     var subTickets = db.Tickets.Where(t => t.OwnerUserId == id).ToList(); //Tickets that the submitter owns
     var pmTickets = db.Users.Find(id).Projects.SelectMany(t => t.Tickets).ToList(); //Tickets for the project managed by the PM
     var assignments = db.Tickets.Where(t => t.AssignedToUserId == id).ToList(); //Tickets that the Developer is assigned to
+    var unassignedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id;
+    var assignedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id;
+    var currentTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "In Progress").Id;
+    var closedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "Closed").Id;
 }
 
 <!DOCTYPE html>
@@ -42,6 +46,8 @@
 
     <!-- Custom styles for this template -->
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
     <!-- Custom styles for this page -->
     <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -67,6 +73,16 @@
 
         .chartHeight {
             height: 550px;
+        }
+
+        .chartHR {
+            border: 5px solid;
+            border-radius: 5px;
+            background: linear-gradient(black, red);
+        }
+
+        .chart250 {
+            height: 275px;
         }
     </style>
 
@@ -234,13 +250,13 @@
                                     </div>
                                     <div class="card-body">
                                         <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                        {
-                            <div class="a">projectName</div>
-                            <br />
-                        }-->
+                                        {
+                                            <div class="a">projectName</div>
+                                            <br />
+                                        }-->
                                         <!--This for-loop must be here to display all the projects in the array. If you just put
-                        db.Projects.ToList() instead of doing this, it would only display the name of the
-                        List itself. Ditto for tickets.-->
+                                        db.Projects.ToList() instead of doing this, it would only display the name of the
+                                        List itself. Ditto for tickets.-->
                                         @if (allProjects.Count() == 0)
                                         {
                                             <div class="b">There are currently no projects.</div>
@@ -316,13 +332,13 @@
                                     </div>
                                     <div class="card-body">
                                         <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                        {
-                            <div class="a">projectName</div>
-                            <br />
-                        }-->
+                                        {
+                                            <div class="a">projectName</div>
+                                            <br />
+                                        }-->
                                         <!--This for-loop must be here to display all the projects in the array. If you just put
-                        db.Projects.ToList() instead of doing this, it would only display the name of the
-                        List itself. Ditto for tickets.-->
+                                        db.Projects.ToList() instead of doing this, it would only display the name of the
+                                        List itself. Ditto for tickets.-->
                                         @if (allProjects.Count() == 0)
                                         {
                                             <div class="b">There are currently no projects.</div>
@@ -348,28 +364,28 @@
                             </div>
 
                             <!--
-                           <div class="col-md-6">
-            <!-- Project Card Example
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
-                            </div>
-                            <div class="card-body">
-                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
-                                {
-                                    <div class="b">project.Name</div>
-                                    <div class="c">Added on project.Created</div>
-                                    <br />
-                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
-                                    <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
-                                    <br />
-                                    <br />
-                                    <hr />
-                                }
-                            </div>
-                        </div>
-                    </div>
-                        -->
+                                           <div class="col-md-6">
+                            <!-- Project Card Example
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
+                                                {
+                                                    <div class="b">project.Name</div>
+                                                    <div class="c">Added on project.Created</div>
+                                                    <br />
+                                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
+                                                    <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
+                                                    <br />
+                                                    <br />
+                                                    <hr />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                        -->
 
                         </div>
 
@@ -685,35 +701,30 @@
 
                 </div>
 
+                <!--
+
+                     <div class="col-md-12">
+                        <!-- Bar Chart
+                                    <div class="card shadow mb-4 chartHeight">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary text-center">Ticket Statuses</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-bar">
+                                                <canvas id="myBarChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                    -->
+
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- Bar Chart -->
-                        <div class="card shadow mb-4 chartHeight">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary text-center">Ticket Statuses</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-bar">
-                                    <canvas id="myBarChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="RealMorrisBarChart" class="col-md-6 chart250"></div>
                     </div>
                 </div>
-                    
-                <!--
-         <div class="row">
-         <div id="RealMorrisBarChart" class="col-md-6 chart250"></div>
-         <div id="RealMorrisDonutChart" class="col-md-6 chart250"></div>
-     </div>
 
-     <hr class="chartHR" />
-
-     <div class="row">
-         <div id="RealFusion3DBarChart" class="col-md-6 chart250"></div>
-         <div id="RealDonutChart1" class="col-md-6 chart250"></div>
-     </div>
-    -->
                 <!-- /.container-fluid -->
 
             </div>
@@ -754,38 +765,22 @@
 
 </html>
 
-<script>
-    var ctx = document.getElementById('myBarChart').getContext('2d');
-    var myBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Unassigned', 'Assigned', 'In Progress', 'Closed'],
-            datasets: [{
-                label: 'Ticket Statuses',
-                data: [12, 19, 3, 5],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
+@section scripts{
+
+    <script type="text/javascript">
+    $(function () {
+        var url = @Url.Action("GetMorrisData", "Charts");
+        $.post(url).then(function (response) {
+            new Morris.Bar({
+                element: 'RealMorrisBarChart',
+                data: response,
+                xkey: label,
+                ykeys: ['value'],
+                labels: ['Ticket Count'],
+                resize: true
+            });
+        });
     });
 </script>
+    }
+}

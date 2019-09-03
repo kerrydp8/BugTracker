@@ -128,11 +128,5 @@ namespace BugTracker.Controllers
         {
             return View();
         }
-
-        public ActionResult Charts()
-        {
-            return View();
-        }
-
     }
 }
