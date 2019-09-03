@@ -53,6 +53,10 @@
         div.a {
             font-size: 120%;
         }
+
+        div.headerFont{
+            font-size: 150%;
+        }
     </style>
 
 </head>
@@ -241,7 +245,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tickets</h1>
+                    <h1 class="headerFont mb-2 text-gray-800 text-center">Tickets</h1>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             @if (User.IsInRole("Submitter"))
