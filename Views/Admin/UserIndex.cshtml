@@ -195,9 +195,13 @@
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
 
-                <h2 class="text-center">Project Users</h2>
+                <h1 class="text-center">Manage Users</h1>
 
-                <h4 class="text-right">@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</h4>
+                <br />
+
+                <h4 class="text-center">@Html.ActionLink("Manage Roles", "ManageRoles", "Admin")</h4>
+
+                <br />
 
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
@@ -271,20 +275,20 @@
                                 }
                             </td>
 
-                            <!--
                             <td>
-                                roleHelper.ListUserRoles(user.Id).FirstOrDefault()
-                            </td>
-                            -->
-                            <td>
-                                <!--Html.ActionLink("Manage Roles", "ManageRoles", "Admin", new { userId = user.Id }, null) |-->
-                                <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
-                                @Html.ActionLink("Manage User's Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)
+                                <div class="row">
+                                    @Html.ActionLink("Manage User's Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)
+                                </div>
 
                                 @if (!(ticketHelper.IsUserAssigned(user.Id)))
                                 {
-                                    @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
-                                    @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null)
+                                    <div class="row">
+                                        @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
+                                    </div>
+
+                                    <div class="row">
+                                        @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null)
+                                    </div>
                                 }
                             </td>
                         </tr>

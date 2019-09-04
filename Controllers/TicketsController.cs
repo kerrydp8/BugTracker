@@ -310,12 +310,7 @@ namespace BugTracker.Models
             ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id; //Automatically updates to Assigned when assigned to dev.
             //The issue was placement. This needed to happen before the changes were saved into the database.
             db.SaveChanges();
-
-            //NotificationHelper.ManageNotifications(oldTicket, ticket);
-            //nh.CreateAssignmentNotification(oldTicket, ticket);
             nh.ManageNotifications(oldTicket, ticket);
-
-            //string url = this.Request.UrlReferrer.AbsolutePath;
 
             var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);
 
@@ -327,7 +322,7 @@ namespace BugTracker.Models
 
                 msg.Body = "You have been assigned a new Ticket." + Environment.NewLine + "Please click the following link to view the details  " + "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
                 msg.Destination = user.Email;
-                msg.Subject = "Invite to Household";
+                msg.Subject = "Ticket Assignment";
                 await ems.SendMailAsync(msg);
             }
 
@@ -337,6 +332,24 @@ namespace BugTracker.Models
             }
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Administrator, Project Manager")]
+        public ActionResult ClearAssignment(Ticket model)
+        {
+            var ticket = db.Tickets.Find(model.Id);
+            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id); //If this ticket's property is changed, a notification will be generated.
+
+            ticket.AssignedToUserId = null; //Upon using this function, the AssignedToUserId for this ticket is removed, essentially "unassigning" the ticket
+            ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id; //THe ticket's status is reverted back to Unassigned.
+
+            db.SaveChanges(); //Changes are saved. 
+            nh.ManageNotifications(oldTicket, ticket);
+
+            var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);
+
+            return RedirectToAction("Index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -72,6 +72,10 @@
             font-size: 175%;
         }
 
+        div.e{
+            font-size: 150%;
+        }
+
         .actionText {
             color: white;
         }
@@ -238,14 +242,41 @@
                 <h1 class="b text-center"><font color="black">@user.FirstName @user.LastName's Dashboard</font></h1>
 
                 <br />
+
                 @if ((User.IsInRole("Administrator") || (User.IsInRole("Project Manager") || (User.IsInRole("Developer")) || (User.IsInRole("Project Manager")))))
                 {
                     <div class="d text-center">
                         My Role: @roleHelper.ListUserRoles(user.Id).FirstOrDefault()
                     </div>
                 }
+
                 <br />
+
                 <hr />
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div class="e row justify-content-center">
+                        @Html.ActionLink("Create New Project", "Create", "Projects")
+                    </div>
+                }
+
+                @if (User.IsInRole("Project Manager"))
+                {
+                    <div class="e row justify-content-center">
+                        @Html.ActionLink("Create New Project", "Create", "Projects")
+                    </div>
+                }
+
+                @if (User.IsInRole("Submitter"))
+                {
+                    <div class="e row justify-content-center">
+                        @Html.ActionLink("Create New Ticket", "Create", "Tickets")
+                    </div>
+                }
+
+                <hr />
+                <br />
                 <br />
                 <br />
 

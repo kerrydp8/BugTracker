@@ -205,10 +205,9 @@
                         <div class="card-header py-3">
                             @if (User.IsInRole("Administrator") || User.IsInRole("Project Manager"))
                             {
-                                <h6>
-                                    @Html.ActionLink("Create New Project", "Create") |
-                                    @Html.ActionLink("Go To My Projects", "MyIndex", "Projects")
-                                </h6>
+                                <h5 class="row justify-content-center">
+                                    @Html.ActionLink("Create New Project", "Create")
+                                </h5>
                             }<!--<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>-->
                         </div>
 
@@ -240,16 +239,25 @@
                                     </td>
                                     @if (User.IsInRole("Administrator") || User.IsInRole("Project Manager"))
                                     {
-                                <td>
-                                    <!--Html.ActionLink("Edit", "Edit", new { id = item.Id }) |-->
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="text-center">
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="text-center">
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                            </div>
+                                        </div>
+                                    </td>
                                     }
                                     else
                                     {
                                         <td>
-                                            @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            <div class="row">
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                            </div>
                                         </td>
                                     }
                                 </tr>

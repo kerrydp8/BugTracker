@@ -258,9 +258,15 @@
                     @if (User.IsInRole("Administrator"))
                     {
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                            @Html.ActionLink("Details", "Details", new { id = item.Id })
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            <div class="row">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            </div>
+                            <div class="row">
+                                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                            </div>
+                            <div class="row">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </div>
                         </td>
                     }
                 </tr>
