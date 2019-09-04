@@ -18,6 +18,7 @@
     var currentUser = db.Users.Find(id);
     var roleHelper = new UserRolesHelper();
     var projHelper = new ProjectHelper();
+    var ticketHelper = new TicketHelper();
 }
 
 <!DOCTYPE html>
@@ -278,9 +279,11 @@
                             <td>
                                 <!--Html.ActionLink("Manage Roles", "ManageRoles", "Admin", new { userId = user.Id }, null) |-->
                                 @Html.ActionLink("Manage User's Projects", "ManageProjects", "Admin", new { userId = user.Id }, null) | <!--Html.ActionLink("Add Projects", "ManageProjects", "Admin", new { userId = user.Id }, null)-->
-                                
-                                
-                                @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null) |
+
+                                @if (!(ticketHelper.IsUserAssigned(user.Id)))
+                                {
+                                    @Html.ActionLink("Remove User's Roles", "DeleteUserRole", "Admin", new { userId = user.Id }, null)
+                                }
 
                                 @Html.ActionLink("Remove User's Projects", "DeleteUserProjects", "Admin", new { userId = user.Id }, null)
                             </td>
