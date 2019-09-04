@@ -28,6 +28,7 @@ namespace BugTracker.Helpers
             {
                 return true;
             }
+
             return false;
         }
 
@@ -64,6 +65,7 @@ namespace BugTracker.Helpers
             {
                 return true;
             }
+
             return false;
         }
 
@@ -79,10 +81,7 @@ namespace BugTracker.Helpers
                     return true;
                 }
             }
-
             return false;
-
         }
-
     }
 }
