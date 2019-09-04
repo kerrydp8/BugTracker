@@ -711,7 +711,7 @@
                         </div>
                     }
 
-                    @if (!((User.IsInRole("Administrator") || (User.IsInRole("Project Manager") || (User.IsInRole("Developer")) || (User.IsInRole("Project Manager"))))))
+                    @if (!((User.IsInRole("Administrator") || (User.IsInRole("Project Manager") || (User.IsInRole("Developer")) || (User.IsInRole("Submitter"))))))
                     {
                         <div class="text-center">
                             <div class="panel-heading b">
