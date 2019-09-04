@@ -220,8 +220,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="a"><font color="black">@user.DisplayName</font></div>
-                                <img class="img-profile rounded-circle" src="@user.AvatarUrl" />
+                                <div class="col-md-8"><div class="a"><font color="black">@user.DisplayName</font></div></div>
+                                <div class="col-md-4"><img class="img-profile rounded-circle" src="@user.AvatarUrl" /></div>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -348,8 +348,6 @@
                                                 {
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
-
-
 
                                                 <br />
                                                 <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
