@@ -699,7 +699,19 @@
                         </div>
                     }
 
-                </div>
+                    @if(!(User.IsInRole("Administrator") || !(User.IsInRole("Project Manager") || !(User.IsInRole("Developer")) || !(User.IsInRole("Project Manager")))))
+                    {
+                        <div class="text-center">
+                            <div class="panel-heading b">
+                                Welcome to Kerry Peay's Bug Tracker
+                            </div>
+                            <div class="panel-body b">
+                                You currently have no role.
+                            </div>
+                        </div>
+                            }
+
+                        </div>
 
                 <!--
 

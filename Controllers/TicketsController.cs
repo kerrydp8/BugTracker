@@ -324,19 +324,17 @@ namespace BugTracker.Models
                 IdentityMessage msg = new IdentityMessage();
                 ApplicationUser user = db.Users.Find(model.AssignedToUserId);
 
-                msg.Body = "You have a new ticket <br /> <hr /> Please click the <a href=\"" + callbackUrl + "\">this link</a> to view the details.";
+                msg.Body = "You have been assigned a new Ticket." + Environment.NewLine + "Please click the following link to view the details  " + "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
                 msg.Destination = user.Email;
-                msg.Subject = "New Ticket Assignment";
-
+                msg.Subject = "Invite to Household";
                 await ems.SendMailAsync(msg);
             }
+
             catch (Exception ex)
             {
                 await Task.FromResult(0);
             }
-
-            return RedirectToAction("Index", "Tickets");
-            //return View(url);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
