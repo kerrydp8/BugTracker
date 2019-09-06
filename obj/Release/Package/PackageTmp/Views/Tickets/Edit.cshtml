@@ -40,9 +40,11 @@
     <link href="~/css/datatables.min.css" rel="stylesheet" />
 
     <style>
+        
         div.a {
             font-size: 120%;
         }
+
     </style>
 
 </head>
@@ -207,7 +209,8 @@
                                             <h1 class="h4 text-gray-900 mb-4"><b>Edit Ticket</b></h1>
                                         </div>
                                         <hr />
-                                        <form class="user input">
+                                        <form class="user">
+
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.ProjectId, "Project", htmlAttributes: new { @class = "control-label col-md-2 input" })
                                                 <div class="col-md-10">
@@ -258,7 +261,6 @@
                                                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
-
 
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Updated, htmlAttributes: new { @class = "control-label col-md-2 input" })

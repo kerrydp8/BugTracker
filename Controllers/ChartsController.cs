@@ -20,7 +20,6 @@ namespace BugTracker.Controllers
                 var value = db.TicketStatuses.Find(ticketStatus.Id).Tickets.Count();
                 dataSet.Add(new MorrisBarChartData { label = ticketStatus.Name, value = value });
             }
-
             return Json(dataSet);
         }
     }
