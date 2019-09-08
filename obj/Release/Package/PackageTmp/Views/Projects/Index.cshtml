@@ -130,7 +130,7 @@
 
                         <!--If a user has not been assigned a role, there should be no link to View Projects (which would not work anyway because the back-end is
                             secure.-->
-                        @if((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
+                        @if((User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
 
                         @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
                         {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}

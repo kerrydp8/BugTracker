@@ -128,7 +128,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
-                        @if((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
+                        @if((User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
                         @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
                         {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>
@@ -221,13 +221,9 @@
                 </div>
 
     -->
-                <a href="@Url.Action("Index", "TicketHistories")">
-                    <i class="fa-fa-home" aria-hidden="true"></i>
-                    <span>View All Histories</span>
-                </a>
 
                 <div class="col-md-6">
-                    <section class="panel panel-warning">
+                    <section class="panel panel-info">
                         <header class="panel-heading">
                             <div class="panel-actions">
                                 <!--<a href="#" class="fa fa-caret-down"></a>-->
@@ -354,7 +350,7 @@
 
 
                 <div class="col-md-6">
-                    <section class="panel panel-warning">
+                    <section class="panel panel-info">
                         <header class="panel-heading">
                             <div class="panel-actions">
                                 <!--<a href="#" class="fa fa-caret-down"></a>-->
@@ -440,68 +436,68 @@
                     </section>
                 </div>
 
-                    <div class="col-md-12">
-                        @*Conditionally render the Add Comment form*@
-                        @if (User.IsInRole("Administrator"))
+                <div class="col-md-12">
+                    @*Conditionally render the Add Comment form*@
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        @*Create a form to collect the Comment from the logged in user*@
+                        using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
                         {
-                            @*Create a form to collect the Comment from the logged in user*@
-                            using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("TicketId", Model.Id)
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("TicketId", Model.Id)
 
-                                <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
+                            <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
 
-                                <button class="btn btn-primary" type="submit">Add</button>
-                            }
-
+                            <button class="btn btn-primary" type="submit">Add</button>
                         }
 
-                        @if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(Model.Id, Model.ProjectId))
+                    }
+
+                    @if (User.IsInRole("Project Manager") && ticketHelper.IsTicketForProject(Model.Id, Model.ProjectId))
+                    {
+                        @*Create a form to collect the Comment from the logged in user*@
+                        using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
                         {
-                            @*Create a form to collect the Comment from the logged in user*@
-                            using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("TicketId", Model.Id)
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("TicketId", Model.Id)
 
-                                <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
+                            <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
 
-                                <button class="btn btn-primary" type="submit">Add</button>
-                            }
-
+                            <button class="btn btn-primary" type="submit">Add</button>
                         }
 
-                        @if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(Model.AssignedToUserId))
+                    }
+
+                    @if (User.IsInRole("Developer") && ticketHelper.IsTicketAssigned(Model.AssignedToUserId))
+                    {
+                        @*Create a form to collect the Comment from the logged in user*@
+                        using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
                         {
-                            @*Create a form to collect the Comment from the logged in user*@
-                            using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("TicketId", Model.Id)
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("TicketId", Model.Id)
 
-                                <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
+                            <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
 
-                                <button class="btn btn-primary" type="submit">Add</button>
-                            }
+                            <button class="btn btn-primary" type="submit">Add</button>
                         }
+                    }
 
-                        @if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(Model.OwnerUserId))
+                    @if (User.IsInRole("Submitter") && ticketHelper.IsSubmitterTicket(Model.OwnerUserId))
+                    {
+                        @*Create a form to collect the Comment from the logged in user*@
+                        using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
                         {
-                            @*Create a form to collect the Comment from the logged in user*@
-                            using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("TicketId", Model.Id)
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("TicketId", Model.Id)
 
-                                <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
+                            <textarea name="CommentBody" placeholder="Add Comment..." rows="5" cols="50"></textarea>
 
-                                <button class="btn btn-primary" type="submit">Add</button>
-                            }
+                            <button class="btn btn-primary" type="submit">Add</button>
                         }
+                    }
 
-                        @*Displaying the comments associated with the Ticket*@
-                    </div>
+                    @*Displaying the comments associated with the Ticket*@
+                </div>
 
             </div>
                     

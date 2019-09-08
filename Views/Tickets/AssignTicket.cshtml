@@ -118,7 +118,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!--<h6 class="collapse-header">Login Screens:</h6>-->
-                        @if((User.IsInRole("Administrator")) || (User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
+                        @if((User.IsInRole("Project Manager")) || (User.IsInRole("Submitter")) || (User.IsInRole("Developer"))){<a class="collapse-item" href="@Url.Action("MyProjects", "Projects")">My Projects</a>}
                         @if (User.IsInRole("Developer") || (User.IsInRole("Project Manager") || (User.IsInRole("Submitter"))))
                         {<a class="collapse-item" href="@Url.Action("MyTickets", "Tickets")">My Tickets</a>}
                         <a class="collapse-item" href="@Url.Action("MyNotifications", "TicketNotifications")">My Notifications</a>

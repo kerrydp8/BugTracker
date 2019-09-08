@@ -293,13 +293,13 @@
                                     </div>
                                     <div class="card-body">
                                         <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                            {
-                                <div class="a">projectName</div>
-                                <br />
-                            }-->
+                                        {
+                                            <div class="a">projectName</div>
+                                            <br />
+                                        }-->
                                         <!--This for-loop must be here to display all the projects in the array. If you just put
-                            db.Projects.ToList() instead of doing this, it would only display the name of the
-                            List itself. Ditto for tickets.-->
+                                        db.Projects.ToList() instead of doing this, it would only display the name of the
+                                        List itself. Ditto for tickets.-->
                                         @if (allProjects.Count() == 0)
                                         {
                                             <div class="b">There are currently no projects.</div>
@@ -373,13 +373,13 @@
                                     </div>
                                     <div class="card-body">
                                         <!--foreach (var projectName in projHelper.ListUserProjects(user.Id).Select(p => p.Name).ToList())
-                            {
-                                <div class="a">projectName</div>
-                                <br />
-                            }-->
+                                        {
+                                            <div class="a">projectName</div>
+                                            <br />
+                                        }-->
                                         <!--This for-loop must be here to display all the projects in the array. If you just put
-                            db.Projects.ToList() instead of doing this, it would only display the name of the
-                            List itself. Ditto for tickets.-->
+                                        db.Projects.ToList() instead of doing this, it would only display the name of the
+                                        List itself. Ditto for tickets.-->
                                         @if (allProjects.Count() == 0)
                                         {
                                             <div class="b">There are currently no projects.</div>
@@ -405,28 +405,28 @@
                             </div>
 
                             <!--
-                               <div class="col-md-6">
-                <!-- Project Card Example
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
-                                    {
-                                        <div class="b">project.Name</div>
-                                        <div class="c">Added on project.Created</div>
-                                        <br />
-                                        <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
-                                        <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
-                                        <br />
-                                        <br />
-                                        <hr />
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                            -->
+                                           <div class="col-md-6">
+                            <!-- Project Card Example
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary text-center">My Projects</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                foreach (var project in projHelper.ListUserProjects(user.Id).ToList())
+                                                {
+                                                    <div class="b">project.Name</div>
+                                                    <div class="c">Added on project.Created</div>
+                                                    <br />
+                                                    <!--Below is how to access the id of a Model and get its Detail view. The Ticket Dashboard should be the same.
+                                                    <button class="btn btn-default">Html.ActionLink("Go to This Project", "Details", "Projects", routeValues: new { id = project.Id }, htmlAttributes: new { })</button>
+                                                    <br />
+                                                    <br />
+                                                    <hr />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                        -->
 
                         </div>
 
@@ -454,8 +454,6 @@
                                                 {
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
-
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -486,7 +484,7 @@
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Details", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -559,7 +557,7 @@
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+           
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -593,7 +591,7 @@
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+        
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -621,7 +619,7 @@
                                             {
                                                 <div class="b">@ticket.Title</div>
                                                 <div class="c">Submitted by @ticket.OwnerUser.FirstName @ticket.OwnerUser.LastName on @ticket.Created</div>
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Details", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -692,7 +690,7 @@
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                               
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -727,7 +725,7 @@
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Details", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -756,21 +754,21 @@
 
                 <!--
 
-     <div class="col-md-12">
-        <!-- Bar Chart
-                    <div class="card shadow mb-4 chartHeight">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary text-center">Ticket Statuses</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-bar">
-                                <canvas id="myBarChart"></canvas>
+                 <div class="col-md-12">
+                    <!-- Bar Chart
+                                <div class="card shadow mb-4 chartHeight">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary text-center">Ticket Statuses</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-bar">
+                                            <canvas id="myBarChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-    -->
+                -->
 
                 <div class="row">
                     <div class="col-md-12">
@@ -813,6 +811,11 @@
     <script src="~/js/demo/chart-pie-demo.js"></script>
     <script src="~/js/datatables.js"></script>
     <script src="~/js/datatables.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="~/js/morris.js"></script>
+    <script src="~/js/morris.min.js"></script>
 
 </body>
 
