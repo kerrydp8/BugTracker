@@ -52,7 +52,7 @@ namespace BugTracker.Helpers
                 Project proj = db.Projects.Find(projectId);
                 var newUser = db.Users.Find(userId);
 
-                proj.Users.Add(newUser);
+                proj.Users.Add(newUser); //Adds the user to the list of Users on project.
                 db.SaveChanges();
             }
         }

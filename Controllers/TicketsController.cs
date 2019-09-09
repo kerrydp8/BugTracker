@@ -304,11 +304,15 @@ namespace BugTracker.Models
         public async Task<ActionResult> AssignTicket(Ticket model)
         {
             var ticket = db.Tickets.Find(model.Id);
-            var project = db.Projects.Find(model.Id);
+            var project = db.Projects.Find(ticket.ProjectId);
             var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
             ticket.AssignedToUserId = model.AssignedToUserId;
+
             ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id; //Automatically updates to Assigned when assigned to dev.
-            //The issue was placement. This needed to happen before the changes were saved into the database.
+                                                                                                          //The issue was placement. This needed to happen before the changes were saved into the database.
+            projHelper.AddUserToProject(ticket.AssignedToUserId, ticket.ProjectId); //Takes in the Id of the current AssignedToUser and the Id of the ticket's Project
+            //and addeds the AssignedToUser to the project automatically.
+
             db.SaveChanges();
             nh.ManageNotifications(oldTicket, ticket);
 
