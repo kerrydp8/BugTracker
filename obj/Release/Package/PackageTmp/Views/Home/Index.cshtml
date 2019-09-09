@@ -557,7 +557,6 @@
                                                     <div class="c">Assigned to @ticket.AssignedToUser.FirstName  @ticket.AssignedToUser.LastName</div>
                                                 }
 
-           
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -825,12 +824,12 @@
 
     <script type="text/javascript">
     $(function () {
-        var url = @Url.Action("GetMorrisData", "Charts");
+        var url = '@Url.Action("GetMorrisData", "Charts")';
         $.post(url).then(function (response) {
             new Morris.Bar({
                 element: 'RealMorrisBarChart',
                 data: response,
-                xkey: label,
+                xkey: 'label',
                 ykeys: ['value'],
                 labels: ['Ticket Count'],
                 resize: true
