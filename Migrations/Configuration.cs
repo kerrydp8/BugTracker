@@ -41,7 +41,7 @@ namespace BugTracker.Migrations
 
             context.TicketStatuses.AddOrUpdate(
                 t => t.Name,
-                    new TicketStatus { Id = 100, Name = "New / UnAssigned" },
+                    new TicketStatus { Id = 100, Name = "New / Unassigned" },
                     new TicketStatus { Id = 200, Name = "New / Assigned" },
                     new TicketStatus { Id = 300, Name = "In Progress" },
                     new TicketStatus { Id = 400, Name = "Closed" }

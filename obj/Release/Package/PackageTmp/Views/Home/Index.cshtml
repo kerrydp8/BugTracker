@@ -19,7 +19,7 @@
     var subTickets = db.Tickets.Where(t => t.OwnerUserId == id).ToList(); //Tickets that the submitter owns
     var pmTickets = db.Users.Find(id).Projects.SelectMany(t => t.Tickets).ToList(); //Tickets for the project managed by the PM
     var assignments = db.Tickets.Where(t => t.AssignedToUserId == id).ToList(); //Tickets that the Developer is assigned to
-    //var unassignedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id;
+    //var UnassignedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Unassigned").Id;
     //var assignedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Assigned").Id;
     //var currentTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "In Progress").Id;
     //var closedTickets = db.TicketStatuses.FirstOrDefault(t => t.Name == "Closed").Id;
@@ -93,6 +93,10 @@
         .chart250 {
             height: 275px;
             width: 750px;
+        }
+
+        p{
+            font-size: 250%;
         }
     </style>
 
@@ -351,7 +355,7 @@
                                                 }
 
                                                 <br />
-                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Dashboard", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
+                                                <button class="btn btn-default">@Html.ActionLink("Go to This Ticket", "Details", "Tickets", routeValues: new { @id = ticket.Id }, htmlAttributes: new { })</button>
                                                 <br />
                                                 <br />
                                                 <hr />
@@ -769,6 +773,11 @@
                             </div>
 
                 -->
+
+                <br />
+                <br />
+
+                <p class="text-center"><u>Ticket Statuses</u></p>
 
                 <div class="row">
                     <div class="col-md-12">

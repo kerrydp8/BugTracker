@@ -162,7 +162,7 @@ namespace BugTracker.Models
                 ticket.Created = localDate;
                 //ticket.Created = DateTime.Now;
                 ticket.OwnerUserId = User.Identity.GetUserId();
-                ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id;
+                ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Unassigned").Id;
 
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
@@ -344,7 +344,7 @@ namespace BugTracker.Models
             var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id); //If this ticket's property is changed, a notification will be generated.
 
             ticket.AssignedToUserId = null; //Upon using this function, the AssignedToUserId for this ticket is removed, essentially "unassigning" the ticket
-            ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / UnAssigned").Id; //THe ticket's status is reverted back to Unassigned.
+            ticket.TicketStatusId = db.TicketStatuses.FirstOrDefault(t => t.Name == "New / Unassigned").Id; //THe ticket's status is reverted back to Unassigned.
 
             db.SaveChanges(); //Changes are saved. 
             nh.ManageNotifications(oldTicket, ticket);

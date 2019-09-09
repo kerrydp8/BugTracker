@@ -210,6 +210,9 @@
                                                     @Html.ValidationMessageFor(model => model.AssignedToUserId, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
+
+                                            <br /> 
+
                                             <div class="form-group">
                                                 <div class="col-md-offset-2 col-md-10">
                                                     <input type="submit" value="Assign" class="btn btn-primary" />
@@ -217,7 +220,7 @@
                                             </div>
                                         </form>
                                         <div class="text-right">
-                                            @Html.ActionLink("Back to My Tickets", "MyTickets", "Tickets")
+                                            @Html.ActionLink("Back to Tickets", "Index", "Tickets")
                                         </div>
                                     </div>
                                 </div>
